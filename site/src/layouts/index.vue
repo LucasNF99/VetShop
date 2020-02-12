@@ -1,24 +1,28 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
-      <q-toolbar>
-        <q-btn
+      <q-toolbar class="m-toolbar-main">
+        <div class="m-first-group">
+          <q-btn
           flat
           dense
           round
           @click="leftDrawerOpen = !leftDrawerOpen"
           icon="menu"
           aria-label="Menu"
-        />
+          />
+          <img class="a-logo" src="~assets/images/logo.png" alt="VetShop">
+          <q-toolbar-title class="a-title _main">
+            VetShop
+          </q-toolbar-title>
+         </div>
 
-        <q-toolbar-title>
-          Vet Shop
-        </q-toolbar-title>
-
-        <q-avatar>
-          <img src="https://cdn.quasar.dev/img/avatar.png">
-        </q-avatar>
-        <btnDropDown></btnDropDown>
+         <div>
+          <q-avatar>
+            <img src="https://cdn.quasar.dev/img/avatar.png">
+          </q-avatar>
+          <btnDropDown></btnDropDown>
+        </div>
       </q-toolbar>
     </q-header>
 
@@ -29,9 +33,59 @@
       content-class="bg-grey-1"
     >
       <q-list>
-        <q-item-label header class="text-grey-8">Menu</q-item-label>
+        <q-item-label class="a-title _menu">Menu</q-item-label>
         <q-item>
           <q-item-section>
+            <div>
+              <q-btn-dropdown class="a-btn _menu" label="Estoque" no-caps>
+                <q-list>
+                  <q-item clickable v-close-popup @click="onItemClick">
+                    <q-item-section>
+                      <q-item-label>Photos</q-item-label>
+                    </q-item-section>
+                  </q-item>
+
+                  <q-item clickable v-close-popup @click="onItemClick">
+                    <q-item-section>
+                      <q-item-label>Videos</q-item-label>
+                    </q-item-section>
+                  </q-item>
+
+                  <q-item clickable v-close-popup @click="onItemClick">
+                    <q-item-section>
+                      <q-item-label>Articles</q-item-label>
+                    </q-item-section>
+                  </q-item>
+                </q-list>
+              </q-btn-dropdown>
+            </div>
+          </q-item-section>
+        </q-item>
+        <q-item>
+          <q-item-section>
+            <div>
+              <q-btn-dropdown class="a-btn _menu" label="Exames" no-caps>
+                <q-list>
+                  <q-item clickable v-close-popup @click="onItemClick">
+                    <q-item-section>
+                      <q-item-label>Photos</q-item-label>
+                    </q-item-section>
+                  </q-item>
+
+                  <q-item clickable v-close-popup @click="onItemClick">
+                    <q-item-section>
+                      <q-item-label>Videos</q-item-label>
+                    </q-item-section>
+                  </q-item>
+
+                  <q-item clickable v-close-popup @click="onItemClick">
+                    <q-item-section>
+                      <q-item-label>Articles</q-item-label>
+                    </q-item-section>
+                  </q-item>
+                </q-list>
+              </q-btn-dropdown>
+            </div>
           </q-item-section>
         </q-item>
       </q-list>
