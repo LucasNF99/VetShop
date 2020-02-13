@@ -11,10 +11,12 @@
           icon="menu"
           aria-label="Menu"
           />
-          <img class="a-logo" src="~assets/images/logo.png" alt="VetShop">
-          <q-toolbar-title class="a-title _main">
-            VetShop
-          </q-toolbar-title>
+          <router-link :to="{ name: 'home' }" class="m-home-link">
+            <img class="a-logo" src="~assets/images/logo.png" alt="VetShop">
+            <q-toolbar-title class="a-title _main">
+              VetShop
+            </q-toolbar-title>
+          </router-link>
          </div>
 
          <div>
@@ -25,72 +27,7 @@
         </div>
       </q-toolbar>
     </q-header>
-
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-      content-class="bg-grey-1"
-    >
-      <q-list>
-        <q-item-label class="a-title _menu">Menu</q-item-label>
-        <q-item>
-          <q-item-section>
-            <div>
-              <q-btn-dropdown class="a-btn _menu" label="Estoque" no-caps>
-                <q-list>
-                  <q-item clickable v-close-popup @click="onItemClick">
-                    <q-item-section>
-                      <q-item-label>Photos</q-item-label>
-                    </q-item-section>
-                  </q-item>
-
-                  <q-item clickable v-close-popup @click="onItemClick">
-                    <q-item-section>
-                      <q-item-label>Videos</q-item-label>
-                    </q-item-section>
-                  </q-item>
-
-                  <q-item clickable v-close-popup @click="onItemClick">
-                    <q-item-section>
-                      <q-item-label>Articles</q-item-label>
-                    </q-item-section>
-                  </q-item>
-                </q-list>
-              </q-btn-dropdown>
-            </div>
-          </q-item-section>
-        </q-item>
-        <q-item>
-          <q-item-section>
-            <div>
-              <q-btn-dropdown class="a-btn _menu" label="Exames" no-caps>
-                <q-list>
-                  <q-item clickable v-close-popup @click="onItemClick">
-                    <q-item-section>
-                      <q-item-label>Photos</q-item-label>
-                    </q-item-section>
-                  </q-item>
-
-                  <q-item clickable v-close-popup @click="onItemClick">
-                    <q-item-section>
-                      <q-item-label>Videos</q-item-label>
-                    </q-item-section>
-                  </q-item>
-
-                  <q-item clickable v-close-popup @click="onItemClick">
-                    <q-item-section>
-                      <q-item-label>Articles</q-item-label>
-                    </q-item-section>
-                  </q-item>
-                </q-list>
-              </q-btn-dropdown>
-            </div>
-          </q-item-section>
-        </q-item>
-      </q-list>
-    </q-drawer>
-
+    <qDrawerOpen :leftDrawerOpen="leftDrawerOpen"></qDrawerOpen>
     <q-page-container>
       <router-view />
     </q-page-container>
@@ -99,15 +36,17 @@
 
 <script>
 import btnDropDown from '../components/btn-toolbar';
+import qDrawerOpen from '../components/qDrawerOpen';
 
 export default {
   name: 'MainLayout',
   components: {
     btnDropDown,
+    qDrawerOpen,
   },
   data() {
     return {
-      leftDrawerOpen: false,
+      leftDrawerOpen: true,
     };
   },
 };
