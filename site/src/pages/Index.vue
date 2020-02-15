@@ -8,14 +8,24 @@
       row-key="name"
       :pagination.sync="pagination"
     />
-    <q-card class="m-index-card">
-      <q-card-section>
-        Lorem ipsum, dolor sit amet consectetur adipisicing
-        elit. Assumenda aut totam facere architecto numquam
-        sit nemo autem culpa saepe, cumque cupiditate, eius
-        excepturi. Obcaecati eligendi at soluta illum voluptatem accusamus?
-      </q-card-section>
-    </q-card>
+    <aside class="o-index-right">
+      <q-card class="m-index-card">
+        <q-card-section>
+          Lorem ipsum, dolor sit amet consectetur adipisicing
+          elit. Assumenda aut totam facere architecto numquam
+          sit nemo autem culpa saepe, cumque cupiditate, eius
+          excepturi. Obcaecati eligendi at soluta illum voluptatem accusamus?
+        </q-card-section>
+      </q-card>
+      <q-card class="m-index-card">
+        <q-card-section>
+          Lorem ipsum, dolor sit amet consectetur adipisicing
+          elit. Assumenda aut totam facere architecto numquam
+          sit nemo autem culpa saepe, cumque cupiditate, eius
+          excepturi. Obcaecati eligendi at soluta illum voluptatem accusamus?
+        </q-card-section>
+      </q-card>
+    </aside>
   </q-page>
 </template>
 
