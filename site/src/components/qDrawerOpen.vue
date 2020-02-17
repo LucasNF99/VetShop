@@ -7,53 +7,32 @@
     >
       <q-list>
         <q-item-label class="a-title _menu">Menu</q-item-label>
+        <q-separator/>
         <q-item>
           <q-item-section>
-            <div>
-              <q-btn-dropdown class="a-btn _menu" label="Estoque" no-caps>
-                <q-list>
-                  <q-item clickable v-close-popup>
-                    <q-item-section>
-                      <q-item-label>Photos</q-item-label>
-                    </q-item-section>
-                  </q-item>
-
-                  <q-item clickable v-close-popup>
-                    <q-item-section>
-                      <q-item-label>Videos</q-item-label>
-                    </q-item-section>
-                  </q-item>
-
-                  <q-item clickable v-close-popup>
-                    <q-item-section>
-                      <q-item-label>Articles</q-item-label>
-                    </q-item-section>
-                  </q-item>
-                </q-list>
-              </q-btn-dropdown>
-            </div>
+            <q-btn icon="store" class="a-btn _menu" label="Caixa" no-caps />
           </q-item-section>
         </q-item>
         <q-item>
           <q-item-section>
             <div>
-              <q-btn-dropdown class="a-btn _menu" label="Dados" no-caps>
+              <q-btn-dropdown icon="shopping_basket" class="a-btn _menu" label="Estoque" no-caps>
                 <q-list>
-                  <q-item clickable v-close-popup>
+                  <q-item clickable v-close-popup to="/estoque-medicamento">
                     <q-item-section>
-                      <q-item-label>Photos</q-item-label>
+                      <q-item-label>Medicamentos</q-item-label>
                     </q-item-section>
                   </q-item>
 
                   <q-item clickable v-close-popup>
                     <q-item-section>
-                      <q-item-label>Videos</q-item-label>
+                      <q-item-label>Brinquedos</q-item-label>
                     </q-item-section>
                   </q-item>
 
                   <q-item clickable v-close-popup>
                     <q-item-section>
-                      <q-item-label>Articles</q-item-label>
+                      <q-item-label>Alimentos</q-item-label>
                     </q-item-section>
                   </q-item>
                 </q-list>

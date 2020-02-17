@@ -8,24 +8,63 @@
       row-key="name"
       :pagination.sync="pagination"
     />
-    <aside class="o-index-right">
-      <q-card class="m-index-card">
-        <q-card-section>
-          Lorem ipsum, dolor sit amet consectetur adipisicing
-          elit. Assumenda aut totam facere architecto numquam
-          sit nemo autem culpa saepe, cumque cupiditate, eius
-          excepturi. Obcaecati eligendi at soluta illum voluptatem accusamus?
-        </q-card-section>
-      </q-card>
-      <q-card class="m-index-card">
-        <q-card-section>
-          Lorem ipsum, dolor sit amet consectetur adipisicing
-          elit. Assumenda aut totam facere architecto numquam
-          sit nemo autem culpa saepe, cumque cupiditate, eius
-          excepturi. Obcaecati eligendi at soluta illum voluptatem accusamus?
-        </q-card-section>
-      </q-card>
-    </aside>
+    <!--<aside>
+      <div class="o-index-right">
+        <h4>Avisos</h4>
+        <q-list class="list-right">
+          <q-item clickable v-ripple>
+            <q-item-section>
+              <q-item-label>Produto em falta: </q-item-label>
+              <q-item-label caption>Caption</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-separator/>
+          <q-item clickable v-ripple>
+            <q-item-section>
+              <q-item-label>Produto em falta: </q-item-label>
+              <q-item-label caption>Caption</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-separator/>
+          <q-item clickable v-ripple>
+            <q-item-section>
+              <q-item-label>Produto em falta: </q-item-label>
+              <q-item-label caption>Caption</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-separator/>
+          <q-item clickable v-ripple>
+            <q-item-section>
+              <q-item-label>Produto em falta: </q-item-label>
+              <q-item-label caption>Caption</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-separator/>
+          <q-item clickable v-ripple>
+            <q-item-section>
+              <q-item-label>Produto em falta: </q-item-label>
+              <q-item-label caption>Caption</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-separator/>
+          <q-item clickable v-ripple>
+            <q-item-section>
+              <q-item-label>Produto em falta: </q-item-label>
+              <q-item-label caption>Caption</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-separator/>
+          <q-item clickable v-ripple>
+            <q-item-section>
+              <q-item-label>Produto em falta: </q-item-label>
+              <q-item-label caption>Caption</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-separator/>
+
+        </q-list>
+      </div>
+    </aside> -->
   </q-page>
 </template>
 
@@ -35,6 +74,9 @@ export default {
 
   data() {
     return {
+      check1: false,
+      check2: false,
+      check3: false,
       pagination: {
         rowsPerPage: 7,
       },
@@ -86,8 +128,21 @@ export default {
           hora: '16:30',
           paciente: 'Safe',
         },
-
-
+        {
+          name: '13:00',
+          hora: '16:30',
+          paciente: 'Safe',
+        },
+        {
+          name: '13:00',
+          hora: '16:30',
+          paciente: 'Safe',
+        },
+        {
+          name: '13:00',
+          hora: '16:30',
+          paciente: 'Safe',
+        },
       ],
     };
   },

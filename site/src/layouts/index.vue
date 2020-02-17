@@ -18,7 +18,6 @@
             </q-toolbar-title>
           </router-link>
          </div>
-
          <div>
           <q-avatar>
             <img src="https://cdn.quasar.dev/img/avatar.png">
@@ -31,6 +30,22 @@
     <q-page-container>
       <router-view />
     </q-page-container>
+    <q-footer class="m-index-footer">
+      <nav>
+        <ul class="m-footer-list">
+          <li class="m-footer-list_item">
+            <a href="" class="m-footer-list-link">Home</a>
+          </li>
+          <li class="m-footer-list_item">
+            <a href="" class="m-footer-list-link">Caixa</a>
+          </li>
+          <li class="m-footer-list_item">
+            <a href="" class="m-footer-list-link">Configurações</a>
+          </li>
+        </ul>
+      </nav>
+      <p class="a-footer-text">Todos os direitos reservados.</p>
+    </q-footer>
   </q-layout>
 </template>
 

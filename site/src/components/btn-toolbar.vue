@@ -8,7 +8,7 @@
       </q-item-section>
     </q-item>
 
-    <q-item clickable v-close-popup>
+    <q-item clickable v-close-popup to="/login">
       <q-item-section class="btn-drop-item">
         <q-item-label class="pd-icon"><q-icon name="power_settings_new
 " /></q-item-label>
