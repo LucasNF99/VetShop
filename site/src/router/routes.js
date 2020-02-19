@@ -15,10 +15,10 @@ const routes = [
     ],
   },
   {
-    path: '/estoque-medicamento',
+    path: '/estoque',
     component: () => import('layouts/index.vue'),
     children: [
-      { path: '', component: () => import('pages/produto.vue') },
+      { path: '', component: () => import('pages/estoque.vue') },
     ],
   },
 ];
