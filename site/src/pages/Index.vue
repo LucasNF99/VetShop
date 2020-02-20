@@ -1,14 +1,14 @@
 <template>
-  <q-page class="o-index">
+  <q-page class="o-index" style="display: flex; padding-left: 20px; padding-right: 20px;">
     <q-table class="m-index-table"
-    style="overflow-y: auto"
+    style="overflow-y: auto flex-grow: 1;"
       title="Agenda"
       :data="data"
       :columns="columns"
       row-key="name"
       :pagination.sync="pagination"
     />
-    <aside>
+    <aside style="flex-grow: 1;">
       <div class="o-index-right">
         <h4 class="a-right-title"><q-icon name="notifications"/> Avisos:</h4>
         <q-scroll-area style="height: 340px; max-width: 350px;">
