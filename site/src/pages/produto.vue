@@ -40,7 +40,7 @@
             </q-popup-edit>
           </q-td>
           <q-td>
-            teste
+            <q-btn size="md" round icon="delete" />
           </q-td>
         </q-tr>
       </template>
