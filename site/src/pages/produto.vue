@@ -1,11 +1,8 @@
 <template>
-  <div>
-    <q-toolbar style="max-width: 100%; text-align: center;">
+  <div class="o-produto">
+    <q-toolbar>
       <q-btn icon="add">
         Aidicionar novo produto
-      </q-btn>
-      <q-btn icon="delete">
-        Excluir produto
       </q-btn>
     </q-toolbar>
    <q-table
@@ -14,6 +11,7 @@
       title="Medicamentos"
       :rows-per-page-options="[]"
       row-key="name"
+      class="m-table-produto"
     >
       <template v-slot:body="props">
         <q-tr :props="props">
@@ -40,6 +38,9 @@
             <q-popup-edit v-model.number="props.row.quantidade" buttons persistent>
               <q-input type="number" v-model.number="props.row.quantidade"  dense autofocus />
             </q-popup-edit>
+          </q-td>
+          <q-td>
+            teste
           </q-td>
         </q-tr>
       </template>
