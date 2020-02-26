@@ -18,6 +18,13 @@ const routes = [
     path: '/estoque',
     component: () => import('layouts/index.vue'),
     children: [
+      { path: '', component: () => import('pages/estoque.vue') },
+    ],
+  },
+  {
+    path: '/estoque-produto',
+    component: () => import('layouts/index.vue'),
+    children: [
       { path: '', component: () => import('pages/produto.vue') },
     ],
   },

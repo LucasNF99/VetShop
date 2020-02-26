@@ -10,6 +10,11 @@
         <q-separator/>
         <q-item>
           <q-item-section>
+            <q-btn icon="home" class="a-btn _menu" label="Home" no-caps />
+          </q-item-section>
+        </q-item>
+        <q-item>
+          <q-item-section>
             <q-btn icon="store" class="a-btn _menu" label="Caixa" no-caps />
           </q-item-section>
         </q-item>
@@ -19,7 +24,8 @@
               icon="shopping_basket"
               class="a-btn _menu"
               label="Estoque"
-              no-caps />
+              no-caps
+              />
           </q-item-section>
         </q-item>
         <q-item>

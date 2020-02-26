@@ -1,7 +1,6 @@
 <template>
   <q-page class="o-index" style="display: flex; padding-left: 20px; padding-right: 20px;">
     <q-table class="m-index-table"
-    style="overflow-y: auto flex-grow: 1;"
       title="Agenda"
       :data="data"
       :columns="columns"
@@ -108,6 +107,41 @@ export default {
         },
         {
           name: '12:00',
+          hora: '16:30',
+          paciente: 'Safe',
+        },
+        {
+          name: '13:00',
+          hora: '16:30',
+          paciente: 'Safe',
+        },
+        {
+          name: '13:00',
+          hora: '16:30',
+          paciente: 'Safe',
+        },
+        {
+          name: '13:00',
+          hora: '16:30',
+          paciente: 'Safe',
+        },
+        {
+          name: '13:00',
+          hora: '16:30',
+          paciente: 'Safe',
+        },
+        {
+          name: '13:00',
+          hora: '16:30',
+          paciente: 'Safe',
+        },
+        {
+          name: '13:00',
+          hora: '16:30',
+          paciente: 'Safe',
+        },
+        {
+          name: '13:00',
           hora: '16:30',
           paciente: 'Safe',
         },

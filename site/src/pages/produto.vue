@@ -9,11 +9,12 @@
       :data="data"
       :columns="columns"
       title="Medicamentos"
-      :rows-per-page-options="[]"
       row-key="name"
       class="m-table-produto"
+      virtual-scroll
+      :pagination.sync="pagination"
     >
-      <template v-slot:body="props">
+      <template class="m-table-template" v-slot:body="props">
         <q-tr :props="props">
           <q-td key="nome" :props="props">
             {{ props.row.name }}
@@ -21,16 +22,34 @@
               <q-input v-model="props.row.name" dense autofocus counter />
             </q-popup-edit>
           </q-td>
-          <q-td key="descricao" :props="props">
-            {{ props.row.descricao }}
-            <q-popup-edit v-model.number="props.row.descricao" buttons>
-              <q-input type="text" v-model.number="props.row.descricao" dense autofocus />
+          <q-td key="descricao" :props="props" class="a-table-td-descricao">
+            <div class="a-table-descricao">
+              {{ props.row.descricao }}
+            </div>
+            <q-popup-edit
+              buttons
+              v-model="props.row.descricao"
+            >
+              <q-input
+                type="textarea"
+                v-model="props.row.descricao"
+                autofocus
+                counter
+                @keyup.enter.stop
+              />
             </q-popup-edit>
           </q-td>
           <q-td key="preco" :props="props">
-            <div class="text-pre-wrap">{{ props.row.preco }}</div>
+            <div class="text-pre-wrap">R$ {{ props.row.preco }}</div>
             <q-popup-edit v-model.number="props.row.preco" buttons>
-              <q-input type="number" v-model.number="props.row.preco" dense autofocus />
+              <q-input
+                filled
+                v-model="props.row.preco"
+                mask="#,##"
+                fill-mask="0"
+                reverse-fill-mask
+                input-class="text-right"
+              />
             </q-popup-edit>
           </q-td>
           <q-td key="quantidade" :props="props">
@@ -40,7 +59,9 @@
             </q-popup-edit>
           </q-td>
           <q-td>
-            <q-btn size="md" round icon="delete" />
+            <q-btn size="md" round icon="delete">
+              <q-tooltip>Deletar item</q-tooltip>
+            </q-btn>
           </q-td>
         </q-tr>
       </template>
@@ -66,62 +87,146 @@ const columns = [
 
 const data = [
   {
-    name: 'Frozen Yogurt',
+    name: 'VacinaV23',
     descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
     preco: 6.0,
     quantidade: 24,
-    protein: 4.0,
-    sodium: 87,
-    calcium: '14%',
-    iron: '1%',
   },
   {
-    name: 'Ice cream sandwich',
+    name: 'DogRas',
     descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
     preco: 9.0,
     quantidade: 37,
-    protein: 4.3,
-    sodium: 129,
-    calcium: '8%',
-    iron: '1%',
   },
   {
-    name: 'Eclair',
+    name: 'Osso',
     descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
     preco: 16.0,
     quantidade: 23,
-    protein: 6.0,
-    sodium: 337,
-    calcium: '6%',
-    iron: '7%',
   },
   {
-    name: 'Cupcake',
+    name: 'Mordedo',
     descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
     preco: 3.7,
     quantidade: 67,
-    protein: 4.3,
-    sodium: 413,
-    calcium: '3%',
-    iron: '8%',
   },
   {
-    name: 'Gingerbread',
+    name: 'Teste',
     descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
     preco: 16.0,
     quantidade: 49,
-    protein: 3.9,
-    sodium: 327,
-    calcium: '7%',
-    iron: '16%',
+  },
+  {
+    name: 'Teste',
+    descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
+    preco: 16.0,
+    quantidade: 49,
+  },
+  {
+    name: 'Teste',
+    descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
+    preco: 16.0,
+    quantidade: 49,
+  },
+  {
+    name: 'Teste',
+    descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
+    preco: 16.0,
+    quantidade: 49,
+  },
+  {
+    name: 'Teste',
+    descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
+    preco: 16.0,
+    quantidade: 49,
+  },
+  {
+    name: 'Teste',
+    descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
+    preco: 16.0,
+    quantidade: 49,
+  },
+  {
+    name: 'Teste',
+    descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
+    preco: 16.0,
+    quantidade: 49,
+  },
+  {
+    name: 'Teste',
+    descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
+    preco: 16.0,
+    quantidade: 49,
+  },
+  {
+    name: 'Teste',
+    descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
+    preco: 16.0,
+    quantidade: 49,
+  },
+  {
+    name: 'Teste',
+    descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
+    preco: 16.0,
+    quantidade: 49,
+  },
+  {
+    name: 'Teste',
+    descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
+    preco: 16.0,
+    quantidade: 49,
+  },
+  {
+    name: 'Teste',
+    descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
+    preco: 16.0,
+    quantidade: 49,
+  },
+  {
+    name: 'Teste',
+    descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
+    preco: 16.0,
+    quantidade: 49,
+  },
+  {
+    name: 'Teste',
+    descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
+    preco: 16.0,
+    quantidade: 49,
+  },
+  {
+    name: 'Teste',
+    descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
+    preco: 16.0,
+    quantidade: 49,
+  },
+  {
+    name: 'Teste',
+    descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
+    preco: 16.0,
+    quantidade: 49,
+  },
+  {
+    name: 'Teste',
+    descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
+    preco: 16.0,
+    quantidade: 49,
+  },
+  {
+    name: 'Teste',
+    descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
+    preco: 16.0,
+    quantidade: 49,
   },
 ];
-
 export default {
   data() {
     return {
       data,
       columns,
+      pagination: {
+        rowsPerPage: 7,
+      },
     };
   },
 };
