@@ -1,19 +1,17 @@
 <template>
   <div class="o-produto">
-    <q-toolbar>
-      <q-btn icon="add">
-        Aidicionar novo produto
-      </q-btn>
-    </q-toolbar>
-   <q-table
-      :data="data"
-      :columns="columns"
-      title="Medicamentos"
-      row-key="name"
-      class="m-table-produto"
-      virtual-scroll
-      :pagination.sync="pagination"
-    >
+    <q-btn no-caps icon="add" class="a-btn _add">
+      Aidicionar novo produto
+    </q-btn>
+    <q-table
+        :data="data"
+        :columns="columns"
+        title="Medicamentos"
+        row-key="name"
+        class="m-table-produto"
+        virtual-scroll
+        :pagination.sync="pagination"
+      >
       <template class="m-table-template" v-slot:body="props">
         <q-tr :props="props">
           <q-td key="nome" :props="props">
@@ -225,7 +223,7 @@ export default {
       data,
       columns,
       pagination: {
-        rowsPerPage: 7,
+        rowsPerPage: 5,
       },
     };
   },

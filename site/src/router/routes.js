@@ -22,7 +22,7 @@ const routes = [
     ],
   },
   {
-    path: '/estoque-produto',
+    path: '/estoque-produto-medicamento',
     component: () => import('layouts/index.vue'),
     children: [
       { path: '', component: () => import('pages/produto.vue') },
