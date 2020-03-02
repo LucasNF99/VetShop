@@ -41,14 +41,19 @@
         <div class="text-h6">Dados</div>
       </q-card-section>
       <q-card-section>
-        <p>Produto mais vendido:</p>
-        <q-icon size="lg" name="arrow_upward" style="color: green;"></q-icon>
-        <div style="display: inline;">25% - - </div>
+        <p>
+          Produto mais vendido:
+          <q-icon size="md" name="arrow_upward" style="color: green;"></q-icon>
+          <span style="display: inline;">25%</span>
+        </p>
          <p style="display: inline;">Ração Golden Special Sabor Frango e Carne para Cães Adultos</p>
       </q-card-section>
       <q-card-section>
-        <p>Produto menos vendido:</p>
-        <q-icon style="color: red;" size="lg" name="arrow_downward"></q-icon>
+        <p>
+          Produto menos vendido:
+          <q-icon style="color: red;" size="md" name="arrow_downward"></q-icon>
+          <span style="display: inline;">15%</span>
+        </p>
       </q-card-section>
     </q-card>
   </div>

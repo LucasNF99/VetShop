@@ -38,13 +38,15 @@
             </q-popup-edit>
           </q-td>
           <q-td key="preco" :props="props">
-            <div class="text-pre-wrap">R$ {{ props.row.preco }}</div>
+            <div class="text-pre-wrap"
+            mask="#,00"
+                fill-mask="0"
+                reverse-fill-mask>R$ {{ props.row.preco }}</div>
             <q-popup-edit v-model.number="props.row.preco" buttons>
               <q-input
                 filled
                 v-model="props.row.preco"
-                mask="#,##"
-                fill-mask="0"
+                mask="##,##"
                 reverse-fill-mask
                 input-class="text-right"
               />
@@ -87,7 +89,7 @@ const data = [
   {
     name: 'VacinaV23',
     descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
-    preco: 6.0,
+    preco: 6.20,
     quantidade: 24,
   },
   {
