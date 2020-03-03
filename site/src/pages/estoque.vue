@@ -29,6 +29,7 @@
           />
           <q-btn
             no-caps
+            icon="category"
             align="left"
             class="a-btn o-btn_estoque -flex2"
             label="Acessório"
