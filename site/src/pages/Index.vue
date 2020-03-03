@@ -6,7 +6,14 @@
       :columns="columns"
       row-key="name"
       :pagination.sync="pagination"
-    />
+    >
+      <template v-slot:top >
+        <span class="m-index-table-title">
+          <q-icon name="date_range" />
+          Agenda
+        </span>
+      </template>
+    </q-table>
     <aside style="flex-grow: 1;">
       <div class="o-index-right">
         <h4 class="a-right-title"><q-icon name="notifications"/> Avisos:</h4>

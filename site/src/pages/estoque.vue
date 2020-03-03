@@ -42,19 +42,22 @@
         <div class="text-h6">Dados</div>
       </q-card-section>
       <q-card-section>
-        <p>
+        <p class="a-card-nav-subTitle">
           Produto mais vendido:
           <q-icon size="md" name="arrow_upward" style="color: green;"></q-icon>
-          <span style="display: inline;">25%</span>
         </p>
-         <p style="display: inline;">Ração Golden Special Sabor Frango e Carne para Cães Adultos</p>
+         <p>
+           Ração Golden Special Sabor Frango e Carne para Cães Adultos
+         </p>
       </q-card-section>
       <q-card-section>
-        <p>
+        <p class="a-card-nav-subTitle">
           Produto menos vendido:
           <q-icon style="color: red;" size="md" name="arrow_downward"></q-icon>
-          <span style="display: inline;">15%</span>
         </p>
+        <p>
+           Ração Golden Special Sabor Frango e Carne para Cães Adultos
+         </p>
       </q-card-section>
     </q-card>
   </div>
