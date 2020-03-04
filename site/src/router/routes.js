@@ -23,7 +23,7 @@ const routes = [
   },
   {
     path: '/caixa',
-    component: () => import('layouts/index.vue'),
+    component: () => import('layouts/noHeaderIndex.vue'),
     children: [
       { path: '', component: () => import('pages/caixa.vue') },
     ],
