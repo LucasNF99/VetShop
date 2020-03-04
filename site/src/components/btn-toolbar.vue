@@ -1,5 +1,9 @@
 <template>
-  <q-btn-dropdown class="a-btn _avatar" color="primary" label="Nome" no-caps>
+  <q-btn-dropdown
+  class="a-btn _avatar"
+  color="primary"
+  label="Nome"
+  no-caps>
   <q-list>
     <q-item clickable v-close-popup>
       <q-item-section class="btn-drop-item">

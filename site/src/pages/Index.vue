@@ -1,5 +1,5 @@
 <template>
-  <q-page class="o-index" style="display: flex; padding-left: 20px; padding-right: 20px;">
+  <q-page class="o-index">
     <q-table class="m-index-table"
       title="Agenda"
       :data="data"

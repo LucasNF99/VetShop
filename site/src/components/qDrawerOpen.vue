@@ -10,12 +10,20 @@
         <q-separator/>
         <q-item>
           <q-item-section>
-            <q-btn icon="home" class="a-btn _menu" label="Home" no-caps />
+            <q-btn to='/'
+            icon="home"
+            class="a-btn _menu"
+            label="Home"
+            no-caps />
           </q-item-section>
         </q-item>
         <q-item>
           <q-item-section>
-            <q-btn icon="store" class="a-btn _menu" label="Caixa" no-caps />
+            <q-btn to='caixa'
+            icon="store"
+            class="a-btn _menu"
+            label="Caixa"
+            no-caps />
           </q-item-section>
         </q-item>
         <q-item>
@@ -30,7 +38,11 @@
         </q-item>
         <q-item>
           <q-item-section>
-              <q-btn icon="perm_identity" class="a-btn _menu" label="Clientes" no-caps />
+              <q-btn to="cliente"
+              icon="perm_identity"
+              class="a-btn _menu"
+              label="Clientes"
+              no-caps />
           </q-item-section>
         </q-item>
       </q-list>

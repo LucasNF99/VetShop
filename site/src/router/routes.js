@@ -22,6 +22,20 @@ const routes = [
     ],
   },
   {
+    path: '/caixa',
+    component: () => import('layouts/index.vue'),
+    children: [
+      { path: '', component: () => import('pages/caixa.vue') },
+    ],
+  },
+  {
+    path: '/cliente',
+    component: () => import('layouts/index.vue'),
+    children: [
+      { path: '', component: () => import('pages/cliente.vue') },
+    ],
+  },
+  {
     path: '/estoque-produto-medicamento',
     component: () => import('layouts/index.vue'),
     children: [
