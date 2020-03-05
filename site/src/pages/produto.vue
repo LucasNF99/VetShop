@@ -59,6 +59,9 @@
             </q-popup-edit>
           </q-td>
           <q-td>
+            <q-btn size="md" round icon="edit">
+              <q-tooltip>Deletar item</q-tooltip>
+            </q-btn>
             <q-btn size="md" round icon="delete">
               <q-tooltip>Deletar item</q-tooltip>
             </q-btn>

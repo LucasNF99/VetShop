@@ -12,7 +12,7 @@
       </q-item-section>
     </q-item>
 
-    <q-item clickable v-close-popup to="/login">
+    <q-item clickable v-close-popup @click="logout">
       <q-item-section class="btn-drop-item">
         <q-item-label class="pd-icon"><q-icon name="power_settings_new
 " /></q-item-label>
@@ -26,5 +26,12 @@
 <script>
 export default {
   name: 'btnDropdown',
+  methods: {
+    logout() {
+      // const response = await true/false - dialog confirm
+      // if (response) this.$router.push({ name: 'login' })
+      this.$router.push({ name: 'login' });
+    },
+  },
 };
 </script>

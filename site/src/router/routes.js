@@ -5,27 +5,7 @@ const routes = [
     component: () => import('layouts/index.vue'),
     children: [
       { path: '', name: 'home', component: () => import('pages/Index.vue') },
-    ],
-  },
-  {
-    path: '/login',
-    component: () => import('layouts/noHeaderIndex.vue'),
-    children: [
-      { path: '', component: () => import('pages/login.vue') },
-    ],
-  },
-  {
-    path: '/estoque',
-    component: () => import('layouts/index.vue'),
-    children: [
-      { path: '', component: () => import('pages/estoque.vue') },
-    ],
-  },
-  {
-    path: '/caixa',
-    component: () => import('layouts/noHeaderIndex.vue'),
-    children: [
-      { path: '', component: () => import('pages/caixa.vue') },
+      { path: 'estoque', name: 'estoque', component: () => import('pages/estoque.vue') },
     ],
   },
   {
@@ -40,6 +20,20 @@ const routes = [
     component: () => import('layouts/index.vue'),
     children: [
       { path: '', component: () => import('pages/produto.vue') },
+    ],
+  },
+  {
+    path: '/caixa',
+    component: () => import('layouts/noHeaderIndex.vue'),
+    children: [
+      { path: '', component: () => import('pages/caixa.vue') },
+    ],
+  },
+  {
+    path: '/',
+    component: () => import('layouts/noHeaderIndex.vue'),
+    children: [
+      { path: 'login', name: 'login', component: () => import('pages/login.vue') },
     ],
   },
 ];
