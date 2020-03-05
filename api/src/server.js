@@ -1,3 +1,6 @@
 import app from './app';
+import env from './config/dotenv';
 
-app.listen(3333);
+const port = env('PORT');
+
+app.listen(port, console.log(`A aplicação está rodando na porta ${port}`));
