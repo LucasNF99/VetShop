@@ -16,55 +16,26 @@
         <q-tr :props="props">
           <q-td key="nome" :props="props">
             {{ props.row.name }}
-            <q-popup-edit v-model="props.row.name" buttons>
-              <q-input v-model="props.row.name" dense autofocus counter />
-            </q-popup-edit>
           </q-td>
           <q-td key="descricao" :props="props" class="a-table-td-descricao">
             <div class="a-table-descricao">
               {{ props.row.descricao }}
             </div>
-            <q-popup-edit
-              buttons
-              v-model="props.row.descricao"
-            >
-              <q-input
-                type="textarea"
-                v-model="props.row.descricao"
-                autofocus
-                counter
-                @keyup.enter.stop
-              />
-            </q-popup-edit>
           </q-td>
           <q-td key="preco" :props="props">
-            <div class="text-pre-wrap"
-            mask="#,00"
-                fill-mask="0"
-                reverse-fill-mask>R$ {{ props.row.preco }}</div>
-            <q-popup-edit v-model.number="props.row.preco" buttons>
-              <q-input
-                filled
-                v-model="props.row.preco"
-                mask="##,##"
-                reverse-fill-mask
-                input-class="text-right"
-              />
-            </q-popup-edit>
+            R$ {{ props.row.preco }}
           </q-td>
           <q-td key="quantidade" :props="props">
             {{ props.row.quantidade }}
-            <q-popup-edit v-model.number="props.row.quantidade" buttons persistent>
-              <q-input type="number" v-model.number="props.row.quantidade"  dense autofocus />
-            </q-popup-edit>
           </q-td>
           <q-td>
             <q-btn size="md" round icon="edit">
-              <q-tooltip>Deletar item</q-tooltip>
+              <q-tooltip>Editar item</q-tooltip>
             </q-btn>
             <q-btn size="md" round icon="delete">
               <q-tooltip>Deletar item</q-tooltip>
             </q-btn>
+            <updateModal></updateModal>
           </q-td>
         </q-tr>
       </template>
@@ -73,6 +44,8 @@
 </template>
 
 <script>
+import updateModal from '../components/update-modal';
+
 const columns = [
   {
     name: 'nome', align: 'left', label: 'Nome', field: 'name',
@@ -92,7 +65,7 @@ const data = [
   {
     name: 'VacinaV23',
     descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
-    preco: 6.20,
+    preco: 6.22,
     quantidade: 24,
   },
   {
@@ -110,7 +83,7 @@ const data = [
   {
     name: 'Mordedo',
     descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
-    preco: 3.7,
+    preco: 350.99,
     quantidade: 67,
   },
   {
@@ -223,6 +196,9 @@ const data = [
   },
 ];
 export default {
+  components: {
+    updateModal,
+  },
   data() {
     return {
       data,
