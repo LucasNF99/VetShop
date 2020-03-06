@@ -1,9 +1,11 @@
 import { Router } from 'express';
 
+import ProdutoController from './app/controllers/ProdutoController';
+
 const routes = new Router();
 
-routes.get('/', (req, res) => {
-  return res.json({ Mensagem: ' Hello World' })
-})
+routes.post('/produto', ProdutoController.store);
+
+routes.put('/produto', ProdutoController.update);
 
 export default routes;
