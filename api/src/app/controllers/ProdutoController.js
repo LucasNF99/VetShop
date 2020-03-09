@@ -56,6 +56,7 @@ class ProdutoController {
       descricao,
       precoCompra,
       precoVenda,
+      fornecedor
     });
   }
 }
