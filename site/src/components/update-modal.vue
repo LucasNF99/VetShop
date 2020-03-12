@@ -1,6 +1,6 @@
 <template>
   <div>
-    <q-dialog v-model="updateModal">
+    <q-dialog v-model="updateModal" class="m-modal-update">
       <q-card>
         <q-card-section>
           <div class="text-h6">Editar produto</div>
@@ -8,15 +8,28 @@
 
         <q-separator />
 
-        <q-card-section style="min-height: 50vh">
-          <p>{{produto.nome}}</p>
+        <q-card-section>
+          <q-form
+            @submit="onSubmit"
+            class="q-gutter-md"
+          >
+          <div class="m-modal-update_field">
+            Nome: <q-input v-model="name"/>
+          </div>
+          <div class="m-modal-update_field">
+            Nome: <q-input v-model="name"/>
+          </div>
+          </q-form>
         </q-card-section>
 
         <q-separator />
 
         <q-card-actions align="right">
-          <q-btn flat label="Decline" color="primary" v-close-popup />
-          <q-btn flat label="Accept" color="primary" v-close-popup />
+          <q-btn class="a-btn_external"
+          no-caps flat label="Cancelar"
+          @click="formatData"/>
+          <q-btn class="a-btn_external"
+           no-caps flat label="Salvar"  @click="formatData" />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -35,6 +48,9 @@ export default {
     produto: Object,
   },
   methods: {
+    onSubmit() {
+      console.log('Foi');
+    },
     closeModal(value) {
       this.$emit('closeModal', value);
     },
@@ -45,6 +61,11 @@ export default {
       };
 
       this.closeModal(payload);
+    },
+  },
+  computed: {
+    name() {
+      return this.produto.nome;
     },
   },
 };
