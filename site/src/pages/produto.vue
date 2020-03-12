@@ -29,17 +29,17 @@
             {{ props.row.quantidade }}
           </q-td>
           <q-td>
-            <q-btn size="md" round icon="edit">
+            <q-btn size="md" round icon="edit" @click="openUpdate(props.row.name)">
               <q-tooltip>Editar item</q-tooltip>
             </q-btn>
             <q-btn size="md" round icon="delete">
               <q-tooltip>Deletar item</q-tooltip>
             </q-btn>
-            <updateModal></updateModal>
           </q-td>
         </q-tr>
       </template>
     </q-table>
+    <updateModal :updateModal="updateModal" :produto="produto" @closeModal="closeModal"/>
   </div>
 </template>
 
@@ -203,10 +203,23 @@ export default {
     return {
       data,
       columns,
+      updateModal: false,
+      produto: null,
       pagination: {
         rowsPerPage: 5,
       },
     };
+  },
+  methods: {
+    openUpdate(nome) {
+      this.produto = { nome };
+      this.updateModal = true;
+    },
+
+    closeModal(evt) {
+      console.log(evt);
+      this.updateModal = false;
+    },
   },
 };
 </script>
