@@ -8,7 +8,7 @@
 
         <q-separator />
 
-        <q-card-section>
+        <q-card-section class="m-modal-update-">
           <q-form
             @submit="onSubmit"
             class="q-gutter-md"
@@ -17,7 +17,16 @@
             Nome: <q-input v-model="name"/>
           </div>
           <div class="m-modal-update_field">
-            Nome: <q-input v-model="name"/>
+            Descrição: <q-input v-model="name"/>
+          </div>
+          <div class="m-modal-update_field">
+            Descrição: <q-input v-model="name"/>
+          </div>
+          <div class="m-modal-update_field">
+            Preço: <q-input v-model="name"/>
+          </div>
+          <div class="m-modal-update_field">
+            Quantidade: <q-input v-model="name"/>
           </div>
           </q-form>
         </q-card-section>
