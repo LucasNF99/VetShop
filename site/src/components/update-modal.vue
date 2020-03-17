@@ -11,22 +11,38 @@
         <q-card-section class="m-modal-update-">
           <q-form
             @submit="onSubmit"
-            class="q-gutter-md"
+            class="m-modal-update-form"
           >
-          <div class="m-modal-update_field">
-            Nome: <q-input v-model="name"/>
+          <div>
+            <div class="m-modal-update_field">
+              <span class="m-update_field-label">Nome:</span>
+              <q-input v-model="name"
+                class="m-update_field-input"/>
+            </div>
+            <div class="m-modal-update_field">
+              <span class="m-update_field-label">Descrição:</span>
+              <q-input v-model="name"
+              class="m-update_field-input" autogrow/>
+            </div>
+            <div class="m-modal-update_field">
+              <span class="m-update_field-label">Quantidade:</span>
+              <q-input v-model="name"
+              class="m-update_field-input"/>
+            </div>
           </div>
-          <div class="m-modal-update_field">
-            Descrição: <q-input v-model="name"/>
-          </div>
-          <div class="m-modal-update_field">
-            Descrição: <q-input v-model="name"/>
-          </div>
-          <div class="m-modal-update_field">
-            Preço: <q-input v-model="name"/>
-          </div>
-          <div class="m-modal-update_field">
-            Quantidade: <q-input v-model="name"/>
+          <div>
+            <div class="m-modal-update_field">
+              <span class="m-update_field-label">Preço de venda:</span>
+              <q-input v-model="name" class="m-update_field-input"/>
+            </div>
+            <div class="m-modal-update_field">
+              <span class="m-update_field-label">Preço de compra:</span>
+              <q-input v-model="name" class="m-update_field-input"/>
+            </div>
+            <div class="m-modal-update_field">
+              <span class="m-update_field-label">Fornecedor:</span>
+              <q-input v-model="name" class="m-update_field-input"/>
+            </div>
           </div>
           </q-form>
         </q-card-section>
