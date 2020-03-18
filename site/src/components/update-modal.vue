@@ -33,7 +33,7 @@
           <div>
             <div class="m-modal-update_field">
               <span class="m-update_field-label">Preço de venda:</span>
-              <q-input v-model="name" class="m-update_field-input"/>
+              <q-input v-model="price" class="m-update_field-input"/>
             </div>
             <div class="m-modal-update_field">
               <span class="m-update_field-label">Preço de compra:</span>
@@ -81,8 +81,8 @@ export default {
     },
     formatData() {
       const payload = {
-        name: this.produto,
-        value: 45.00,
+        name: this.produto.name,
+        price: this.produto.price,
       };
 
       this.closeModal(payload);
@@ -90,7 +90,10 @@ export default {
   },
   computed: {
     name() {
-      return this.produto.nome;
+      return this.produto.name;
+    },
+    preco() {
+      return this.produto.price;
     },
   },
 };

@@ -14,7 +14,7 @@
       >
       <template class="m-table-template" v-slot:body="props">
         <q-tr :props="props">
-          <q-td key="nome" :props="props">
+          <q-td key="name" :props="props">
             {{ props.row.name }}
           </q-td>
           <q-td key="descricao" :props="props" class="a-table-td-descricao">
@@ -22,8 +22,8 @@
               {{ props.row.descricao }}
             </div>
           </q-td>
-          <q-td key="preco" :props="props">
-            R$ {{ props.row.preco }}
+          <q-td key="price" :props="props">
+            R$ {{ props.row.price }}
           </q-td>
           <q-td key="quantidade" :props="props">
             {{ props.row.quantidade }}
@@ -48,13 +48,13 @@ import updateModal from '../components/update-modal';
 
 const columns = [
   {
-    name: 'nome', align: 'left', label: 'Nome', field: 'name',
+    name: 'name', align: 'left', label: 'Nome', field: 'name',
   },
   {
     name: 'descricao', align: 'left', label: 'Descrição', field: 'descricao',
   },
   {
-    name: 'preco', align: 'left', label: 'Preço', field: 'preco',
+    name: 'price', align: 'left', label: 'Preço', field: 'preco',
   },
   {
     name: 'quantidade', align: 'left', label: 'Quantidade', field: 'quantidade',
@@ -65,133 +65,31 @@ const data = [
   {
     name: 'VacinaV23',
     descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
-    preco: 6.22,
+    price: 6.22,
     quantidade: 24,
   },
   {
     name: 'DogRas',
     descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
-    preco: 9.0,
+    price: 9.0,
     quantidade: 37,
   },
   {
     name: 'Osso',
     descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
-    preco: 16.0,
+    price: 16.0,
     quantidade: 23,
   },
   {
     name: 'Mordedo',
     descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
-    preco: 350.99,
+    price: 350.99,
     quantidade: 67,
   },
   {
     name: 'Teste',
     descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
-    preco: 16.0,
-    quantidade: 49,
-  },
-  {
-    name: 'Teste',
-    descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
-    preco: 16.0,
-    quantidade: 49,
-  },
-  {
-    name: 'Teste',
-    descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
-    preco: 16.0,
-    quantidade: 49,
-  },
-  {
-    name: 'Teste',
-    descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
-    preco: 16.0,
-    quantidade: 49,
-  },
-  {
-    name: 'Teste',
-    descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
-    preco: 16.0,
-    quantidade: 49,
-  },
-  {
-    name: 'Teste',
-    descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
-    preco: 16.0,
-    quantidade: 49,
-  },
-  {
-    name: 'Teste',
-    descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
-    preco: 16.0,
-    quantidade: 49,
-  },
-  {
-    name: 'Teste',
-    descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
-    preco: 16.0,
-    quantidade: 49,
-  },
-  {
-    name: 'Teste',
-    descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
-    preco: 16.0,
-    quantidade: 49,
-  },
-  {
-    name: 'Teste',
-    descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
-    preco: 16.0,
-    quantidade: 49,
-  },
-  {
-    name: 'Teste',
-    descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
-    preco: 16.0,
-    quantidade: 49,
-  },
-  {
-    name: 'Teste',
-    descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
-    preco: 16.0,
-    quantidade: 49,
-  },
-  {
-    name: 'Teste',
-    descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
-    preco: 16.0,
-    quantidade: 49,
-  },
-  {
-    name: 'Teste',
-    descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
-    preco: 16.0,
-    quantidade: 49,
-  },
-  {
-    name: 'Teste',
-    descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
-    preco: 16.0,
-    quantidade: 49,
-  },
-  {
-    name: 'Teste',
-    descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
-    preco: 16.0,
-    quantidade: 49,
-  },
-  {
-    name: 'Teste',
-    descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
-    preco: 16.0,
-    quantidade: 49,
-  },
-  {
-    name: 'Teste',
-    descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
-    preco: 16.0,
+    price: 16.0,
     quantidade: 49,
   },
 ];
@@ -211,8 +109,8 @@ export default {
     };
   },
   methods: {
-    openUpdate(nome) {
-      this.produto = { nome };
+    openUpdate(name, price) {
+      this.produto = { name, price };
       this.updateModal = true;
     },
 
