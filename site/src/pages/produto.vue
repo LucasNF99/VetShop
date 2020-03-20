@@ -29,7 +29,7 @@
             {{ props.row.quantidade }}
           </q-td>
           <q-td>
-            <q-btn size="md" round icon="edit" @click="openUpdate(props.row.name)">
+            <q-btn size="md" round icon="edit" @click="openUpdate(props.row.name, props.row.price)">
               <q-tooltip>Editar item</q-tooltip>
             </q-btn>
             <q-btn size="md" round icon="delete">

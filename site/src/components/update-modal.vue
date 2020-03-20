@@ -92,7 +92,7 @@ export default {
     name() {
       return this.produto.name;
     },
-    preco() {
+    price() {
       return this.produto.price;
     },
   },
