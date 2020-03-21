@@ -11,10 +11,15 @@ const upload = multer(multerConfig);
 
 routes.post('/produto', ProdutoController.store);
 routes.post('/usuario', UsuarioController.store);
+routes.post('/files', upload.single('file'), FileController.store);
+
 
 routes.put('/produto', ProdutoController.update);
 routes.put('/usuario', UsuarioController.update);
 
-routes.post('/files', upload.single('file'), FileController.store);
+routes.get('/produto', ProdutoController.index);
+routes.get('/produto/:id', ProdutoController.show);
+
+routes.delete('/produto/:id', ProdutoController.delete);
 
 export default routes;

@@ -59,6 +59,40 @@ class ProdutoController {
       fornecedor
     });
   }
+
+  async index(req, res) {
+    const produtos = await Produto.findAll();
+
+    return res.json(produtos);
+  }
+
+  async show(req, res) {
+    const id = req.params.id;
+    const produto = await Produto.findByPk(id);
+
+    if (produto) {
+      res.json(produto);
+    }
+    else {
+      res.json({ message: 'Produto não encontrado' })
+    }
+
+  }
+
+  async delete(req, res) {
+    const id = req.params.id;
+    const produto = await Produto.findByPk(id);
+
+    if (produto) {
+      produto.destroy();
+      res.json({ message: 'Produto removido com sucesso' })
+    }
+    else {
+      res.json({ message: 'Produto não encontrado' })
+    }
+
+  }
+
 }
 
 export default new ProdutoController();
