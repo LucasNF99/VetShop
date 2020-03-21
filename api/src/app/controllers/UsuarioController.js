@@ -35,14 +35,14 @@ class UsuarioController {
 
   async update(req, res) {
     const schema = Yup.object().shape({
-      nome: Yup.string().required(),
-      email: Yup.string().required().email(),
-      senha: Yup.string().required(),
-      telefone: Yup.string().required(),
-      bairro: Yup.string().required(),
-      rua: Yup.string().required(),
-      numero: Yup.string().required(),
-      cpf: Yup.string().required(),
+      nome: Yup.string(),
+      email: Yup.string().email(),
+      senha: Yup.string(),
+      telefone: Yup.string(),
+      bairro: Yup.string(),
+      rua: Yup.string(),
+      numero: Yup.string(),
+      cpf: Yup.string(),
       usuarioId: Yup.number().required(),
     })
 
