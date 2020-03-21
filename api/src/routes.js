@@ -4,6 +4,7 @@ import multerConfig from './config/multer';
 
 import ProdutoController from './app/controllers/ProdutoController';
 import UsuarioController from './app/controllers/UsuarioController';
+import FileController from './app/controllers/FileController';
 
 const routes = new Router();
 const upload = multer(multerConfig);
@@ -14,8 +15,6 @@ routes.post('/usuario', UsuarioController.store);
 routes.put('/produto', ProdutoController.update);
 routes.put('/usuario', UsuarioController.update);
 
-routes.post('/files', upload.single('file'), (req, res) => {
-  return res.json({ ok: true });
-})
+routes.post('/files', upload.single('file'), FileController.store);
 
 export default routes;
