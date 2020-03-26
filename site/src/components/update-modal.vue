@@ -21,19 +21,19 @@
             </div>
             <div class="m-modal-update_field">
               <span class="m-update_field-label">Descrição:</span>
-              <q-input v-model="name"
-              class="m-update_field-input" autogrow/>
+              <q-input v-model="description"
+              class="m-update_field-input text-area" />
             </div>
             <div class="m-modal-update_field">
               <span class="m-update_field-label">Quantidade:</span>
-              <q-input v-model="name"
+              <q-input v-model="amount"
               class="m-update_field-input"/>
             </div>
           </div>
           <div>
             <div class="m-modal-update_field">
               <span class="m-update_field-label">Preço de venda:</span>
-              <q-input v-model="price" class="m-update_field-input"/>
+              <q-input v-model="priceSell" class="m-update_field-input"/>
             </div>
             <div class="m-modal-update_field">
               <span class="m-update_field-label">Preço de compra:</span>
@@ -82,7 +82,11 @@ export default {
     formatData() {
       const payload = {
         name: this.produto.name,
-        price: this.produto.price,
+        priceSell: this.produto.priceSell,
+        description: this.produto.description,
+        amount: this.produto.amount,
+        priceBuy: this.produto.priceBuy,
+        provider: this.produto.provider,
       };
 
       this.closeModal(payload);
@@ -92,8 +96,14 @@ export default {
     name() {
       return this.produto.name;
     },
-    price() {
-      return this.produto.price;
+    priceSell() {
+      return this.produto.priceSell;
+    },
+    description() {
+      return this.produto.description;
+    },
+    amount() {
+      return this.produto.amount;
     },
   },
 };

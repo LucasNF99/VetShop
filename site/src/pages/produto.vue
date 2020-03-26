@@ -17,19 +17,25 @@
           <q-td key="name" :props="props">
             {{ props.row.name }}
           </q-td>
-          <q-td key="descricao" :props="props" class="a-table-td-descricao">
+          <q-td key="description" :props="props" class="a-table-td-descricao">
             <div class="a-table-descricao">
-              {{ props.row.descricao }}
+              {{ props.row.description }}
             </div>
           </q-td>
           <q-td key="price" :props="props">
-            R$ {{ props.row.price }}
+            R$ {{ props.row.priceSell }}
           </q-td>
-          <q-td key="quantidade" :props="props">
-            {{ props.row.quantidade }}
+          <q-td key="amount" :props="props">
+            {{ props.row.amount }}
           </q-td>
           <q-td>
-            <q-btn size="md" round icon="edit" @click="openUpdate(props.row.name, props.row.price)">
+            <q-btn size="md" round icon="edit"
+            @click="openUpdate(
+            props.row.name,
+            props.row.priceSell,
+            props.row.description,
+            props.row.amount
+            )">
               <q-tooltip>Editar item</q-tooltip>
             </q-btn>
             <q-btn size="md" round icon="delete">
@@ -51,46 +57,46 @@ const columns = [
     name: 'name', align: 'left', label: 'Nome', field: 'name',
   },
   {
-    name: 'descricao', align: 'left', label: 'Descrição', field: 'descricao',
+    name: 'description', align: 'left', label: 'Descrição', field: 'descricao',
   },
   {
     name: 'price', align: 'left', label: 'Preço', field: 'preco',
   },
   {
-    name: 'quantidade', align: 'left', label: 'Quantidade', field: 'quantidade',
+    name: 'amount', align: 'left', label: 'Quantidade', field: 'quantidade',
   },
 ];
 
 const data = [
   {
     name: 'VacinaV23',
-    descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
-    price: 6.22,
-    quantidade: 24,
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
+    priceSell: 6.22,
+    amount: 24,
   },
   {
     name: 'DogRas',
-    descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
-    price: 9.0,
-    quantidade: 37,
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
+    priceSell: 9.0,
+    amount: 37,
   },
   {
     name: 'Osso',
-    descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
-    price: 16.0,
-    quantidade: 23,
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
+    priceSell: 16.0,
+    amount: 23,
   },
   {
     name: 'Mordedo',
-    descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
-    price: 350.99,
-    quantidade: 67,
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
+    priceSell: 350.99,
+    amount: 67,
   },
   {
     name: 'Teste',
-    descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
-    price: 16.0,
-    quantidade: 49,
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
+    priceSell: 16.0,
+    amount: 49,
   },
 ];
 export default {
@@ -109,8 +115,13 @@ export default {
     };
   },
   methods: {
-    openUpdate(name, price) {
-      this.produto = { name, price };
+    openUpdate(name, priceSell, description, amount) {
+      this.produto = {
+        name,
+        priceSell,
+        description,
+        amount,
+      };
       this.updateModal = true;
     },
 
