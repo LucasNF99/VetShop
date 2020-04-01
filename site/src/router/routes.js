@@ -24,7 +24,7 @@ const routes = [
   },
   {
     path: '/caixa',
-    component: () => import('layouts/Index.vue'),
+    component: () => import('layouts/index.vue'),
     children: [
       { path: '', component: () => import('pages/caixa.vue') },
     ],

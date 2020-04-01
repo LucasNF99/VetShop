@@ -14,18 +14,16 @@
       </div>
     </div>
     <aside>
-      <ol>
-        <li>A</li>
-        <li>A</li>
-        <li>A</li>
-        <li>A</li>
-        <li>A</li>
-        <li>A</li>
-        <li>A</li>
-      </ol>
+      <ul>
+        <li>Ração</li>
+        <li>Vacina</li>
+        <li>Osso</li>
+        <li>Casinha</li>
+        <li>Coleira</li>
+      </ul>
         <q-input
           filled
-          placeholder="Search"
+          placeholder="Procurar"
         >
         <template v-slot:append>
           <q-icon name="search" />
