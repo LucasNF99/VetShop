@@ -18,7 +18,14 @@ class UsuarioController {
       return res.status(400).json({ error: 'Validation fails' })
     }
 
-    const { id, nome, email, senha, telefone, bairro, rua, numero, cpf } = await Usuario.create(req.body);
+    const existsCpf = Usuario.findOne({ where: { cpf: req.body.cpf } })
+
+    if (existsCpf) {
+      return res.status(400).json({ error: 'CPF já utilizado' })
+    }
+
+
+    const { id, nome, email, senha, telefone, bairro, rua, numero, cpf, avatar_id } = await Usuario.create(req.body);
 
     return res.json({
       id,
@@ -30,6 +37,7 @@ class UsuarioController {
       rua,
       numero,
       cpf,
+      avatar_id,
     });
   }
 

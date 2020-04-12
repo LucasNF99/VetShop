@@ -1,5 +1,7 @@
 import express from 'express'
+import 'express-async-errors'
 import routes from './routes'
+import handleError from '../middlewares/handlerError'
 
 var cors = require('cors')
 var app = express()
@@ -21,7 +23,8 @@ class App {
   }
 
   routes() {
-    this.server.use(routes)
+    this.server.use(routes);
+    this.server.use(handleError);
   }
 }
 
