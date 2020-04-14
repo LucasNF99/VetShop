@@ -55,6 +55,27 @@
             </q-item-section>
           </q-item>
           <q-separator/>
+          <q-item clickable v-ripple>
+            <q-item-section>
+              <q-item-label>Produto em falta: </q-item-label>
+              <q-item-label caption>produto</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-separator/>
+          <q-item clickable v-ripple>
+            <q-item-section>
+              <q-item-label>Produto em falta: </q-item-label>
+              <q-item-label caption>produto</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-separator/>
+           <q-item clickable v-ripple>
+            <q-item-section>
+              <q-item-label>Produto em falta: </q-item-label>
+              <q-item-label caption>produto</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-separator/>
         </q-list>
         </q-scroll-area>
       </div>
