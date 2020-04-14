@@ -2,66 +2,73 @@
   <div class="m-cashier">
     <div class="m-cashier-input">
       <h3>Caixa</h3>
-      <q-scroll-area style="height: 200px; whidth: 400px;">
-        <q-list class="">
-          <q-separator/>
-          <q-item clickable v-ripple>
-            <q-item-section>
+      <q-scroll-area style="max-height: 300px; height: 300px;">
+        <q-list class="m-cashier-selected-list">
+          <q-item clickable v-ripple >
+            <q-item-section class="selected-list-section">
               <q-item-label>Prod 1</q-item-label>
+              <q-item-label>R$19,99</q-item-label>
             </q-item-section>
           </q-item>
           <q-separator/>
-          <q-item clickable v-ripple>
-            <q-item-section>
-              <q-item-label>Prod 2 </q-item-label>
+          <q-item clickable v-ripple >
+            <q-item-section class="selected-list-section">
+              <q-item-label>Prod 1</q-item-label>
+              <q-item-label>R$19,99</q-item-label>
             </q-item-section>
           </q-item>
           <q-separator/>
-          <q-item clickable v-ripple>
-            <q-item-section>
-              <q-item-label>Prod 3 </q-item-label>
+          <q-item clickable v-ripple >
+            <q-item-section class="selected-list-section">
+              <q-item-label>Prod 1</q-item-label>
+              <q-item-label>R$19,99</q-item-label>
             </q-item-section>
           </q-item>
           <q-separator/>
-          <q-item clickable v-ripple>
-            <q-item-section>
-              <q-item-label>Prod 4 </q-item-label>
+          <q-item clickable v-ripple >
+            <q-item-section class="selected-list-section">
+              <q-item-label>Prod 1</q-item-label>
+              <q-item-label>R$19,99</q-item-label>
             </q-item-section>
           </q-item>
           <q-separator/>
-          <q-item clickable v-ripple>
-            <q-item-section>
-              <q-item-label>Prod 5 </q-item-label>
+          <q-item clickable v-ripple >
+            <q-item-section class="selected-list-section">
+              <q-item-label>Prod 1</q-item-label>
+              <q-item-label>R$19,99</q-item-label>
             </q-item-section>
           </q-item>
           <q-separator/>
-          <q-item clickable v-ripple>
-            <q-item-section>
-              <q-item-label>Prod 2 </q-item-label>
+          <q-item clickable v-ripple >
+            <q-item-section class="selected-list-section">
+              <q-item-label>Prod 1</q-item-label>
+              <q-item-label>R$19,99</q-item-label>
             </q-item-section>
           </q-item>
           <q-separator/>
-          <q-item clickable v-ripple>
-            <q-item-section>
-              <q-item-label>Prod 2 </q-item-label>
+          <q-item clickable v-ripple >
+            <q-item-section class="selected-list-section">
+              <q-item-label>Prod 1</q-item-label>
+              <q-item-label>R$19,99</q-item-label>
             </q-item-section>
           </q-item>
           <q-separator/>
-           <q-item clickable v-ripple>
-            <q-item-section>
-              <q-item-label>Prod 2 </q-item-label>
+          <q-item clickable v-ripple >
+            <q-item-section class="selected-list-section">
+              <q-item-label>Prod 1</q-item-label>
+              <q-item-label>R$19,99</q-item-label>
             </q-item-section>
           </q-item>
-          <q-separator/>
         </q-list>
       </q-scroll-area>
-      <div>
+      <div class="m-cashier-total">
         <h4>Total:</h4>
+        <span class="a-total-price">R$**,*</span>
       </div>
     </div>
     <aside class="m-cashier-aside">
-      <q-scroll-area style="height: 200px; max-width: 250px;">
-        <q-list class="m-cashier-share-list">
+      <q-scroll-area style="height: 300px;">
+        <q-list class="m-cashier-search-list">
           <q-separator/>
           <q-item clickable v-ripple>
             <q-item-section>
