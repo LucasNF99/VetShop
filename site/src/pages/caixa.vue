@@ -62,8 +62,13 @@
         </q-list>
       </q-scroll-area>
       <div class="m-cashier-total">
-        <h4>Total:</h4>
-        <span class="a-total-price">R$**,*</span>
+        <div class="m-cashier-total-l1">
+          <h4>Total:</h4>
+          <span class="a-total-price">R$**,*</span>
+        </div>
+        <div class="m-cashier-total-l2">
+          <q-btn color="primary" label="Finalizar" no-caps />
+        </div>
       </div>
     </div>
     <aside class="m-cashier-aside">
