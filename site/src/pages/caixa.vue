@@ -64,10 +64,10 @@
       <div class="m-cashier-total">
         <div class="m-cashier-total-l1">
           <h4>Total:</h4>
-          <span class="a-total-price">R$**,*</span>
+          <span class="m-total-price">R$**,*</span>
         </div>
         <div class="m-cashier-total-l2">
-          <q-btn color="primary" label="Finalizar" no-caps />
+          <q-btn class="" color="primary" label="Finalizar" no-caps />
         </div>
       </div>
     </div>
