@@ -75,52 +75,10 @@
     <aside class="m-cashier-aside">
       <q-scroll-area style="height: 300px;">
         <q-list class="m-cashier-search-list">
-          <q-separator/>
-          <q-item clickable v-ripple>
+          <q-item clickable v-ripple v-for="product in filterProducts" :key="product.id">
             <q-item-section>
-              <q-item-label>Prod 1</q-item-label>
-            </q-item-section>
-          </q-item>
-          <q-separator/>
-          <q-item clickable v-ripple>
-            <q-item-section>
-              <q-item-label>Prod 2 </q-item-label>
-            </q-item-section>
-          </q-item>
-          <q-separator/>
-          <q-item clickable v-ripple>
-            <q-item-section>
-              <q-item-label>Prod 3 </q-item-label>
-            </q-item-section>
-          </q-item>
-          <q-separator/>
-          <q-item clickable v-ripple>
-            <q-item-section>
-              <q-item-label>Prod 4 </q-item-label>
-            </q-item-section>
-          </q-item>
-          <q-separator/>
-          <q-item clickable v-ripple>
-            <q-item-section>
-              <q-item-label>Prod 5 </q-item-label>
-            </q-item-section>
-          </q-item>
-          <q-separator/>
-          <q-item clickable v-ripple>
-            <q-item-section>
-              <q-item-label>Prod 2 </q-item-label>
-            </q-item-section>
-          </q-item>
-          <q-separator/>
-          <q-item clickable v-ripple>
-            <q-item-section>
-              <q-item-label>Prod 2 </q-item-label>
-            </q-item-section>
-          </q-item>
-          <q-separator/>
-           <q-item clickable v-ripple>
-            <q-item-section>
-              <q-item-label>Prod 2 </q-item-label>
+              <q-item-label>{{product.name}}</q-item-label>
+              <q-item-label caption>R${{product.price}}</q-item-label>
             </q-item-section>
           </q-item>
           <q-separator/>
@@ -128,8 +86,9 @@
         </q-scroll-area>
         <q-input
           class="m-cashier-input-search"
-          filled
+          outlined
           placeholder="Procurar"
+          v-model="filter"
         >
         <template v-slot:append>
           <q-icon name="search" />
@@ -139,3 +98,40 @@
   </div>
   </div>
 </template>
+<script>
+/* eslint-disable */
+export default {
+  data() {
+    return {
+      filter: '',
+      products: [
+        {
+          id: 1, name: 'vacinaV2', price: '22',
+        },
+        {
+          id: 2, name: 'vacinaV4', price: '29',
+        },
+        {
+          id: 1, name: 'cauju', price: '22',
+        },
+        {
+          id: 1, name: 'vacinaV2', price: '22',
+        },
+        {
+          id: 1, name: 'Teste', price: '22,93',
+        },
+        {
+          id: 1, name: 'Manga', price: '22',
+        },
+      ],
+    };
+  },
+  computed: {
+    filterProducts() {
+      return this.filter ? this.products.filter((product) => { /* eslint-disable-line arrow-body-style */
+        return product.name.toLowerCase().includes(this.filter.toLowerCase());
+      }) : this.products;
+    },
+  },
+};
+</script>
