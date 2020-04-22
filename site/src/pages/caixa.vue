@@ -28,38 +28,12 @@
           <q-separator/>
           <q-item clickable v-ripple >
             <q-item-section class="selected-list-section">
-              <q-item-label>Prod 1</q-item-label>
-              <q-item-label>R$19,99</q-item-label>
+              <q-item-label>puf</q-item-label>
+              <q-item-label>R$28,875</q-item-label>
             </q-item-section>
           </q-item>
           <q-separator/>
-          <q-item clickable v-ripple >
-            <q-item-section class="selected-list-section">
-              <q-item-label>Prod 1</q-item-label>
-              <q-item-label>R$19,99</q-item-label>
-            </q-item-section>
-          </q-item>
-          <q-separator/>
-          <q-item clickable v-ripple >
-            <q-item-section class="selected-list-section">
-              <q-item-label>Prod 1</q-item-label>
-              <q-item-label>R$19,99</q-item-label>
-            </q-item-section>
-          </q-item>
-          <q-separator/>
-          <q-item clickable v-ripple >
-            <q-item-section class="selected-list-section">
-              <q-item-label>Prod 1</q-item-label>
-              <q-item-label>R$19,99</q-item-label>
-            </q-item-section>
-          </q-item>
-          <q-separator/>
-          <q-item clickable v-ripple >
-            <q-item-section class="selected-list-section">
-              <q-item-label>Prod 1</q-item-label>
-              <q-item-label>R$19,99</q-item-label>
-            </q-item-section>
-          </q-item>
+
         </q-list>
       </q-scroll-area>
       <div class="m-cashier-total">
@@ -75,7 +49,9 @@
     <aside class="m-cashier-aside">
       <q-scroll-area style="height: 300px;">
         <q-list class="m-cashier-search-list">
-          <q-item clickable v-ripple v-for="product in filterProducts" :key="product.id">
+          <q-item @click="add_product"
+          clickable v-ripple
+          v-for="product in filterProducts" :key="product.id">
             <q-item-section>
               <q-item-label>{{product.name}}</q-item-label>
               <q-item-label caption>R${{product.price}}</q-item-label>
@@ -112,16 +88,16 @@ export default {
           id: 2, name: 'vacinaV4', price: '29',
         },
         {
-          id: 1, name: 'cauju', price: '22',
+          id: 3, name: 'cauju', price: '22',
         },
         {
-          id: 1, name: 'vacinaV2', price: '22',
+          id: 4, name: 'vacinaV2', price: '22',
         },
         {
-          id: 1, name: 'Teste', price: '22,93',
+          id: 5, name: 'Teste', price: '22,93',
         },
         {
-          id: 1, name: 'Manga', price: '22',
+          id: 6, name: 'Manga', price: '22',
         },
       ],
     };
@@ -132,6 +108,11 @@ export default {
         return product.name.toLowerCase().includes(this.filter.toLowerCase());
       }) : this.products;
     },
+  },
+  method: {
+    add_product(){
+      console.log(product.id);
+    }
   },
 };
 </script>
