@@ -1,12 +1,11 @@
 import * as Yup from 'yup';
-import Usuario from '../models/Usuario';
+import Cliente from '../models/Cliente';
 
-class UsuarioController {
+class ClienteController {
   async store(req, res) {
     const schema = Yup.object().shape({
       nome: Yup.string().required(),
       email: Yup.string().required().email(),
-      senha: Yup.string().required(),
       telefone: Yup.string().required(),
       bairro: Yup.string().required(),
       rua: Yup.string().required(),
@@ -18,26 +17,24 @@ class UsuarioController {
       return res.status(400).json({ error: 'Validation fails' })
     }
 
-    const existsCpf = Usuario.findOne({ where: { cpf: req.body.cpf } })
+    const existsCpf = Cliente.findOne({ where: { cpf: req.body.cpf } })
 
     if (existsCpf) {
       return res.status(400).json({ error: 'CPF já utilizado' })
     }
 
 
-    const { id, nome, email, senha, telefone, bairro, rua, numero, cpf, avatar_id } = await Usuario.create(req.body);
+    const { id, nome, email, telefone, bairro, rua, numero, cpf, avatar_id } = await Cliente.create(req.body);
 
     return res.json({
       id,
       nome,
       email,
-      senha,
       telefone,
       bairro,
       rua,
       numero,
-      cpf,
-      avatar_id,
+      cpf
     });
   }
 
@@ -45,13 +42,12 @@ class UsuarioController {
     const schema = Yup.object().shape({
       nome: Yup.string(),
       email: Yup.string().email(),
-      senha: Yup.string(),
       telefone: Yup.string(),
       bairro: Yup.string(),
       rua: Yup.string(),
       numero: Yup.string(),
       cpf: Yup.string(),
-      usuarioId: Yup.number().required(),
+      clienteId: Yup.number().required(),
     })
 
     if (!(await schema.isValid(req.body))) {
@@ -59,15 +55,14 @@ class UsuarioController {
     }
 
 
-    const usuario = await Usuario.findByPk(req.body.usuarioId);
+    const cliente = await Cliente.findByPk(req.body.clienteId);
 
-    const { id, nome, email, senha, telefone, bairro, rua, numero, cpf } = await usuario.update(req.body);
+    const { id, nome, email, telefone, bairro, rua, numero, cpf } = await cliente.update(req.body);
 
     return res.json({
       id,
       nome,
       email,
-      senha,
       telefone,
       bairro,
       rua,
@@ -77,37 +72,37 @@ class UsuarioController {
   }
 
   async index(req, res) {
-    const usuarios = await Usuario.findAll();
+    const clientes = await Cliente.findAll();
 
-    return res.json(usuarios);
+    return res.json(clientes);
   }
 
   async show(req, res) {
     const id = req.params.id;
-    const usuario = await Usuario.findByPk(id);
+    const cliente = await Cliente.findByPk(id);
 
-    if (usuario) {
-      res.json(usuario);
+    if (cliente) {
+      res.json(cliente);
     }
     else {
-      res.json({ message: 'Usuario não encontrado' })
+      res.json({ message: 'Cliente não encontrado' })
     }
 
   }
 
   async delete(req, res) {
     const id = req.params.id;
-    const usuario = await Usuario.findByPk(id);
+    const cliente = await Cliente.findByPk(id);
 
-    if (usuario) {
-      usuario.destroy();
-      res.json({ message: 'Usuario removido com sucesso' })
+    if (cliente) {
+      cliente.destroy();
+      res.json({ message: 'Cliente removido com sucesso' })
     }
     else {
-      res.json({ message: 'Usuario não encontrado' })
+      res.json({ message: 'Cliente não encontrado' })
     }
 
   }
 }
 
-export default new UsuarioController();
+export default new ClienteController();
