@@ -22,7 +22,7 @@ routes.post('/files', upload.single('file'), FileController.store);
 
 routes.put('/produto', ProdutoController.update);
 routes.put('/medicamento', MedicamentoController.update);
-routes.put('/cliente', ClienteController.store);
+routes.put('/cliente', ClienteController.update);
 routes.put('/usuario', UsuarioController.update);
 routes.put('/venda', VendaController.update);
 

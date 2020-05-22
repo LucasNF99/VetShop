@@ -13,15 +13,18 @@ class ClienteController {
       cpf: Yup.string().required(),
     })
 
-    if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation fails' })
-    }
-
-    const existsCpf = Cliente.findOne({ where: { cpf: req.body.cpf } })
+    const existsCpf = await Cliente.findOne({ where: { cpf: req.body.cpf } })
 
     if (existsCpf) {
       return res.status(400).json({ error: 'CPF já utilizado' })
     }
+
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ error: 'Validation fails' })
+    }
+
+
+
 
 
     const { id, nome, email, telefone, bairro, rua, numero, cpf, avatar_id } = await Cliente.create(req.body);
@@ -70,6 +73,8 @@ class ClienteController {
       cpf,
     });
   }
+
+
 
   async index(req, res) {
     const clientes = await Cliente.findAll();

@@ -14,15 +14,19 @@ class UsuarioController {
       cpf: Yup.string().required(),
     })
 
-    if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation fails' })
-    }
-
-    const existsCpf = Usuario.findOne({ where: { cpf: req.body.cpf } })
+    const existsCpf = await Usuario.findOne({ where: { cpf: req.body.cpf } })
 
     if (existsCpf) {
       return res.status(400).json({ error: 'CPF já utilizado' })
     }
+
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ error: 'Validation fails' })
+    }
+
+
+
+
 
 
     const { id, nome, email, senha, telefone, bairro, rua, numero, cpf, avatar_id } = await Usuario.create(req.body);
