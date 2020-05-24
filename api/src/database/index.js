@@ -7,11 +7,13 @@ import Medicamento from '../app/models/Medicamento';
 import Venda from '../app/models/Venda';
 import Cliente from '../app/models/Cliente';
 import Paciente from '../app/models/Paciente';
+import Prontuario from '../app/models/Prontuario';
 
 
 import databaseConfig from '../config/database';
 
-const models = [Produto, Usuario, File, Medicamento, Venda, Cliente, Paciente];
+const models = [Produto, Usuario, File, Medicamento, Venda,
+  Cliente, Paciente, Prontuario];
 
 class Database {
   constructor() {
