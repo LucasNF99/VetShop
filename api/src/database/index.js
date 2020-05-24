@@ -6,11 +6,12 @@ import File from '../app/models/File';
 import Medicamento from '../app/models/Medicamento';
 import Venda from '../app/models/Venda';
 import Cliente from '../app/models/Cliente';
+import Paciente from '../app/models/Paciente';
 
 
 import databaseConfig from '../config/database';
 
-const models = [Produto, Usuario, File, Medicamento, Venda, Cliente];
+const models = [Produto, Usuario, File, Medicamento, Venda, Cliente, Paciente];
 
 class Database {
   constructor() {

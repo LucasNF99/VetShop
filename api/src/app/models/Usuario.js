@@ -1,11 +1,12 @@
 import Sequelize, { Model } from 'sequelize';
+import bcrypt from 'bcryptjs';
 
 class Usuario extends Model {
   static init(sequelize) {
     super.init(
       {
         nome: Sequelize.STRING,
-        email: Sequelize.INTEGER,
+        email: Sequelize.STRING,
         senha: Sequelize.STRING,
         telefone: Sequelize.STRING,
         bairro: Sequelize.STRING,
