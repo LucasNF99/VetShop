@@ -3,12 +3,9 @@ import 'express-async-errors'
 import routes from './routes'
 import handleError from '../middlewares/handlerError'
 
-var cors = require('cors')
-var app = express()
+var app = express();
 
 import './database'
-
-app.use(cors())
 
 class App {
   constructor() {
