@@ -50,7 +50,9 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import updateModal from '../components/update-modal';
+import store from '../store';
 
 const columns = [
   {
@@ -69,7 +71,7 @@ const columns = [
 
 const data = [
   {
-    name: 'VacinaV23',
+    name: 'VacinaV500',
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
     priceSell: 6.22,
     amount: 24,
@@ -125,10 +127,15 @@ export default {
       this.updateModal = true;
     },
 
-    closeModal(evt) {
-      console.log(evt);
+    closeModal() {
       this.updateModal = false;
     },
+  },
+  computed: {
+    ...mapGetters('medicine', ['getMedicine']),
+  },
+  async mouted() {
+    await store().dispatch('medicine/getMedicine');
   },
 };
 </script>
