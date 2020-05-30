@@ -1,15 +1,8 @@
-import cors from 'cors';
 import express from 'express';
 import multer from 'multer';
 import multerConfig from './config/multer';
 
-const app = express();
 const { Router } = express;
-const corsOptions = {
-  origin: '*',
-  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-}
-app.use(cors(corsOptions));
 
 import ProdutoController from './app/controllers/ProdutoController';
 import UsuarioController from './app/controllers/UsuarioController';
@@ -26,7 +19,7 @@ const upload = multer(multerConfig);
 
 //Post
 routes.post('/produto', ProdutoController.store);
-routes.post('/medicamento', cors(corsOptions), MedicamentoController.store);
+routes.post('/medicamento', MedicamentoController.store);
 routes.post('/usuario', UsuarioController.store);
 routes.post('/cliente', ClienteController.store);
 routes.post('/paciente', PacienteController.store);
