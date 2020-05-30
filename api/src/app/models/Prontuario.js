@@ -16,6 +16,9 @@ class Prontuario extends Model {
 
     return this;
   }
+  static associate(models) {
+    this.belongsTo(models.Consulta, { foreignKey: 'consulta_id' });
+  }
 }
 
 export default Prontuario;
