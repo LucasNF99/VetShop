@@ -1,10 +1,10 @@
 <template>
   <div class="o-produto">
-    <q-btn no-caps icon="add" class="a-btn _add">
+    <q-btn no-caps icon="add" class="a-btn _add" @click="openUpdate()">
       Aidicionar novo produto
     </q-btn>
     <q-table
-        :data="data"
+        :data="getMedicine"
         :columns="columns"
         title="Medicamentos"
         row-key="name"
@@ -14,27 +14,27 @@
       >
       <template class="m-table-template" v-slot:body="props">
         <q-tr :props="props">
-          <q-td key="name" :props="props">
-            {{ props.row.name }}
+          <q-td key="nome" :props="props">
+            {{ props.row.nome }}
           </q-td>
-          <q-td key="description" :props="props" class="a-table-td-descricao">
+          <q-td key="descricao" :props="props" class="a-table-td-descricao">
             <div class="a-table-descricao">
-              {{ props.row.description }}
+              {{ props.row.descricao }}
             </div>
           </q-td>
           <q-td key="price" :props="props">
-            R$ {{ props.row.priceSell }}
+            R$ {{ props.row.precoVenda }}
           </q-td>
-          <q-td key="amount" :props="props">
-            {{ props.row.amount }}
+          <q-td key="quantidade" :props="props">
+            {{ props.row.quantidade }}
           </q-td>
           <q-td>
             <q-btn size="md" round icon="edit"
             @click="openUpdate(
-            props.row.name,
-            props.row.priceSell,
-            props.row.description,
-            props.row.amount
+            props.row.nome,
+            props.row.precoVenda,
+            props.row.descricao,
+            props.row.quantidade
             )">
               <q-tooltip>Editar item</q-tooltip>
             </q-btn>
@@ -45,7 +45,12 @@
         </q-tr>
       </template>
     </q-table>
-    <updateModal :updateModal="updateModal" :produto="produto" @closeModal="closeModal"/>
+    <updateModal
+    :updateModal="updateModal"
+    :isNew="isNew"
+    :produto="produto"
+    @closeModal="closeModal"
+    />
   </div>
 </template>
 
@@ -56,74 +61,59 @@ import store from '../store';
 
 const columns = [
   {
-    name: 'name', align: 'left', label: 'Nome', field: 'name',
+    name: 'nome', align: 'left', label: 'Nome', field: 'nome',
   },
   {
-    name: 'description', align: 'left', label: 'Descrição', field: 'descricao',
+    name: 'descricao', align: 'left', label: 'Descrição', field: 'descricao',
   },
   {
     name: 'price', align: 'left', label: 'Preço', field: 'preco',
   },
   {
-    name: 'amount', align: 'left', label: 'Quantidade', field: 'quantidade',
+    name: 'quantidade', align: 'left', label: 'Quantidade', field: 'quantidade',
   },
 ];
 
-const data = [
-  {
-    name: 'VacinaV500',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
-    priceSell: 6.22,
-    amount: 24,
-  },
-  {
-    name: 'DogRas',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
-    priceSell: 9.0,
-    amount: 37,
-  },
-  {
-    name: 'Osso',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
-    priceSell: 16.0,
-    amount: 23,
-  },
-  {
-    name: 'Mordedo',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
-    priceSell: 350.99,
-    amount: 67,
-  },
-  {
-    name: 'Teste',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
-    priceSell: 16.0,
-    amount: 49,
-  },
-];
+// const data = [
+//   {
+//     name: 'VacinaV500',
+//     descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
+//     precoVenda: 6.22,
+//     quantidade: 24,
+//   },
+// ];
 export default {
   components: {
     updateModal,
   },
   data() {
     return {
-      data,
+      data: this.getMedicine,
       columns,
       updateModal: false,
-      produto: null,
+      produto: {},
+      isNew: false,
       pagination: {
         rowsPerPage: 5,
       },
     };
   },
   methods: {
-    openUpdate(name, priceSell, description, amount) {
-      this.produto = {
-        name,
-        priceSell,
-        description,
-        amount,
-      };
+    openUpdate(nome, precoVenda, descricao, quantidade, fornecedor, precoCompra) {
+      if (nome) {
+        this.produto = {
+          nome,
+          precoVenda,
+          precoCompra,
+          descricao,
+          quantidade,
+          fornecedor,
+        };
+        this.isNew = false;
+      } else {
+        this.isNew = true;
+        this.produto = {};
+      }
       this.updateModal = true;
     },
 
@@ -134,7 +124,7 @@ export default {
   computed: {
     ...mapGetters('medicine', ['getMedicine']),
   },
-  async mouted() {
+  async mounted() {
     await store().dispatch('medicine/getMedicine');
   },
 };

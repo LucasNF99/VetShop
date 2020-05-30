@@ -1,4 +1,6 @@
-import store from 'app/api/modules/medicine';
+import { medicine } from 'app/api/index';
+
+console.log(medicine);
 
 const getters = {
   getMedicine: state => state.items,
@@ -7,11 +9,19 @@ const getters = {
 const actions = {
   async getMedicine({ commit }) {
     try {
-      console.log('Ola');
-      const { data: medicine } = await store.list();
-      console.log(medicine);
-      commit('UPDATE_MEDICINE', medicine);
-      return medicine;
+      const { data: items } = await medicine.list();
+      commit('UPDATE_MEDICINE', items);
+      return items;
+    } catch (error) {
+      return { status: false, error };
+    }
+  },
+  /* eslint-disable */
+  async createMedicine({ commit }, payload) {
+    try {
+      console.log('PAY', payload)
+      await medicine.create(payload);
+      return true;
     } catch (error) {
       return { status: false, error };
     }
