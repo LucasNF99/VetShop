@@ -10,8 +10,11 @@ class ProntuarioController {
       queixas: Yup.string().required(),
     })
 
-    if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation fails' })
+    try {
+      await schema.validate(req.body)
+    }
+    catch (erro) {
+      res.status(400).json(erro.errors)
     }
 
     const { id, laudo, exame, prescricao, queixas } = await Prontuario.create(req.body);

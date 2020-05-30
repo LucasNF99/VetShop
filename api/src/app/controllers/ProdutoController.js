@@ -12,8 +12,11 @@ class ProdutoController {
       fornecedor: Yup.string().required(),
     })
 
-    if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation fails' })
+    try {
+      await schema.validate(req.body)
+    }
+    catch (erro) {
+      res.status(400).json(erro.errors)
     }
 
     const { id, nome, quantidade, descricao, precoCompra, precoVenda, fornecedor } = await Produto.create(req.body);
