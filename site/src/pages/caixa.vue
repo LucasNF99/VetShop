@@ -106,9 +106,13 @@
 </template>
 <script>
 /* eslint-disable */
+import { mapGetters } from 'vuex';
+import store from '../store';
+
 export default {
   data() {
     return {
+      data: this.getMedicine,
       filter: '',
       products: [
         {
@@ -141,7 +145,7 @@ export default {
   },
   method: {
     add_product(){
-      console.log(product.id);
+      console.log(this.products.id);
     }
   },
 };
