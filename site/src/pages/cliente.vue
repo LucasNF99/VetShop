@@ -40,7 +40,7 @@
           align="left"
           icon="alarm_on"
           class="o-btn_estoque -flex2"
-          label="Marcar uma consulta"
+          label="Marcar nova consulta"
           />
       </q-card-section>
     </q-card>
