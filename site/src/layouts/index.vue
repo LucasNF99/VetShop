@@ -40,7 +40,7 @@
             <a href="" class="m-footer-list-link">Caixa</a>
           </li>
           <li class="m-footer-list_item">
-            <a href="" class="m-footer-list-link">Configurações</a>
+            <a href="" class="m-footer-list-link">Gerenciar</a>
           </li>
         </ul>
       </nav>

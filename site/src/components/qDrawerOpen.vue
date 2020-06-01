@@ -41,7 +41,16 @@
               <q-btn to="cliente"
               icon="perm_identity"
               class="a-btn _menu"
-              label="Clientes"
+              label="Clientes / Consultas"
+              no-caps />
+          </q-item-section>
+        </q-item>
+        <q-item>
+          <q-item-section>
+              <q-btn to="cliente"
+              icon="settings"
+              class="a-btn _menu"
+              label="Gerenciar"
               no-caps />
           </q-item-section>
         </q-item>
