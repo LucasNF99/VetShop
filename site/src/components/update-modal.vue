@@ -26,18 +26,18 @@
             </div>
             <div class="m-modal-update_field">
               <span class="m-update_field-label">Quantidade:</span>
-              <q-input v-model="quantidade"
+              <q-input type="number" v-model="quantidade"
               class="m-update_field-input"/>
             </div>
           </div>
           <div>
             <div class="m-modal-update_field">
               <span class="m-update_field-label">Preço de venda:</span>
-              <q-input v-model="precoVenda" class="m-update_field-input"/>
+              <q-input type="number" v-model="precoVenda" class="m-update_field-input"/>
             </div>
             <div class="m-modal-update_field">
               <span class="m-update_field-label">Preço de compra:</span>
-              <q-input v-model="precoCompra" class="m-update_field-input"/>
+              <q-input type="number" v-model="precoCompra" class="m-update_field-input"/>
             </div>
             <div class="m-modal-update_field">
               <span class="m-update_field-label">Fornecedor:</span>
@@ -82,6 +82,7 @@ export default {
       precoCompra: 0,
       fornecedor: '',
       quantidade: 0,
+      id: 0,
     };
   },
   methods: {
@@ -98,7 +99,20 @@ export default {
           fornecedor: this.fornecedor,
         };
         const response = await store().dispatch('medicine/createMedicine', payload);
-        console.log(response);
+        if (response) {
+          await store().dispatch('medicine/getMedicine');
+          this.$q.notify({
+            color: 'positive',
+            message: 'Item criado com sucesso!',
+            icon: 'done',
+          });
+        } else {
+          this.$q.notify({
+            color: 'negative',
+            message: 'Ocorreu algum erro!',
+            icon: 'report_problem',
+          });
+        }
       }
       this.closeModal();
     },
@@ -106,7 +120,7 @@ export default {
       if (value) this.$emit('closeModal', value);
       else this.$emit('closeModal');
     },
-    formatData() {
+    async formatData() {
       const payload = {
         nome: this.nome,
         precoVenda: this.precoVenda,
@@ -114,8 +128,36 @@ export default {
         quantidade: this.quantidade,
         precoCompra: this.precoCompra,
         fornecedor: this.fornecedor,
+        medicamentoId: this.id,
       };
-      console.log(payload);
+      const response = await store().dispatch('medicine/updateMedicine', payload);
+      if (response) {
+        await store().dispatch('medicine/getMedicine');
+        this.$q.notify({
+          color: 'positive',
+          message: 'Item editado com sucesso!',
+          icon: 'done',
+        });
+      } else {
+        this.$q.notify({
+          color: 'negative',
+          message: 'Ocorreu algum erro!',
+          icon: 'report_problem',
+        });
+      }
+    },
+  },
+  watch: {
+    produto(value) {
+      if (value.id) {
+        this.nome = value.nome;
+        this.descricao = value.descricao;
+        this.precoVenda = value.precoVenda;
+        this.precoCompra = value.precoCompra;
+        this.fornecedor = value.fornecedor;
+        this.quantidade = value.quantidade;
+        this.id = value.id;
+      }
     },
   },
   computed: {

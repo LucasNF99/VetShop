@@ -4,7 +4,7 @@
       Aidicionar novo produto
     </q-btn>
     <q-table
-        :data="getMedicine"
+        :data="filterProducts"
         :columns="columns"
         row-key="name"
         class="m-table-produto"
@@ -48,11 +48,14 @@
             props.row.nome,
             props.row.precoVenda,
             props.row.descricao,
-            props.row.quantidade
+            props.row.quantidade,
+            props.row.fornecedor,
+            props.row.precoCompra,
+            props.row.id,
             )">
               <q-tooltip>Editar item</q-tooltip>
             </q-btn>
-            <q-btn size="md" round icon="delete">
+            <q-btn @click="deleteItem(props.row.id)" size="md" round icon="delete">
               <q-tooltip>Deletar item</q-tooltip>
             </q-btn>
           </q-td>
@@ -115,7 +118,7 @@ export default {
     };
   },
   methods: {
-    openUpdate(nome, precoVenda, descricao, quantidade, fornecedor, precoCompra) {
+    openUpdate(nome, precoVenda, descricao, quantidade, fornecedor, precoCompra, id) {
       if (nome) {
         this.produto = {
           nome,
@@ -124,6 +127,7 @@ export default {
           descricao,
           quantidade,
           fornecedor,
+          id,
         };
         this.isNew = false;
       } else {
@@ -133,6 +137,24 @@ export default {
       this.updateModal = true;
     },
 
+    async deleteItem(id) {
+      const response = await store().dispatch('medicine/deleteMedicine', id);
+      if(response) {
+        await store().dispatch('medicine/getMedicine');
+        this.$q.notify({
+          color: 'positive',
+          message: 'Item deletado com sucesso',
+          icon: 'done'
+        });
+      } else {
+        this.$q.notify({
+          color: 'negative',
+          message: 'Ocorreu algum erro',
+          icon: 'report_problem'
+        });
+      }
+    },
+
     closeModal() {
       this.updateModal = false;
     },
@@ -140,9 +162,9 @@ export default {
   computed: {
     ...mapGetters('medicine', ['getMedicine']),
     filterProducts() {
-      return this.filter ? this.produto.filter((produto) => { /* eslint-disable-line arrow-body-style */
+      return this.filter ? this.getMedicine.filter((produto) => { /* eslint-disable-line arrow-body-style */
         return produto.nome.toLowerCase().includes(this.filter.toLowerCase());
-      }) : this.produto;
+      }) : this.getMedicine;
     },
   },
   async mounted() {

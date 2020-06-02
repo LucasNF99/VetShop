@@ -1,6 +1,5 @@
 import { medicine } from 'app/api/index';
 
-console.log(medicine);
 
 const getters = {
   getMedicine: state => state.items,
@@ -19,9 +18,24 @@ const actions = {
   /* eslint-disable */
   async createMedicine({ commit }, payload) {
     try {
-      console.log('PAY', payload)
-      await medicine.create(payload);
-      return true;
+      const { data } = await medicine.create(payload);
+      return data;
+    } catch (error) {
+      return { status: false, error };
+    }
+  },
+  async updateMedicine({ commit }, payload) {
+    try {
+      const { data } = await medicine.update(payload);
+      return data;
+    } catch (error) {
+      return { status: false, error };
+    }
+  },
+  async deleteMedicine({ commit }, payload) {
+    try {
+      const { data } = await medicine.delete(payload);
+      return data;
     } catch (error) {
       return { status: false, error };
     }
