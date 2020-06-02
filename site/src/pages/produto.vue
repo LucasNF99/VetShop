@@ -6,12 +6,26 @@
     <q-table
         :data="getMedicine"
         :columns="columns"
-        title="Medicamentos"
         row-key="name"
         class="m-table-produto"
         virtual-scroll
         :pagination.sync="pagination"
       >
+      <template v-slot:top>
+        <h5>Medicamento</h5>
+        <q-space />
+
+        <q-input
+          class="m-cashier-input-search"
+          outlined
+          placeholder="Procurar"
+          v-model="filter"
+        >
+        <template v-slot:append>
+          <q-icon name="search" />
+        </template>
+      </q-input>
+      </template>
       <template class="m-table-template" v-slot:body="props">
         <q-tr :props="props">
           <q-td key="nome" :props="props">
@@ -55,6 +69,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 import { mapGetters } from 'vuex';
 import updateModal from '../components/update-modal';
 import store from '../store';
@@ -88,6 +103,7 @@ export default {
   },
   data() {
     return {
+      filter: '',
       data: this.getMedicine,
       columns,
       updateModal: false,
@@ -123,6 +139,11 @@ export default {
   },
   computed: {
     ...mapGetters('medicine', ['getMedicine']),
+    filterProducts() {
+      return this.filter ? this.produto.filter((produto) => { /* eslint-disable-line arrow-body-style */
+        return produto.nome.toLowerCase().includes(this.filter.toLowerCase());
+      }) : this.produto;
+    },
   },
   async mounted() {
     await store().dispatch('medicine/getMedicine');
