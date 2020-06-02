@@ -10,6 +10,7 @@ class Produto extends Model {
         precoCompra: Sequelize.FLOAT,
         precoVenda: Sequelize.FLOAT,
         fornecedor: Sequelize.STRING,
+        classe: Sequelize.STRING,
       },
       {
         sequelize,

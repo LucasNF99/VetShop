@@ -10,6 +10,7 @@ class ProdutoController {
       precoCompra: Yup.number().required(),
       precoVenda: Yup.number().required(),
       fornecedor: Yup.string().required(),
+      classe: Yup.string(),
     })
 
     try {
@@ -19,7 +20,7 @@ class ProdutoController {
       res.status(400).json(erro.errors)
     }
 
-    const { id, nome, quantidade, descricao, precoCompra, precoVenda, fornecedor } = await Produto.create(req.body);
+    const { id, nome, quantidade, descricao, precoCompra, precoVenda, fornecedor, classe } = await Produto.create(req.body);
 
     return res.json({
       id,
@@ -28,7 +29,8 @@ class ProdutoController {
       descricao,
       precoCompra,
       precoVenda,
-      fornecedor
+      fornecedor,
+      classe,
     });
   }
 
@@ -41,6 +43,7 @@ class ProdutoController {
       precoVenda: Yup.number(),
       fornecedor: Yup.string(),
       produtoId: Yup.number().required(),
+      classe: Yup.string(),
     })
 
     if (!(await schema.isValid(req.body))) {
@@ -50,7 +53,7 @@ class ProdutoController {
 
     const produto = await Produto.findByPk(req.body.produtoId);
 
-    const { id, nome, quantidade, descricao, precoCompra, precoVenda, fornecedor } = await produto.update(req.body);
+    const { id, nome, quantidade, descricao, precoCompra, precoVenda, fornecedor, classe } = await produto.update(req.body);
 
     return res.json({
       id,
@@ -59,7 +62,8 @@ class ProdutoController {
       descricao,
       precoCompra,
       precoVenda,
-      fornecedor
+      fornecedor,
+      classe,
     });
   }
 
