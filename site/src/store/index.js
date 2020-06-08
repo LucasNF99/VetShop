@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import medicine from './module/medicine';
+import product from './module/product';
+import client from './module/client';
 
 // import example from './module-example'
 
@@ -19,6 +21,8 @@ export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
       medicine,
+      product,
+      client,
     },
 
     // enable strict mode (adds overhead!)

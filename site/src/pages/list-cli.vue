@@ -1,8 +1,5 @@
 <template>
   <div class="o-produto">
-    <q-btn no-caps icon="add" class="a-btn _add" @click="openUpdate()">
-      Aidicionar novo produto
-    </q-btn>
     <q-table
         :data="filterProducts"
         :columns="columns"
@@ -12,7 +9,7 @@
         :pagination.sync="pagination"
       >
       <template v-slot:top>
-        <p class="m-table-produto_title">Produto</p>
+        <p class="m-table-produto_title">Clientes</p>
         <q-space />
 
         <q-input
@@ -29,33 +26,29 @@
           <q-td key="nome" :props="props">
             {{ props.row.nome }}
           </q-td>
-          <q-td key="descricao" :props="props" class="a-table-td-descricao">
+          <q-td key="email" :props="props">
             <div class="a-table-descricao">
-              {{ props.row.descricao }}
+              {{ props.row.email }}
             </div>
           </q-td>
-          <q-td key="price" :props="props">
-            R$ {{ props.row.precoVenda }}
+          <q-td key="telefone" :props="props">
+            {{ props.row.telefone }}
           </q-td>
           <q-td key="quantidade" :props="props">
             {{ props.row.quantidade }}
-          </q-td>
-          <q-td key="classe" :props="classe">
-            {{ props.row.classe }}
           </q-td>
           <q-td>
             <q-btn size="md" round icon="edit"
             @click="openUpdate(
             props.row.nome,
-            props.row.precoVenda,
-            props.row.descricao,
+            props.row.email,
+            props.row.telefone,
             props.row.quantidade,
             props.row.fornecedor,
             props.row.precoCompra,
-            props.row.classe,
             props.row.id,
             )">
-              <q-tooltip>Editar item</q-tooltip>
+              <q-tooltip>Editar dados</q-tooltip>
             </q-btn>
             <q-btn @click="deleteItem(props.row.id)" size="md" round icon="delete">
               <q-tooltip>Deletar item</q-tooltip>
@@ -84,16 +77,13 @@ const columns = [
     name: 'nome', align: 'left', label: 'Nome', field: 'nome',
   },
   {
-    name: 'descricao', align: 'left', label: 'Descrição', field: 'descricao',
+    name: 'email', align: 'left', label: 'E-mail', field: 'email',
   },
   {
-    name: 'price', align: 'left', label: 'Preço', field: 'preco',
+    name: 'telefone', align: 'left', label: 'Telefone', field: 'telefone',
   },
   {
     name: 'quantidade', align: 'left', label: 'Quantidade', field: 'quantidade',
-  },
-  {
-    name: 'clsee', align: 'left', label: 'Classe', field: 'classe',
   },
 ];
 
@@ -112,10 +102,10 @@ export default {
   data() {
     return {
       filter: '',
-      data: this.getProduct,
+      data: this.getMedicine,
       columns,
       updateModal: false,
-      produto: {},
+      client: {},
       isNew: false,
       pagination: {
         rowsPerPage: 5,
@@ -123,16 +113,15 @@ export default {
     };
   },
   methods: {
-    openUpdate(nome, precoVenda, descricao, quantidade, fornecedor, precoCompra, classe, id) {
+    openUpdate(nome, precoVenda, descricao, quantidade, fornecedor, precoCompra, id) {
       if (nome) {
-        this.produto = {
+        this.cliente = {
           nome,
           precoVenda,
           precoCompra,
           descricao,
           quantidade,
           fornecedor,
-          classe,
           id,
         };
         this.isNew = false;
@@ -144,9 +133,9 @@ export default {
     },
 
     async deleteItem(id) {
-      const response = await store().dispatch('product/deleteProduct', id);
+      const response = await store().dispatch('client/deleteClient', id);
       if(response) {
-        await store().dispatch('product/getProduct');
+        await store().dispatch('client/getClient');
         this.$q.notify({
           color: 'positive',
           message: 'Item deletado com sucesso',
@@ -166,15 +155,15 @@ export default {
     },
   },
   computed: {
-    ...mapGetters('product', ['getProduct']),
+    ...mapGetters('client', ['getClient']),
     filterProducts() {
-      return this.filter ? this.getProduct.filter((produto) => { /* eslint-disable-line arrow-body-style */
-        return produto.nome.toLowerCase().includes(this.filter.toLowerCase());
-      }) : this.getProduct;
+      return this.filter ? this.getClient.filter((client) => { /* eslint-disable-line arrow-body-style */
+        return client.nome.toLowerCase().includes(this.filter.toLowerCase());
+      }) : this.getClient;
     },
   },
   async mounted() {
-    await store().dispatch('product/getProduct');
+    await store().dispatch('client/getClient');
   },
 };
 </script>

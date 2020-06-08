@@ -12,7 +12,7 @@
         :pagination.sync="pagination"
       >
       <template v-slot:top>
-        <p class="m-table-produto_title">Produto</p>
+        <p class="m-table-produto_title">Medicamento</p>
         <q-space />
 
         <q-input
@@ -40,9 +40,6 @@
           <q-td key="quantidade" :props="props">
             {{ props.row.quantidade }}
           </q-td>
-          <q-td key="classe" :props="classe">
-            {{ props.row.classe }}
-          </q-td>
           <q-td>
             <q-btn size="md" round icon="edit"
             @click="openUpdate(
@@ -52,7 +49,6 @@
             props.row.quantidade,
             props.row.fornecedor,
             props.row.precoCompra,
-            props.row.classe,
             props.row.id,
             )">
               <q-tooltip>Editar item</q-tooltip>
@@ -92,9 +88,6 @@ const columns = [
   {
     name: 'quantidade', align: 'left', label: 'Quantidade', field: 'quantidade',
   },
-  {
-    name: 'clsee', align: 'left', label: 'Classe', field: 'classe',
-  },
 ];
 
 // const data = [
@@ -112,7 +105,7 @@ export default {
   data() {
     return {
       filter: '',
-      data: this.getProduct,
+      data: this.getMedicine,
       columns,
       updateModal: false,
       produto: {},
@@ -123,7 +116,7 @@ export default {
     };
   },
   methods: {
-    openUpdate(nome, precoVenda, descricao, quantidade, fornecedor, precoCompra, classe, id) {
+    openUpdate(nome, precoVenda, descricao, quantidade, fornecedor, precoCompra, id) {
       if (nome) {
         this.produto = {
           nome,
@@ -132,7 +125,6 @@ export default {
           descricao,
           quantidade,
           fornecedor,
-          classe,
           id,
         };
         this.isNew = false;
@@ -144,9 +136,9 @@ export default {
     },
 
     async deleteItem(id) {
-      const response = await store().dispatch('product/deleteProduct', id);
+      const response = await store().dispatch('medicine/deleteMedicine', id);
       if(response) {
-        await store().dispatch('product/getProduct');
+        await store().dispatch('medicine/getMedicine');
         this.$q.notify({
           color: 'positive',
           message: 'Item deletado com sucesso',
@@ -166,15 +158,15 @@ export default {
     },
   },
   computed: {
-    ...mapGetters('product', ['getProduct']),
+    ...mapGetters('medicine', ['getMedicine']),
     filterProducts() {
-      return this.filter ? this.getProduct.filter((produto) => { /* eslint-disable-line arrow-body-style */
+      return this.filter ? this.getMedicine.filter((produto) => { /* eslint-disable-line arrow-body-style */
         return produto.nome.toLowerCase().includes(this.filter.toLowerCase());
-      }) : this.getProduct;
+      }) : this.getMedicine;
     },
   },
   async mounted() {
-    await store().dispatch('product/getProduct');
+    await store().dispatch('medicine/getMedicine');
   },
 };
 </script>

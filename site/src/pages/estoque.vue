@@ -11,28 +11,15 @@
         align="left"
         icon="healing"
         no-caps
-        to="/estoque-produto-medicamento"
-        label="Medicamento"/>
+        to="/estoque-medicamento"
+        label="Medicamentos"/>
           <q-btn
           no-caps
           align="left"
           icon="sports_baseball"
           class="o-btn_estoque -flex2"
-          label="Brinquedo"
-          />
-          <q-btn
-            no-caps
-            align="left"
-            icon="local_dining"
-            class="o-btn_estoque -flex2"
-            label="Comida"
-          />
-          <q-btn
-            no-caps
-            icon="category"
-            align="left"
-            class="a-btn o-btn_estoque -flex2"
-            label="Acessório"
+          to="/estoque-produto"
+          label="Produtos"
           />
       </q-card-section>
     </q-card>

@@ -16,10 +16,24 @@ const routes = [
     ],
   },
   {
-    path: '/estoque-produto-medicamento',
+    path: '/estoque-medicamento',
+    component: () => import('layouts/index.vue'),
+    children: [
+      { path: '', component: () => import('pages/medicamento.vue') },
+    ],
+  },
+  {
+    path: '/estoque-produto',
     component: () => import('layouts/index.vue'),
     children: [
       { path: '', component: () => import('pages/produto.vue') },
+    ],
+  },
+  {
+    path: '/listar-clientes',
+    component: () => import('layouts/index.vue'),
+    children: [
+      { path: '', component: () => import('pages/list-cli.vue') },
     ],
   },
   {

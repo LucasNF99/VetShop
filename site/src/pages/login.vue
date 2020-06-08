@@ -44,7 +44,6 @@ export default {
   },
   methods: {
     submit() {
-      console.log('enviado');
       this.$router.push({ name: 'home' });
     },
   },

@@ -11,7 +11,7 @@
         align="left"
         icon="list"
         no-caps
-        to=""
+        to="/listar-clientes"
         label="Listar clientes"/>
           <q-btn
           no-caps
