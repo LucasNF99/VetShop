@@ -1,7 +1,7 @@
 <template>
   <div class="o-produto">
     <q-btn no-caps icon="add" class="a-btn _add" @click="openUpdate()">
-      Adicionar novo cliente
+      Marcar nova consulta
     </q-btn>
     <q-table
         :data="filterProducts"
@@ -12,7 +12,7 @@
         :pagination.sync="pagination"
       >
       <template v-slot:top>
-        <p class="m-table-produto_title">Clientes</p>
+        <p class="m-table-produto_title">Consultas</p>
         <q-space />
 
         <q-input
@@ -26,35 +26,28 @@
       </template>
       <template class="m-table-template" v-slot:body="props">
         <q-tr :props="props">
-          <q-td key="nome" :props="props">
-            {{ props.row.nome }}
+          <q-td key="data" :props="props">
+            {{ props.row.data }}
           </q-td>
-          <q-td key="email" :props="props">
-            <div class="a-table-descricao">
-              {{ props.row.email }}
+          <q-td key="id" :props="props" class="a-table-td-descricao">
+            <div>
+              {{ props.row.id}}
             </div>
-          </q-td>
-          <q-td key="telefone" :props="props">
-            {{ props.row.telefone }}
-          </q-td>
-          <q-td key="cpf" :props="props">
-            {{ props.row.cpf}}
           </q-td>
           <q-td>
             <q-btn size="md" round icon="edit"
             @click="openUpdate(
             props.row.nome,
-            props.row.email,
-            props.row.telefone,
-            props.row.bairro,
-            props.row.rua,
-            props.row.numero,
-            props.row.cpf,
+            props.row.precoVenda,
+            props.row.descricao,
+            props.row.quantidade,
+            props.row.fornecedor,
+            props.row.precoCompra,
             props.row.id,
             )">
-              <q-tooltip>Editar dados</q-tooltip>
+              <q-tooltip>Editar item</q-tooltip>
             </q-btn>
-            <q-btn @click="confirm = true" size="md" round icon="delete">
+            <q-btn @click="confirm = true"  size="md" round icon="delete">
               <q-tooltip>Deletar item</q-tooltip>
             </q-btn>
           </q-td>
@@ -62,21 +55,22 @@
         <q-dialog v-model="confirm" persistent>
           <q-card>
             <q-card-section class="row items-center">
-              <span class="q-ml-sm">Deseja realmente excluir este cliente?</span>
+              <span class="q-ml-sm">Deseja realmente excluir este medicamento?</span>
             </q-card-section>
 
             <q-card-actions align="right">
               <q-btn flat label="Não" color="primary" v-close-popup />
-              <q-btn flat label="Sim" color="primary" @click="deleteItem(props.row.id)" />
+              <q-btn flat label="Sim" color="primary" @click="deleteItem(props.row.id)"
+              v-close-popup/>
             </q-card-actions>
           </q-card>
         </q-dialog>
       </template>
     </q-table>
-    <updateModalCli
-    :updateModalCli="updateModalCli"
+    <updateModal
+    :updateModal="updateModal"
     :isNew="isNew"
-    :cliente="cliente"
+    :consulta="consulta"
     @closeModal="closeModal"
     />
   </div>
@@ -85,35 +79,32 @@
 <script>
 /* eslint-disable */
 import { mapGetters } from 'vuex';
-import updateModalCli from '../components/update-modal-cli';
+import updateModal from '../components/update-modal';
 import store from '../store';
 
 const columns = [
   {
-    name: 'nome', align: 'left', label: 'Nome', field: 'nome',
+    name: 'data', align: 'left', label: 'Data', field: 'data',
   },
   {
-    name: 'email', align: 'left', label: 'E-mail', field: 'email',
+    name: 'id', align: 'left', label: 'Id', field: 'id',
   },
   {
-    name: 'telefone', align: 'left', label: 'Telefone', field: 'telefone',
-  },
-  {
-    name: 'cpf', align: 'left', label: 'CPF', field: 'cpf',
+    name: 'price', align: 'left', label: 'Preço', field: 'preco',
   },
 ];
 
 export default {
   components: {
-    updateModalCli,
+    updateModal,
   },
   data() {
     return {
       filter: '',
-      data: this.getClient,
+      data: this.getAppointment,
       columns,
-      updateModalCli: false,
-      cliente: {},
+      updateModal: false,
+      consulta: {},
       isNew: false,
       pagination: {
         rowsPerPage: 5,
@@ -122,33 +113,32 @@ export default {
     };
   },
   methods: {
-    openUpdate(nome, email, telefone, bairro, rua, numero, cpf, id) {
-      if (nome) {
-        this.cliente = {
-          nome,
-          email,
-          telefone,
-          bairro,
-          rua,
-          numero,
-          cpf,
+    openUpdate(data, precoVenda, descricao, quantidade, fornecedor, precoCompra, id) {
+      if (data) {
+        this.consulta = {
+          data,
+          precoVenda,
+          precoCompra,
+          descricao,
+          quantidade,
+          fornecedor,
           id,
         };
         this.isNew = false;
       } else {
         this.isNew = true;
-        this.cliente = {};
+        this.consulta = {};
       }
-      this.updateModalCli = true;
+      this.updateModal = true;
     },
 
     async deleteItem(id) {
-      const response = await store().dispatch('client/deleteClient', id);
+      const response = await store().dispatch('appointment/deleteAppointment', id);
       if(response) {
-        await store().dispatch('client/getClient');
+        await store().dispatch('appointment/getAppointment');
         this.$q.notify({
           color: 'positive',
-          message: 'cliente deletado com sucesso',
+          message: 'Item deletado com sucesso',
           icon: 'done'
         });
       } else {
@@ -161,19 +151,19 @@ export default {
     },
 
     closeModal() {
-      this.updateModalCli = false;
+      this.updateModal = false;
     },
   },
   computed: {
-    ...mapGetters('client', ['getClient']),
+    ...mapGetters('appointment', ['getAppointment']),
     filterProducts() {
-      return this.filter ? this.getClient.filter((client) => { /* eslint-disable-line arrow-body-style */
-        return client.nome.toLowerCase().includes(this.filter.toLowerCase());
-      }) : this.getClient;
+      return this.filter ? this.getAppointment.filter((produto) => { /* eslint-disable-line arrow-body-style */
+        return produto.nome.toLowerCase().includes(this.filter.toLowerCase());
+      }) : this.getAppointment;
     },
   },
   async mounted() {
-    await store().dispatch('client/getClient');
+    await store().dispatch('appointment/getAppointment');
   },
 };
 </script>

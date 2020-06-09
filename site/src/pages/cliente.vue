@@ -26,7 +26,7 @@
         align="left"
         icon="list"
         no-caps
-        to=""
+        to="/listar-consultas"
         label="Listar consultas"/>
       </q-card-section>
     </q-card>

@@ -37,6 +37,13 @@ const routes = [
     ],
   },
   {
+    path: '/listar-consultas',
+    component: () => import('layouts/index.vue'),
+    children: [
+      { path: '', component: () => import('pages/list-appointment.vue') },
+    ],
+  },
+  {
     path: '/caixa',
     component: () => import('layouts/index.vue'),
     children: [
