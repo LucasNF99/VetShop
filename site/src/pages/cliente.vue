@@ -13,13 +13,6 @@
         no-caps
         to="/listar-clientes"
         label="Listar clientes"/>
-          <q-btn
-          no-caps
-          align="left"
-          icon="add"
-          class="o-btn_estoque -flex2"
-          label="Cadastrar novo cliente"
-          />
       </q-card-section>
     </q-card>
     <q-card class="m-card-nav">
@@ -35,13 +28,6 @@
         no-caps
         to=""
         label="Listar consultas"/>
-          <q-btn
-          no-caps
-          align="left"
-          icon="alarm_on"
-          class="o-btn_estoque -flex2"
-          label="Marcar nova consulta"
-          />
       </q-card-section>
     </q-card>
   </div>

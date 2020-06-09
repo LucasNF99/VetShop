@@ -1,5 +1,8 @@
 <template>
   <div class="o-produto">
+    <q-btn no-caps icon="add" class="a-btn _add" @click="openUpdate()">
+      Aidicionar novo cliente
+    </q-btn>
     <q-table
         :data="filterProducts"
         :columns="columns"
@@ -34,8 +37,8 @@
           <q-td key="telefone" :props="props">
             {{ props.row.telefone }}
           </q-td>
-          <q-td key="quantidade" :props="props">
-            {{ props.row.quantidade }}
+          <q-td key="cpf" :props="props">
+            {{ props.row.cpf}}
           </q-td>
           <q-td>
             <q-btn size="md" round icon="edit"
@@ -43,24 +46,37 @@
             props.row.nome,
             props.row.email,
             props.row.telefone,
-            props.row.quantidade,
-            props.row.fornecedor,
-            props.row.precoCompra,
+            props.row.bairro,
+            props.row.rua,
+            props.row.numero,
+            props.row.cpf,
             props.row.id,
             )">
               <q-tooltip>Editar dados</q-tooltip>
             </q-btn>
-            <q-btn @click="deleteItem(props.row.id)" size="md" round icon="delete">
+            <q-btn @click="confirm = true" size="md" round icon="delete">
               <q-tooltip>Deletar item</q-tooltip>
             </q-btn>
           </q-td>
         </q-tr>
+        <q-dialog v-model="confirm" persistent>
+          <q-card>
+            <q-card-section class="row items-center">
+              <span class="q-ml-sm">Deseja realmente excluir este cliente?</span>
+            </q-card-section>
+
+            <q-card-actions align="right">
+              <q-btn flat label="Não" color="primary" v-close-popup />
+              <q-btn flat label="Sim" color="primary" @click="deleteItem(props.row.id)" />
+            </q-card-actions>
+          </q-card>
+        </q-dialog>
       </template>
     </q-table>
-    <updateModal
-    :updateModal="updateModal"
+    <updateModalCli
+    :updateModalCli="updateModalCli"
     :isNew="isNew"
-    :produto="produto"
+    :cliente="cliente"
     @closeModal="closeModal"
     />
   </div>
@@ -69,7 +85,7 @@
 <script>
 /* eslint-disable */
 import { mapGetters } from 'vuex';
-import updateModal from '../components/update-modal';
+import updateModalCli from '../components/update-modal-cli';
 import store from '../store';
 
 const columns = [
@@ -83,53 +99,47 @@ const columns = [
     name: 'telefone', align: 'left', label: 'Telefone', field: 'telefone',
   },
   {
-    name: 'quantidade', align: 'left', label: 'Quantidade', field: 'quantidade',
+    name: 'cpf', align: 'left', label: 'CPF', field: 'cpf',
   },
 ];
 
-// const data = [
-//   {
-//     name: 'VacinaV500',
-//     descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
-//     precoVenda: 6.22,
-//     quantidade: 24,
-//   },
-// ];
 export default {
   components: {
-    updateModal,
+    updateModalCli,
   },
   data() {
     return {
       filter: '',
-      data: this.getMedicine,
+      data: this.getClient,
       columns,
-      updateModal: false,
-      client: {},
+      updateModalCli: false,
+      cliente: {},
       isNew: false,
       pagination: {
         rowsPerPage: 5,
       },
+      confirm: false,
     };
   },
   methods: {
-    openUpdate(nome, precoVenda, descricao, quantidade, fornecedor, precoCompra, id) {
+    openUpdate(nome, email, telefone, bairro, rua, numero, cpf, id) {
       if (nome) {
         this.cliente = {
           nome,
-          precoVenda,
-          precoCompra,
-          descricao,
-          quantidade,
-          fornecedor,
+          email,
+          telefone,
+          bairro,
+          rua,
+          numero,
+          cpf,
           id,
         };
         this.isNew = false;
       } else {
         this.isNew = true;
-        this.produto = {};
+        this.cliente = {};
       }
-      this.updateModal = true;
+      this.updateModalCli = true;
     },
 
     async deleteItem(id) {
@@ -138,7 +148,7 @@ export default {
         await store().dispatch('client/getClient');
         this.$q.notify({
           color: 'positive',
-          message: 'Item deletado com sucesso',
+          message: 'cliente deletado com sucesso',
           icon: 'done'
         });
       } else {
@@ -151,7 +161,7 @@ export default {
     },
 
     closeModal() {
-      this.updateModal = false;
+      this.updateModalCli = false;
     },
   },
   computed: {

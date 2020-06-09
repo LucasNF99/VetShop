@@ -63,7 +63,7 @@ export default {
       console.log(this.products.id);
     }
   },
-  
+
   async mounted() {
     await store().dispatch('medicine/getMedicine');
   },

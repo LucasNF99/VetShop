@@ -53,11 +53,24 @@
             )">
               <q-tooltip>Editar item</q-tooltip>
             </q-btn>
-            <q-btn @click="deleteItem(props.row.id)" size="md" round icon="delete">
+            <q-btn @click="confirm = true"  size="md" round icon="delete">
               <q-tooltip>Deletar item</q-tooltip>
             </q-btn>
           </q-td>
         </q-tr>
+        <q-dialog v-model="confirm" persistent>
+          <q-card>
+            <q-card-section class="row items-center">
+              <span class="q-ml-sm">Deseja realmente excluir este medicamento?</span>
+            </q-card-section>
+
+            <q-card-actions align="right">
+              <q-btn flat label="Não" color="primary" v-close-popup />
+              <q-btn flat label="Sim" color="primary" @click="deleteItem(props.row.id)"
+              v-close-popup/>
+            </q-card-actions>
+          </q-card>
+        </q-dialog>
       </template>
     </q-table>
     <updateModal
@@ -113,6 +126,7 @@ export default {
       pagination: {
         rowsPerPage: 5,
       },
+      confirm: false,
     };
   },
   methods: {
