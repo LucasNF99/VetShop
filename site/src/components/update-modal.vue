@@ -43,12 +43,6 @@
               <span class="m-update_field-label">Fornecedor:</span>
               <q-input v-model="fornecedor" class="m-update_field-input"/>
             </div>
-            <template v-if="classe">
-              <div class="m-modal-update_field">
-                <span class="m-update_field-label">Classe:</span>
-                <q-input v-model="classe" class="m-update_field-input"/>
-              </div>
-            </template>
           </div>
           </q-form>
         </q-card-section>

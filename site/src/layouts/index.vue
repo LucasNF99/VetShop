@@ -26,7 +26,14 @@
         </div>
       </q-toolbar>
     </q-header>
-    <qDrawerOpen :leftDrawerOpen="leftDrawerOpen"></qDrawerOpen>
+    <q-drawer
+      v-model="leftDrawerOpen"
+      show-if-above
+      bordered
+      content-class="bg-grey-1"
+    >
+      <qDrawerOpen></qDrawerOpen>
+    </q-drawer>
     <q-page-container>
       <router-view />
     </q-page-container>

@@ -40,7 +40,7 @@
           <q-td key="quantidade" :props="props">
             {{ props.row.quantidade }}
           </q-td>
-          <q-td key="classe" :props="classe">
+          <q-td key="classe" :props="props">
             {{ props.row.classe }}
           </q-td>
           <q-td>
@@ -106,7 +106,7 @@ const columns = [
     name: 'quantidade', align: 'left', label: 'Quantidade', field: 'quantidade',
   },
   {
-    name: 'clsse', align: 'left', label: 'Classe', field: 'classe',
+    name: 'classe', align: 'left', label: 'Classe', field: 'classe',
   },
 ];
 
