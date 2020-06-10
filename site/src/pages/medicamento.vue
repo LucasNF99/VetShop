@@ -1,7 +1,7 @@
 <template>
   <div class="o-produto">
     <q-btn no-caps icon="add" class="a-btn _add" @click="openUpdate()">
-      Adicionar novo produto
+      Adicionar medicamento
     </q-btn>
     <q-table
         :data="filterProducts"
@@ -73,7 +73,7 @@
         </q-dialog>
       </template>
     </q-table>
-    <updateModal
+    <updateModalMed
     :updateModal="updateModal"
     :isNew="isNew"
     :produto="produto"
@@ -85,7 +85,7 @@
 <script>
 /* eslint-disable */
 import { mapGetters } from 'vuex';
-import updateModal from '../components/update-modal';
+import updateModalMed from '../components/update-modal';
 import store from '../store';
 
 const columns = [
@@ -103,17 +103,9 @@ const columns = [
   },
 ];
 
-// const data = [
-//   {
-//     name: 'VacinaV500',
-//     descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus.',
-//     precoVenda: 6.22,
-//     quantidade: 24,
-//   },
-// ];
 export default {
   components: {
-    updateModal,
+    updateModalMed,
   },
   data() {
     return {

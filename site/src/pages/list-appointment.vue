@@ -79,7 +79,7 @@
 <script>
 /* eslint-disable */
 import { mapGetters } from 'vuex';
-import updateModal from '../components/update-modal';
+import updateModal from '../components/update-modal-appointment';
 import store from '../store';
 
 const columns = [

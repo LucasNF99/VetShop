@@ -10,15 +10,13 @@
 
         <q-card-section class="m-modal-update-">
           <q-form
-            @submit.prevent.stop="onSubmit"
+            @submit="onSubmit"
             class="m-modal-update-form"
           >
           <div>
             <div class="m-modal-update_field">
               <span class="m-update_field-label">Nome:</span>
               <q-input v-model="nome"
-                :rules="[val => !!val || 'Campo obrigatorio!']"
-                ref="nome"
                 class="m-update_field-input"/>
             </div>
             <div class="m-modal-update_field">
@@ -29,29 +27,21 @@
             <div class="m-modal-update_field">
               <span class="m-update_field-label">Quantidade:</span>
               <q-input type="number" v-model="quantidade"
-              :rules="[val => val >= 0 || 'Não pode ter valor negativo!']"
-              ref="quantidade"
               class="m-update_field-input"/>
             </div>
           </div>
           <div>
             <div class="m-modal-update_field">
               <span class="m-update_field-label">Preço de venda:</span>
-              <q-input type="number" v-model="precoVenda" class="m-update_field-input"
-              :rules="[val => val >= 0 || 'Não pode ter valor negativo!']"
-              ref="precoVenda"/>
+              <q-input type="number" v-model="precoVenda" class="m-update_field-input"/>
             </div>
             <div class="m-modal-update_field">
               <span class="m-update_field-label">Preço de compra:</span>
-              <q-input type="number" v-model="precoCompra" class="m-update_field-input"
-              :rules="[val => val >= 0 || 'Não pode ter valor negativo!']"
-              ref="precoCompra"/>
+              <q-input type="number" v-model="precoCompra" class="m-update_field-input"/>
             </div>
             <div class="m-modal-update_field">
               <span class="m-update_field-label">Fornecedor:</span>
-              <q-input v-model="fornecedor" class="m-update_field-input"
-              :rules="[val => !!val || 'Campo obrigatorio!']"
-                ref="fornecedor"/>
+              <q-input v-model="fornecedor" class="m-update_field-input"/>
             </div>
           </div>
           </q-form>
@@ -94,48 +84,34 @@ export default {
   },
   methods: {
     async onSubmit() {
-      this.$refs.nome.validate();
-      this.$refs.quantidade.validate();
-      this.$refs.precoCompra.validate();
-      this.$refs.precoVenda.validate();
-      this.$refs.fornecedor.validate();
-      if (this.$refs.nome.hasError
-      || this.$refs.quantidade.hasError
-      || this.$refs.precoVenda.hasError
-      || this.$refs.precoCompra.hasError
-      || this.$refs.fornecedor.hasError
-      ) {
-        this.formHasError = true;
+      if (!this.isNew) {
+        this.formatData();
       } else {
-        if (!this.isNew) {
-          this.formatData();
+        const payload = {
+          nome: this.nome,
+          precoVenda: this.precoVenda,
+          descricao: this.descricao,
+          quantidade: this.quantidade,
+          precoCompra: this.precoCompra,
+          fornecedor: this.fornecedor,
+        };
+        const response = await store().dispatch('medicine/createMedicine', payload);
+        if (response) {
+          await store().dispatch('medicine/getMedicine');
+          this.$q.notify({
+            color: 'positive',
+            message: 'Item criado com sucesso!',
+            icon: 'done',
+          });
         } else {
-          const payload = {
-            nome: this.nome,
-            precoVenda: this.precoVenda,
-            descricao: this.descricao,
-            quantidade: this.quantidade,
-            precoCompra: this.precoCompra,
-            fornecedor: this.fornecedor,
-          };
-          const response = await store().dispatch('medicine/createMedicine', payload);
-          if (response.id) {
-            await store().dispatch('medicine/getMedicine');
-            this.$q.notify({
-              color: 'positive',
-              message: 'Item criado com sucesso!',
-              icon: 'done',
-            });
-          } else {
-            this.$q.notify({
-              color: 'negative',
-              message: 'Ocorreu algum erro!',
-              icon: 'report_problem',
-            });
-          }
+          this.$q.notify({
+            color: 'negative',
+            message: 'Ocorreu algum erro!',
+            icon: 'report_problem',
+          });
         }
-        this.closeModal();
       }
+      this.closeModal();
     },
     closeModal(value) {
       if (value) this.$emit('closeModal', value);

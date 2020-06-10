@@ -1,7 +1,7 @@
 <template>
   <div class="o-produto">
     <q-btn no-caps icon="add" class="a-btn _add" @click="openUpdate()">
-      Adicionar novo cliente
+      Cadastrar novo cliente
     </q-btn>
     <q-table
         :data="filterProducts"
@@ -149,7 +149,7 @@ export default {
         this.$q.notify({
           color: 'positive',
           message: 'cliente deletado com sucesso',
-          icon: 'done'
+          icon: 'done',          
         });
       } else {
         this.$q.notify({

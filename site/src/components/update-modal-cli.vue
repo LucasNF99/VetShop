@@ -10,14 +10,16 @@
 
         <q-card-section class="m-modal-update-">
           <q-form
-            @submit="onSubmit"
+            @submit.prevent.stop="onSubmit"
             class="m-modal-update-form"
           >
           <div>
             <div class="m-modal-update_field">
               <span class="m-update_field-label">Nome:</span>
               <q-input v-model="nome"
-                class="m-update_field-input"/>
+                class="m-update_field-input"
+                 :rules="[val => !!val || 'Campo obrigatorio!']"
+                ref="nome"/>
             </div>
             <div class="m-modal-update_field">
               <span class="m-update_field-label">E-mail:</span>
@@ -25,12 +27,17 @@
               class="m-update_field-input" />
             </div>
             <div class="m-modal-update_field">
-              <span class="m-update_field-label">Telefone:</span>
-              <q-input v-model="telefone" class="m-update_field-input"/>
+              <span class="m-update_field-label">Telefone:
+              </span>
+              <q-input v-model="telefone" mask="(##) ##### - ####" class="m-update_field-input"
+               :rules="[val => !!val || 'Campo obrigatorio!']"
+                ref="telefone"/>
             </div>
             <div class="m-modal-update_field">
               <span class="m-update_field-label">CPF:</span>
-              <q-input v-model="cpf" class="m-update_field-input"/>
+              <q-input v-model="cpf" class="m-update_field-input"
+               :rules="[val => !!val || 'Campo obrigatorio!']"
+                ref="cpf"/>
             </div>
           </div>
           <div>
@@ -92,35 +99,42 @@ export default {
   },
   methods: {
     async onSubmit() {
-      if (!this.isNew) {
-        this.formatData();
+      this.$refs.nome.validate();
+      this.$refs.cpf.validate();
+      this.$refs.telefone.validate();
+      if (this.$refs.nome.hasError || this.$refs.cpf.hasError || this.$refs.telefone.hasError) {
+        this.formHasError = true;
       } else {
-        const payload = {
-          nome: this.nome,
-          telefone: this.telefone,
-          email: this.email,
-          numero: this.numero,
-          bairro: this.bairro,
-          rua: this.rua,
-          cpf: this.cpf,
-        };
-        const response = await store().dispatch('client/createClient', payload);
-        if (response) {
-          await store().dispatch('client/getClient');
-          this.$q.notify({
-            color: 'positive',
-            message: 'Item criado com sucesso!',
-            icon: 'done',
-          });
+        if (!this.isNew) {
+          this.formatData();
         } else {
-          this.$q.notify({
-            color: 'negative',
-            message: 'Ocorreu algum erro!',
-            icon: 'report_problem',
-          });
+          const payload = {
+            nome: this.nome,
+            telefone: this.telefone,
+            email: this.email,
+            numero: this.numero,
+            bairro: this.bairro,
+            rua: this.rua,
+            cpf: this.cpf,
+          };
+          const response = await store().dispatch('client/createClient', payload);
+          if (response) {
+            await store().dispatch('client/getClient');
+            this.$q.notify({
+              color: 'positive',
+              message: 'Item criado com sucesso!',
+              icon: 'done',
+            });
+          } else {
+            this.$q.notify({
+              color: 'negative',
+              message: 'Ocorreu algum erro!',
+              icon: 'report_problem',
+            });
+          }
         }
+        this.closeModal();
       }
-      this.closeModal();
     },
     closeModal(value) {
       if (value) this.$emit('closeModal', value);

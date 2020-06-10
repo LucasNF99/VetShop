@@ -1,7 +1,7 @@
 <template>
   <div class="o-produto">
     <q-btn no-caps icon="add" class="a-btn _add" @click="openUpdate()">
-      Adicionar novo produto
+      Adicionar produto
     </q-btn>
     <q-table
         :data="filterProducts"
