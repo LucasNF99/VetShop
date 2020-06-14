@@ -1,6 +1,7 @@
 export default axios => ({
-  get: () => axios.get('user'),
-  update: payload => axios.put('user', payload),
-  create: payload => axios.post('user', payload),
-  check: payload => axios.post('check', payload),
+  list: () => axios.get('usuario'),
+  get: payload => axios.get(`usuario/${payload}`),
+  update: payload => axios.put('usuario', payload),
+  create: payload => axios.post('usuario', payload),
+  delete: payload => axios.delete(`usuario/${payload}`),
 });

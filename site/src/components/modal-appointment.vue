@@ -3,45 +3,38 @@
     <q-dialog v-model="updateModal" class="m-modal-update">
       <q-card>
         <q-card-section>
-          <div class="text-h6">{{isNew ? 'Novo produto' : 'Editar produto'}}</div>
+          <div class="text-h6">{{isNew ? 'Nova consulta' : 'Editar consulta'}}</div>
         </q-card-section>
 
         <q-separator />
 
         <q-card-section class="m-modal-update-">
           <q-form
-            @submit="onSubmit"
+            @submit.prevent.stop="onSubmit"
             class="m-modal-update-form"
           >
           <div>
             <div class="m-modal-update_field">
-              <span class="m-update_field-label">Nome:</span>
-              <q-input v-model="nome"
+              <span class="m-update_field-label">Data:</span>
+              <q-input v-model="data"
+                :rules="[val => !!val || 'Campo obrigatorio!']"
+                ref="data"
                 class="m-update_field-input"/>
             </div>
             <div class="m-modal-update_field">
-              <span class="m-update_field-label">Descrição:</span>
-              <q-input v-model="descricao"
+              <span class="m-update_field-label">Hora:</span>
+              <q-input v-model="hora"
+              :rules="[val => !!val || 'Campo obrigatorio!']"
+              ref="hora"
               class="m-update_field-input text-area" />
-            </div>
-            <div class="m-modal-update_field">
-              <span class="m-update_field-label">Quantidade:</span>
-              <q-input type="number" v-model="quantidade"
-              class="m-update_field-input"/>
             </div>
           </div>
           <div>
             <div class="m-modal-update_field">
-              <span class="m-update_field-label">Preço de venda:</span>
-              <q-input type="number" v-model="precoVenda" class="m-update_field-input"/>
-            </div>
-            <div class="m-modal-update_field">
-              <span class="m-update_field-label">Preço de compra:</span>
-              <q-input type="number" v-model="precoCompra" class="m-update_field-input"/>
-            </div>
-            <div class="m-modal-update_field">
-              <span class="m-update_field-label">Fornecedor:</span>
-              <q-input v-model="fornecedor" class="m-update_field-input"/>
+              <span class="m-update_field-label">Paciente:</span>
+              <q-input type="text" v-model="paciente" class="m-update_field-input"
+              :rules="[val => !!val || 'Campo obrigatorio!']"
+              ref="paciente"/>
             </div>
           </div>
           </q-form>
@@ -68,7 +61,7 @@ export default {
   nome: 'updateModal',
   props: {
     updateModal: Boolean,
-    produto: Object,
+    consulta: Object,
     isNew: Boolean,
   },
   data() {
@@ -84,34 +77,42 @@ export default {
   },
   methods: {
     async onSubmit() {
-      if (!this.isNew) {
-        this.formatData();
+      this.$refs.data.validate();
+      this.$refs.id.validate();
+      if (this.$refs.data.hasError
+      || this.$refs.id.hasError
+      ) {
+        this.formHasError = true;
       } else {
-        const payload = {
-          nome: this.nome,
-          precoVenda: this.precoVenda,
-          descricao: this.descricao,
-          quantidade: this.quantidade,
-          precoCompra: this.precoCompra,
-          fornecedor: this.fornecedor,
-        };
-        const response = await store().dispatch('medicine/createMedicine', payload);
-        if (response) {
-          await store().dispatch('medicine/getMedicine');
-          this.$q.notify({
-            color: 'positive',
-            message: 'Item criado com sucesso!',
-            icon: 'done',
-          });
+        if (!this.isNew) {
+          this.formatData();
         } else {
-          this.$q.notify({
-            color: 'negative',
-            message: 'Ocorreu algum erro!',
-            icon: 'report_problem',
-          });
+          const payload = {
+            nome: this.nome,
+            precoVenda: this.precoVenda,
+            descricao: this.descricao,
+            quantidade: this.quantidade,
+            precoCompra: this.precoCompra,
+            fornecedor: this.fornecedor,
+          };
+          const response = await store().dispatch('medicine/createMedicine', payload);
+          if (response.id) {
+            await store().dispatch('medicine/getMedicine');
+            this.$q.notify({
+              color: 'positive',
+              message: 'Item criado com sucesso!',
+              icon: 'done',
+            });
+          } else {
+            this.$q.notify({
+              color: 'negative',
+              message: 'Ocorreu algum erro!',
+              icon: 'report_problem',
+            });
+          }
         }
+        this.closeModal();
       }
-      this.closeModal();
     },
     closeModal(value) {
       if (value) this.$emit('closeModal', value);

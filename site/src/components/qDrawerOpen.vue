@@ -41,7 +41,7 @@
     </q-item>
     <q-item>
       <q-item-section>
-          <q-btn to="#"
+          <q-btn to="/gerencia"
           icon="settings"
           class="a-btn _menu"
           label="Gerenciar"

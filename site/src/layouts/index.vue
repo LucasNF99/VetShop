@@ -41,13 +41,13 @@
       <nav>
         <ul class="m-footer-list">
           <li class="m-footer-list_item">
-            <a href="" class="m-footer-list-link">Home</a>
+            <a href="#" class="m-footer-list-link">Home</a>
           </li>
           <li class="m-footer-list_item">
-            <a href="" class="m-footer-list-link">Caixa</a>
+            <a href="/#/caixa" class="m-footer-list-link">Caixa</a>
           </li>
           <li class="m-footer-list_item">
-            <a href="" class="m-footer-list-link">Gerenciar</a>
+            <a href="/#/gerencia" class="m-footer-list-link">Gerenciar</a>
           </li>
         </ul>
       </nav>

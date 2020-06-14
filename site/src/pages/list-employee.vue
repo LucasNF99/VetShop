@@ -1,7 +1,7 @@
 <template>
   <div class="o-produto">
     <q-btn no-caps icon="add" class="a-btn _add" @click="openUpdate()">
-      Marcar consulta
+      Cadastrar usuario
     </q-btn>
     <q-table
         :data="filterProducts"
@@ -12,7 +12,7 @@
         :pagination.sync="pagination"
       >
       <template v-slot:top>
-        <p class="m-table-produto_title">Consultas</p>
+        <p class="m-table-produto_title">Usuarios</p>
         <q-space />
 
         <q-input
@@ -26,28 +26,36 @@
       </template>
       <template class="m-table-template" v-slot:body="props">
         <q-tr :props="props">
-          <q-td key="data" :props="props">
-            {{ props.row.data }}
+          <q-td key="nome" :props="props">
+            {{ props.row.nome }}
           </q-td>
-          <q-td key="paciente" :props="props" class="a-table-td-descricao">
+          <q-td key="email" :props="props">
             <div class="a-table-descricao">
-              {{ props.row.id.nome }}
+              {{ props.row.email }}
             </div>
           </q-td>
-          <q-td key="price" :props="props">
-            R$ {{ props.row.precoVenda }}
+          <q-td key="telefone" :props="props">
+            {{ props.row.telefone }}
+          </q-td>
+          <q-td key="cpf" :props="props">
+            {{ props.row.cpf}}
           </q-td>
           <q-td>
             <q-btn size="md" round icon="edit"
             @click="openUpdate(
             props.row.nome,
-            props.row.precoVenda,
-            props.row.descricao,
+            props.row.email,
+            props.row.telefone,
+            props.row.bairro,
+            props.row.rua,
+            props.row.numero,
+            props.row.cpf,
+            props.row.senha,
             props.row.id,
             )">
-              <q-tooltip>Editar item</q-tooltip>
+              <q-tooltip>Editar dados</q-tooltip>
             </q-btn>
-            <q-btn @click="confirm = true"  size="md" round icon="delete">
+            <q-btn @click="confirm = true" size="md" round icon="delete">
               <q-tooltip>Deletar item</q-tooltip>
             </q-btn>
           </q-td>
@@ -55,22 +63,21 @@
         <q-dialog v-model="confirm" persistent>
           <q-card>
             <q-card-section class="row items-center">
-              <span class="q-ml-sm">Deseja realmente excluir este medicamento?</span>
+              <span class="q-ml-sm">Deseja realmente excluir este usuario?</span>
             </q-card-section>
 
             <q-card-actions align="right">
               <q-btn flat label="Não" color="primary" v-close-popup />
-              <q-btn flat label="Sim" color="primary" @click="deleteItem(props.row.id)"
-              v-close-popup/>
+              <q-btn flat label="Sim" color="primary" @click="deleteItem(props.row.id)" />
             </q-card-actions>
           </q-card>
         </q-dialog>
       </template>
     </q-table>
-    <updateModalMed
-    :updateModal="updateModal"
+    <updateModalCli
+    :updateModalCli="updateModalCli"
     :isNew="isNew"
-    :produto="produto"
+    :usuario="usuario"
     @closeModal="closeModal"
     />
   </div>
@@ -79,33 +86,35 @@
 <script>
 /* eslint-disable */
 import { mapGetters } from 'vuex';
-import updateModalMed from '../components/modal-appointment';
+import updateModalCli from '../components/modal-employee';
 import store from '../store';
-import moment from 'moment'
 
 const columns = [
   {
-    name: 'data', align: 'left', label: 'Data', field: 'data',
+    name: 'nome', align: 'left', label: 'Nome', field: 'nome',
   },
   {
-    name: 'paciente', align: 'left', label: 'Paciente', field: 'paciente',
+    name: 'email', align: 'left', label: 'E-mail', field: 'email',
   },
   {
-    name: 'price', align: 'left', label: 'Preço', field: 'preco',
+    name: 'telefone', align: 'left', label: 'Telefone', field: 'telefone',
+  },
+  {
+    name: 'cpf', align: 'left', label: 'CPF', field: 'cpf',
   },
 ];
 
 export default {
   components: {
-    updateModalMed,
+    updateModalCli,
   },
   data() {
     return {
       filter: '',
-      data: this.getAppointment,
+      data: this.getUser,
       columns,
-      updateModal: false,
-      produto: {},
+      updateModalCli: false,
+      usuario: {},
       isNew: false,
       pagination: {
         rowsPerPage: 5,
@@ -114,33 +123,35 @@ export default {
     };
   },
   methods: {
-    openUpdate(nome, precoVenda, descricao, quantidade, fornecedor, precoCompra, id) {
+    openUpdate(nome, email, telefone, bairro, rua, numero, cpf, senha, id) {
       if (nome) {
-        this.produto = {
+        this.user = {
           nome,
-          precoVenda,
-          precoCompra,
-          descricao,
-          quantidade,
-          fornecedor,
+          email,
+          telefone,
+          bairro,
+          rua,
+          numero,
+          cpf,
+          senha,
           id,
         };
         this.isNew = false;
       } else {
         this.isNew = true;
-        this.produto = {};
+        this.user = {};
       }
-      this.updateModal = true;
+      this.updateModalCli = true;
     },
 
     async deleteItem(id) {
-      const response = await store().dispatch('appointment/deleteAppointment', id);
+      const response = await store().dispatch('user/deleteUser', id);
       if(response) {
-        await store().dispatch('appointment/getAppointment');
+        await store().dispatch('user/getUser');
         this.$q.notify({
           color: 'positive',
-          message: 'Item deletado com sucesso',
-          icon: 'done'
+          message: 'usuario deletado com sucesso',
+          icon: 'done',
         });
       } else {
         this.$q.notify({
@@ -152,19 +163,19 @@ export default {
     },
 
     closeModal() {
-      this.updateModal = false;
+      this.updateModalCli = false;
     },
   },
   computed: {
-    ...mapGetters('appointment', ['getAppointment']),
+    ...mapGetters('user', ['getUser']),
     filterProducts() {
-      return this.filter ? this.getAppointment.filter((produto) => { /* eslint-disable-line arrow-body-style */
-        return produto.nome.toLowerCase().includes(this.filter.toLowerCase());
-      }) : this.getAppointment;
+      return this.filter ? this.getUser.filter((user) => { /* eslint-disable-line arrow-body-style */
+        return user.nome.toLowerCase().includes(this.filter.toLowerCase());
+      }) : this.getUser;
     },
   },
   async mounted() {
-    await store().dispatch('appointment/getAppointment');
+    await store().dispatch('user/getUser');
   },
 };
 </script>

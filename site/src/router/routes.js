@@ -16,10 +16,24 @@ const routes = [
     ],
   },
   {
+    path: '/gerencia',
+    component: () => import('layouts/index.vue'),
+    children: [
+      { path: '', component: () => import('pages/gerencia.vue') },
+    ],
+  },
+  {
     path: '/estoque-medicamento',
     component: () => import('layouts/index.vue'),
     children: [
       { path: '', component: () => import('pages/medicamento.vue') },
+    ],
+  },
+  {
+    path: '/gerencia-funcionario',
+    component: () => import('layouts/index.vue'),
+    children: [
+      { path: '', component: () => import('pages/list-employee.vue') },
     ],
   },
   {
