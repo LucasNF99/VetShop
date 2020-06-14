@@ -19,63 +19,16 @@
         <h4 class="a-right-title"><q-icon name="notifications"/> Avisos:</h4>
         <q-scroll-area style="height: 340px; max-width: 350px;">
         <q-list class="list-right">
-          <q-separator/>
-          <q-item clickable v-ripple>
-            <q-item-section>
-              <q-item-label>Produto em falta: </q-item-label>
-              <q-item-label caption>produto</q-item-label>
-            </q-item-section>
-          </q-item>
-          <q-separator/>
-          <q-item clickable v-ripple>
-            <q-item-section>
-              <q-item-label>Produto em falta: </q-item-label>
-              <q-item-label caption>produto</q-item-label>
-            </q-item-section>
-          </q-item>
-          <q-separator/>
-          <q-item clickable v-ripple>
-            <q-item-section>
-              <q-item-label>Produto em falta: </q-item-label>
-              <q-item-label caption>produto</q-item-label>
-            </q-item-section>
-          </q-item>
-          <q-separator/>
-          <q-item clickable v-ripple>
-            <q-item-section>
-              <q-item-label>Produto em falta: </q-item-label>
-              <q-item-label caption>produto</q-item-label>
-            </q-item-section>
-          </q-item>
-          <q-separator/>
-          <q-item clickable v-ripple>
-            <q-item-section>
-              <q-item-label>Produto em falta: </q-item-label>
-              <q-item-label caption>produto</q-item-label>
-            </q-item-section>
-          </q-item>
-          <q-separator/>
-          <q-item clickable v-ripple>
-            <q-item-section>
-              <q-item-label>Produto em falta: </q-item-label>
-              <q-item-label caption>produto</q-item-label>
-            </q-item-section>
-          </q-item>
-          <q-separator/>
-          <q-item clickable v-ripple>
-            <q-item-section>
-              <q-item-label>Produto em falta: </q-item-label>
-              <q-item-label caption>produto</q-item-label>
-            </q-item-section>
-          </q-item>
-          <q-separator/>
-           <q-item clickable v-ripple>
-            <q-item-section>
-              <q-item-label>Produto em falta: </q-item-label>
-              <q-item-label caption>produto</q-item-label>
-            </q-item-section>
-          </q-item>
-          <q-separator/>
+          <div v-for="product in products" :key="product.medicineId">
+            <q-separator/>
+            <q-item clickable v-ripple>
+              <q-item-section>
+                <q-item-label>Produto em falta: </q-item-label>
+                <q-item-label caption>{{prduct.nome}}</q-item-label>
+              </q-item-section>
+            </q-item>
+            <q-separator/>
+          </div>
         </q-list>
         </q-scroll-area>
       </div>
@@ -84,6 +37,9 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+import store from '../store';
+
 export default {
   name: 'PageIndex',
 
@@ -92,6 +48,7 @@ export default {
       check1: false,
       check2: false,
       check3: false,
+      prduto: {},
       pagination: {
         rowsPerPage: 7,
       },
@@ -195,6 +152,13 @@ export default {
         },
       ],
     };
+  },
+  computed: {
+    ...mapGetters('medicine', ['getMedicine']),
+  },
+
+  async mounted() {
+    await store().dispatch('medicine/getMedicine');
   },
 };
 </script>

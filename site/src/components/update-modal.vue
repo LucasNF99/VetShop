@@ -3,7 +3,7 @@
     <q-dialog v-model="updateModal" class="m-modal-update">
       <q-card>
         <q-card-section>
-          <div class="text-h6">{{isNew ? 'Novo produto' : 'Editar produto'}}</div>
+          <div class="text-h6">{{isNew ? 'Novo medicamento' : 'Editar medicamento'}}</div>
         </q-card-section>
 
         <q-separator />
@@ -24,6 +24,8 @@
             <div class="m-modal-update_field">
               <span class="m-update_field-label">Descrição:</span>
               <q-input v-model="descricao"
+              :rules="[val => !!val || 'Campo obrigatorio!']"
+              ref="descricao"
               class="m-update_field-input text-area" />
             </div>
             <div class="m-modal-update_field">
@@ -99,11 +101,13 @@ export default {
       this.$refs.precoCompra.validate();
       this.$refs.precoVenda.validate();
       this.$refs.fornecedor.validate();
+      this.$refs.descricao.validate();
       if (this.$refs.nome.hasError
       || this.$refs.quantidade.hasError
       || this.$refs.precoVenda.hasError
       || this.$refs.precoCompra.hasError
       || this.$refs.fornecedor.hasError
+      || this.$refs.descricao.hasError
       ) {
         this.formHasError = true;
       } else {

@@ -10,42 +10,59 @@
 
         <q-card-section class="m-modal-update-">
           <q-form
-            @submit="onSubmit"
+            @submit.prevent.stop="onSubmit"
             class="m-modal-update-form"
           >
           <div>
             <div class="m-modal-update_field">
               <span class="m-update_field-label">Nome:</span>
               <q-input v-model="nome"
+                :rules="[val => !!val || 'Campo obrigatorio!']"
+                ref="nome"
                 class="m-update_field-input"/>
             </div>
             <div class="m-modal-update_field">
               <span class="m-update_field-label">Descrição:</span>
               <q-input v-model="descricao"
+              :rules="[val => !!val || 'Campo obrigatorio!']"
+              ref="descricao"
               class="m-update_field-input text-area" />
             </div>
             <div class="m-modal-update_field">
               <span class="m-update_field-label">Quantidade:</span>
               <q-input type="number" v-model="quantidade"
+              :rules="[val => val >= 0 || 'Não pode ter valor negativo!']"
+              ref="quantidade"
               class="m-update_field-input"/>
             </div>
             <div class="m-modal-update_field">
               <span class="m-update_field-label">Classe:</span>
-              <q-input v-model="classe" class="m-update_field-input"/>
+              <q-input v-model="classe"
+                :rules="[val => !!val || 'Campo obrigatorio!']"
+                ref="classe"
+               class="m-update_field-input"/>
             </div>
           </div>
           <div>
             <div class="m-modal-update_field">
               <span class="m-update_field-label">Preço de venda:</span>
-              <q-input type="number" v-model="precoVenda" class="m-update_field-input"/>
+              <q-input type="number" v-model="precoVenda"
+                :rules="[val => val >= 0 || 'Não pode ter valor negativo!']"
+                ref="precoVenda"
+               class="m-update_field-input"/>
             </div>
             <div class="m-modal-update_field">
               <span class="m-update_field-label">Preço de compra:</span>
-              <q-input type="number" v-model="precoCompra" class="m-update_field-input"/>
+              <q-input type="number" v-model="precoCompra"
+                :rules="[val => val >= 0 || 'Não pode ter valor negativo!']"
+               class="m-update_field-input"
+               ref="precoCompra"/>
             </div>
             <div class="m-modal-update_field">
               <span class="m-update_field-label">Fornecedor:</span>
-              <q-input v-model="fornecedor" class="m-update_field-input"/>
+              <q-input v-model="fornecedor"
+                :rules="[val => !!val || 'Campo obrigatorio!']"
+               class="m-update_field-input" ref="fornecedor"/>
             </div>
           </div>
           </q-form>
@@ -63,10 +80,6 @@
     </q-dialog>
   </div>
 </template>
-
-<!--           <q-btn label="Salvar" flat round dense
-          @click="formatData"/>
--->
 
 <script>
 import store from '../store';
@@ -92,35 +105,53 @@ export default {
   },
   methods: {
     async onSubmit() {
-      if (!this.isNew) {
-        this.formatData();
+      this.$refs.nome.validate();
+      this.$refs.quantidade.validate();
+      this.$refs.precoCompra.validate();
+      this.$refs.precoVenda.validate();
+      this.$refs.fornecedor.validate();
+      this.$refs.descricao.validate();
+      this.$refs.classe.validate();
+      if (this.$refs.nome.hasError
+      || this.$refs.quantidade.hasError
+      || this.$refs.precoVenda.hasError
+      || this.$refs.precoCompra.hasError
+      || this.$refs.fornecedor.hasError
+      || this.$refs.descricao.hasError
+      || this.$refs.classe.hasError
+      ) {
+        this.formHasError = true;
       } else {
-        const payload = {
-          nome: this.nome,
-          precoVenda: this.precoVenda,
-          descricao: this.descricao,
-          quantidade: this.quantidade,
-          precoCompra: this.precoCompra,
-          fornecedor: this.fornecedor,
-          classe: this.classe,
-        };
-        const response = await store().dispatch('product/createProduct', payload);
-        if (response) {
-          await store().dispatch('product/getProduct');
-          this.$q.notify({
-            color: 'positive',
-            message: 'Item criado com sucesso!',
-            icon: 'done',
-          });
+        if (!this.isNew) {
+          this.formatData();
         } else {
-          this.$q.notify({
-            color: 'negative',
-            message: 'Ocorreu algum erro!',
-            icon: 'report_problem',
-          });
+          const payload = {
+            nome: this.nome,
+            precoVenda: this.precoVenda,
+            descricao: this.descricao,
+            quantidade: this.quantidade,
+            precoCompra: this.precoCompra,
+            fornecedor: this.fornecedor,
+            classe: this.classe,
+          };
+          const response = await store().dispatch('product/createProduct', payload);
+          if (response) {
+            await store().dispatch('product/getProduct');
+            this.$q.notify({
+              color: 'positive',
+              message: 'Item criado com sucesso!',
+              icon: 'done',
+            });
+          } else {
+            this.$q.notify({
+              color: 'negative',
+              message: 'Ocorreu algum erro!',
+              icon: 'report_problem',
+            });
+          }
         }
+        this.closeModal();
       }
-      this.closeModal();
     },
     closeModal(value) {
       if (value) this.$emit('closeModal', value);

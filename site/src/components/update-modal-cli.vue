@@ -24,6 +24,8 @@
             <div class="m-modal-update_field">
               <span class="m-update_field-label">E-mail:</span>
               <q-input v-model="email"
+               :rules="[val => !!val || 'Campo obrigatorio!']"
+               ref="email"
               class="m-update_field-input" />
             </div>
             <div class="m-modal-update_field">
@@ -42,17 +44,25 @@
           </div>
           <div>
             <div class="m-modal-update_field">
-              <span class="m-update_field-label">Numero</span>
+              <span class="m-update_field-label">Numero°</span>
               <q-input type="number" v-model="numero"
+               :rules="[val => !!val || 'Campo obrigatorio!']"
+               ref="numero"
               class="m-update_field-input"/>
             </div>
             <div class="m-modal-update_field">
               <span class="m-update_field-label">Bairro:</span>
-              <q-input v-model="bairro" class="m-update_field-input"/>
+              <q-input v-model="bairro"
+               :rules="[val => !!val || 'Campo obrigatorio!']"
+               ref="bairro"
+               class="m-update_field-input"/>
             </div>
             <div class="m-modal-update_field">
               <span class="m-update_field-label">Rua:</span>
-              <q-input v-model="rua" class="m-update_field-input"/>
+              <q-input v-model="rua"
+               :rules="[val => !!val || 'Campo obrigatorio!']"
+                ref="rua"
+               class="m-update_field-input"/>
             </div>
           </div>
           </q-form>
@@ -70,10 +80,6 @@
     </q-dialog>
   </div>
 </template>
-
-<!--           <q-btn label="Salvar" flat round dense
-          @click="formatData"/>
--->
 
 <script>
 import store from '../store';
@@ -102,7 +108,18 @@ export default {
       this.$refs.nome.validate();
       this.$refs.cpf.validate();
       this.$refs.telefone.validate();
-      if (this.$refs.nome.hasError || this.$refs.cpf.hasError || this.$refs.telefone.hasError) {
+      this.$refs.email.validate();
+      this.$refs.rua.validate();
+      this.$refs.bairro.validate();
+      this.$refs.numero.validate();
+      if (this.$refs.nome.hasError
+      || this.$refs.cpf.hasError
+      || this.$refs.telefone.hasError
+      || this.$refs.email.hasError
+      || this.$refs.rua.hasError
+      || this.$refs.bairro.hasError
+      || this.$refs.numero.hasError
+      ) {
         this.formHasError = true;
       } else {
         if (!this.isNew) {

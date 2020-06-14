@@ -7,7 +7,7 @@
       <q-scroll-area style="height: 300px;">
         <q-list class="m-cashier-search-list">
           <div v-for="product in filterProducts" :key="product.medicineId">
-            <q-item @click="add_product"
+            <q-item @click="addProduct()"
             clickable v-ripple
             >
               <q-item-section>
@@ -59,8 +59,8 @@ export default {
     },
   },
   method: {
-    add_product(){
-      console.log(this.products.id);
+    addProduct(produto){
+      return produto.nome;
     }
   },
 
