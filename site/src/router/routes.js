@@ -37,6 +37,13 @@ const routes = [
     ],
   },
   {
+    path: '/gerencia-venda',
+    component: () => import('layouts/index.vue'),
+    children: [
+      { path: '', component: () => import('pages/list-sale.vue') },
+    ],
+  },
+  {
     path: '/estoque-produto',
     component: () => import('layouts/index.vue'),
     children: [
