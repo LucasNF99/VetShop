@@ -1,13 +1,13 @@
 <template>
   <div>
   <div class="m-cashier">
-    <cashier/>
+    <cashier :products="products"/>
     <aside class="m-cashier-aside">
       <h5>Pesquisar:</h5>
       <q-scroll-area style="height: 300px;">
         <q-list class="m-cashier-search-list">
           <div v-for="product in filterProducts" :key="product.medicineId">
-            <q-item @click="addProduct()"
+            <q-item @click="addProduct(product)"
             clickable v-ripple
             >
               <q-item-section>
@@ -47,25 +47,30 @@ export default {
     return {
       filter: '',
       produto: {},
+      geral: [],
+      products: [],
     };
   },
   computed: {
     ...mapGetters('medicine', ['getMedicine']),
+    ...mapGetters('product', ['getProduct']),
 
     filterProducts() {
-      return this.filter ? this.getMedicine.filter((produto) => { /* eslint-disable-line arrow-body-style */
+      return this.filter ? this.geral.filter((produto) => { /* eslint-disable-line arrow-body-style */
         return produto.nome.toLowerCase().includes(this.filter.toLowerCase());
-      }) : this.getMedicine;
+      }) : this.geral;
     },
   },
-  method: {
+  methods: {
     addProduct(produto){
-      return produto.nome;
+      this.products.push(produto);
     }
   },
 
   async mounted() {
     await store().dispatch('medicine/getMedicine');
+    await store().dispatch('product/getProduct');
+    this.geral = this.getMedicine.concat(this.getProduct);
   },
 };
 </script>
