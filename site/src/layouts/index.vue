@@ -19,9 +19,6 @@
           </router-link>
          </div>
          <div>
-          <q-avatar>
-            <img src="https://cdn.quasar.dev/img/avatar.png">
-          </q-avatar>
           <btnDropDown></btnDropDown>
         </div>
       </q-toolbar>

@@ -6,6 +6,8 @@ import client from './module/client';
 import appointment from './module/appointment';
 import user from './module/user';
 import patient from './module/patient';
+import sale from './module/sale';
+import record from './module/record';
 
 // import example from './module-example'
 
@@ -29,6 +31,8 @@ export default function (/* { ssrContext } */) {
       appointment,
       user,
       patient,
+      sale,
+      record,
     },
 
     // enable strict mode (adds overhead!)

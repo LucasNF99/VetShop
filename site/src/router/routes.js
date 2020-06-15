@@ -51,6 +51,13 @@ const routes = [
     ],
   },
   {
+    path: '/listar-paciente',
+    component: () => import('layouts/index.vue'),
+    children: [
+      { path: '', component: () => import('pages/list-patient.vue') },
+    ],
+  },
+  {
     path: '/listar-consultas',
     component: () => import('layouts/index.vue'),
     children: [

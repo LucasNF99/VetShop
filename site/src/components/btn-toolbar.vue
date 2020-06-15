@@ -2,7 +2,7 @@
   <q-btn-dropdown
   class="a-btn _avatar"
   color="primary"
-  label="Nome"
+  label="Claytom"
   no-caps>
   <q-list>
     <q-item clickable v-close-popup>
