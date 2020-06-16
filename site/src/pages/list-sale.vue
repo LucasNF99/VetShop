@@ -75,6 +75,7 @@
 import { mapGetters } from 'vuex';
 import updateModalMed from '../components/update-modal';
 import store from '../store';
+import moment from 'moment';
 
 const columns = [
   {

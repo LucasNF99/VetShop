@@ -125,7 +125,7 @@ export default {
   methods: {
     openUpdate(nome, email, telefone, bairro, rua, numero, cpf, senha, id) {
       if (nome) {
-        this.user = {
+        this.usuario = {
           nome,
           email,
           telefone,
