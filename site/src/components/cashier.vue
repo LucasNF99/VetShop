@@ -6,8 +6,8 @@
         <div v-for="(product, index) in products" v-bind:key="index">
           <q-item clickable v-ripple>
             <q-item-section class="selected-list-section">
-              <q-item-label>{{product.nome}}</q-item-label>
-              <q-item-label>R$ {{product.precoVenda}}</q-item-label>
+              <q-item-label class="a-list-label">{{product.nome}}</q-item-label>
+              <q-item-label class="a-list-label">R$ {{product.precoVenda}}</q-item-label>
             </q-item-section>
           </q-item>
           <q-separator/>
