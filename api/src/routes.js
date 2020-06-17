@@ -1,12 +1,9 @@
 import express from 'express';
-import multer from 'multer';
-import multerConfig from './config/multer';
 
 const { Router } = express;
 
 import ProdutoController from './app/controllers/ProdutoController';
 import UsuarioController from './app/controllers/UsuarioController';
-import FileController from './app/controllers/FileController';
 import MedicamentoController from './app/controllers/MedicamentoController';
 import VendaController from './app/controllers/VendaController';
 import ClienteController from './app/controllers/ClienteController';
@@ -15,7 +12,6 @@ import ProntuarioController from './app/controllers/ProntuarioController';
 import ConsultaController from './app/controllers/ConsultaController';
 
 const routes = new Router();
-const upload = multer(multerConfig);
 
 //Post
 routes.post('/produto', ProdutoController.store);
@@ -26,8 +22,6 @@ routes.post('/paciente', PacienteController.store);
 routes.post('/venda', VendaController.store);
 routes.post('/prontuario', ProntuarioController.store);
 routes.post('/consulta', ConsultaController.store);
-
-routes.post('/files', upload.single('file'), FileController.store);
 
 //Put
 routes.put('/produto', ProdutoController.update);

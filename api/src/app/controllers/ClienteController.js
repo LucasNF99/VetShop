@@ -26,10 +26,6 @@ class ClienteController {
       res.status(400).json(erro.errors)
     }
 
-
-
-
-
     const { id, nome, email, telefone, bairro, rua, numero, cpf, avatar_id } = await Cliente.create(req.body);
 
     return res.json({
@@ -56,10 +52,12 @@ class ClienteController {
       clienteId: Yup.number().required(),
     })
 
-    if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation fails' })
+    try {
+      await schema.validate(req.body)
     }
-
+    catch (erro) {
+      res.status(400).json(erro.errors)
+    }
 
     const cliente = await Cliente.findByPk(req.body.clienteId);
 

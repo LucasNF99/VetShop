@@ -43,8 +43,12 @@ class MedicamentoController {
       medicamentoId: Yup.number().required(),
     })
     console.log(req.body);
-    if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation fails' })
+
+    try {
+      await schema.validate(req.body)
+    }
+    catch (erro) {
+      res.status(400).json(erro.errors)
     }
 
 

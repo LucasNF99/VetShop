@@ -4,7 +4,8 @@ class Consulta extends Model {
   static init(sequelize) {
     super.init(
       {
-        data: Sequelize.DATE,
+        data: Sequelize.STRING,
+        hora: Sequelize.STRING,
       },
       {
         sequelize,
@@ -18,8 +19,6 @@ class Consulta extends Model {
   static associate(models) {
     this.belongsTo(models.Paciente, { foreignKey: 'paciente_id' });
   }
-
-
 
 
 }

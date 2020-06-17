@@ -4,7 +4,8 @@ import Consulta from '../models/Consulta';
 class ConsultaController {
   async store(req, res) {
     const schema = Yup.object().shape({
-      data: Yup.date().required(),
+      data: Yup.string().required(),
+      hora: Yup.string().required(),
     })
 
     try {
@@ -14,32 +15,38 @@ class ConsultaController {
       res.status(400).json(erro.errors)
     }
 
-    const { id, data } = await Consulta.create(req.body);
+    const { id, data, hora } = await Consulta.create(req.body);
 
     return res.json({
       id,
       data,
+      hora,
     });
   }
 
   async update(req, res) {
     const schema = Yup.object().shape({
-      data: Yup.date().required(),
+      data: Yup.date(),
+      hora: Yup.date(),
       consultaId: Yup.number().required(),
     })
 
-    if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation fails' })
+    try {
+      await schema.validate(req.body)
+    }
+    catch (erro) {
+      res.status(400).json(erro.errors)
     }
 
 
     const consulta = await Consulta.findByPk(req.body.consultaId);
 
-    const { id, data } = await consulta.update(req.body);
+    const { id, data, hora } = await consulta.update(req.body);
 
     return res.json({
       id,
       data,
+      hora,
     });
   }
 

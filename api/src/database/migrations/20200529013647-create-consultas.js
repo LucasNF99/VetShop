@@ -8,7 +8,11 @@ module.exports = {
         primaryKey: true,
       },
       data: {
-        type: Sequelize.DATE,
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      hora: {
+        type: Sequelize.STRING,
         allowNull: false,
       },
       created_at: {

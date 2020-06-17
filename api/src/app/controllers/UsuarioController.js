@@ -28,10 +28,6 @@ class UsuarioController {
     }
 
 
-
-
-
-
     const { id, nome, email, senha, telefone, bairro, rua, numero, cpf, avatar_id } = await Usuario.create(req.body);
 
     return res.json({
@@ -61,10 +57,12 @@ class UsuarioController {
       usuarioId: Yup.number().required(),
     })
 
-    if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation fails' })
+    try {
+      await schema.validate(req.body)
     }
-
+    catch (erro) {
+      res.status(400).json(erro.errors)
+    }
 
     const usuario = await Usuario.findByPk(req.body.usuarioId);
 
