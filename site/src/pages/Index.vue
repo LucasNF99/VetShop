@@ -18,18 +18,20 @@
       <div class="o-index-right">
         <h4 class="a-right-title"><q-icon name="notifications"/> Avisos:</h4>
         <q-scroll-area style="height: 340px; max-width: 350px;">
-        <q-list class="list-right">
-          <div v-for="product in products" :key="product.medicineId">
-            <q-separator/>
+        <q-list v-if="falta <= 70" class="list-right">
+          <div v-for="product in filterProducts" :key="product.medicineId">
             <q-item clickable v-ripple>
               <q-item-section>
                 <q-item-label>Produto em falta: </q-item-label>
-                <q-item-label caption>{{prduct.nome}}</q-item-label>
+                <q-item-label caption>{{product.nome}}</q-item-label>
               </q-item-section>
             </q-item>
             <q-separator/>
           </div>
         </q-list>
+          <div v-else class="m-cashier-selected-list">
+            <p class="selected-list-section q-pa-md"><b>Nenhum produto acabando!</b></p>
+          </div>
         </q-scroll-area>
       </div>
     </aside>
@@ -37,8 +39,10 @@
 </template>
 
 <script>
+/* eslint-disable */
 import { mapGetters } from 'vuex';
 import store from '../store';
+import product from '../store/module/product';
 
 export default {
   name: 'PageIndex',
@@ -48,7 +52,10 @@ export default {
       check1: false,
       check2: false,
       check3: false,
-      prduto: {},
+      filter: '',
+      produto: {},
+      geral: [],
+      products: [],
       pagination: {
         rowsPerPage: 7,
       },
@@ -80,85 +87,34 @@ export default {
           hora: '16:30',
           paciente: 'Safe',
         },
-        {
-          name: '10:00',
-          hora: '16:30',
-          paciente: 'Safe',
-        },
-        {
-          name: '11:00',
-          hora: '16:30',
-          paciente: 'Safe',
-        },
-        {
-          name: '12:00',
-          hora: '16:30',
-          paciente: 'Safe',
-        },
-        {
-          name: '13:00',
-          hora: '16:30',
-          paciente: 'Safe',
-        },
-        {
-          name: '13:00',
-          hora: '16:30',
-          paciente: 'Safe',
-        },
-        {
-          name: '13:00',
-          hora: '16:30',
-          paciente: 'Safe',
-        },
-        {
-          name: '13:00',
-          hora: '16:30',
-          paciente: 'Safe',
-        },
-        {
-          name: '13:00',
-          hora: '16:30',
-          paciente: 'Safe',
-        },
-        {
-          name: '13:00',
-          hora: '16:30',
-          paciente: 'Safe',
-        },
-        {
-          name: '13:00',
-          hora: '16:30',
-          paciente: 'Safe',
-        },
-        {
-          name: '13:00',
-          hora: '16:30',
-          paciente: 'Safe',
-        },
-        {
-          name: '13:00',
-          hora: '16:30',
-          paciente: 'Safe',
-        },
-        {
-          name: '13:00',
-          hora: '16:30',
-          paciente: 'Safe',
-        },
-        {
-          name: '13:00',
-          hora: '16:30',
-          paciente: 'Safe',
-        },
       ],
     };
   },
+
   computed: {
     ...mapGetters('medicine', ['getMedicine']),
+    ...mapGetters('product', ['getProduct']),
+
+    filterProducts() {
+      return this.filter ? this.geral.filter((produto) => { /* eslint-disable-line arrow-body-style */
+        return produto.nome.toLowerCase().includes(this.filter.toLowerCase());
+      }) : this.geral;
+    },
+
+    falta(){
+      let qtde = 0;
+      this.geral.forEach(element => {
+        qtde = element.quantidade;
+        console.log(qtde);
+        return qtde;
+      });
+    },
   },
 
   async mounted() {
     await store().dispatch('medicine/getMedicine');
+    await store().dispatch('product/getProduct');
+    this.geral = this.getMedicine.concat(this.getProduct);
   },
 };
 </script>
