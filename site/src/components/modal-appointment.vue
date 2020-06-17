@@ -16,25 +16,25 @@
           <div>
             <div class="m-modal-update_field">
               <span class="m-update_field-label">Data:</span>
-              <q-input v-model="data"
-                :rules="[val => !!val || 'Campo obrigatorio!']"
+              <q-input v-model="data" filled type="date"
+              :rules="[val => !!val || 'Campo obrigatorio!']"
                 ref="data"
                 class="m-update_field-input"/>
             </div>
             <div class="m-modal-update_field">
               <span class="m-update_field-label">Hora:</span>
-              <q-input v-model="hora"
+              <q-input v-model="hora" filled type="time"
               :rules="[val => !!val || 'Campo obrigatorio!']"
               ref="hora"
-              class="m-update_field-input text-area" />
+              class="m-update_field-input"
+              />
             </div>
           </div>
           <div>
             <div class="m-modal-update_field">
               <span class="m-update_field-label">Paciente:</span>
-              <q-input type="text" v-model="paciente" class="m-update_field-input"
-              :rules="[val => !!val || 'Campo obrigatorio!']"
-              ref="paciente"/>
+              <q-select v-model="paciente" :options="pacientes" label="Standard"
+              class="m-update_field-input_select"/>
             </div>
           </div>
           </q-form>
@@ -55,6 +55,8 @@
 
 
 <script>
+/* eslint-disable */
+import { mapGetters } from 'vuex';
 import store from '../store';
 
 export default {
@@ -66,38 +68,37 @@ export default {
   },
   data() {
     return {
-      nome: '',
-      descricao: '',
-      precoVenda: 0,
-      precoCompra: 0,
-      fornecedor: '',
-      quantidade: 0,
+      paciente: '',
+      data: '',
+      hora: '',
       id: 0,
+      pacientes: [],
     };
   },
   methods: {
     async onSubmit() {
       this.$refs.data.validate();
-      this.$refs.id.validate();
+      this.$refs.hora.validate();
       if (this.$refs.data.hasError
-      || this.$refs.id.hasError
+      || this.$refs.hora.hasError
       ) {
         this.formHasError = true;
       } else {
         if (!this.isNew) {
           this.formatData();
         } else {
+          console.log(this.paciente.pacienteId);
+          
           const payload = {
-            nome: this.nome,
-            precoVenda: this.precoVenda,
-            descricao: this.descricao,
-            quantidade: this.quantidade,
-            precoCompra: this.precoCompra,
-            fornecedor: this.fornecedor,
+            paciente_id: this.paciente.pacienteId,
+            data: this.data,
+            hora: this.hora,
           };
-          const response = await store().dispatch('medicine/createMedicine', payload);
+          console.log(this.paylod);
+          
+          const response = await store().dispatch('appointment/createAppointment', payload);
           if (response.id) {
-            await store().dispatch('medicine/getMedicine');
+            await store().dispatch('appointment/getAppointment');
             this.$q.notify({
               color: 'positive',
               message: 'Item criado com sucesso!',
@@ -120,17 +121,13 @@ export default {
     },
     async formatData() {
       const payload = {
-        nome: this.nome,
-        precoVenda: this.precoVenda,
-        descricao: this.descricao,
-        quantidade: this.quantidade,
-        precoCompra: this.precoCompra,
-        fornecedor: this.fornecedor,
-        medicamentoId: this.id,
+        data: this.data,
+        hora: this.hora,
+        consultaId: this.id,
       };
-      const response = await store().dispatch('medicine/updateMedicine', payload);
+      const response = await store().dispatch('appointment/updateAppointment', payload);
       if (response) {
-        await store().dispatch('medicine/getMedicine');
+        await store().dispatch('appointment/getAppointment');
         this.$q.notify({
           color: 'positive',
           message: 'Item editado com sucesso!',
@@ -146,19 +143,23 @@ export default {
     },
   },
   watch: {
-    produto(value) {
+    consulta(value) {
       if (value.id) {
-        this.nome = value.nome;
-        this.descricao = value.descricao;
-        this.precoVenda = value.precoVenda;
-        this.precoCompra = value.precoCompra;
-        this.fornecedor = value.fornecedor;
-        this.quantidade = value.quantidade;
+        this.paciente = value.paciente;
+        this.data = value.data;
+        this.hora = value.hora;
         this.id = value.id;
       }
     },
   },
   computed: {
+    ...mapGetters('patient', ['getPatient']),
+  },
+  async mounted() {
+    await store().dispatch('patient/getPatient');
+    this.getPatient.forEach(el => {
+      this.pacientes.push({label: el.nome, pacienteId: el.id, value: el.nome})
+    });
   },
 };
 </script>

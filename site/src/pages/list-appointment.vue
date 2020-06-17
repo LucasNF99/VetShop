@@ -29,20 +29,17 @@
           <q-td key="data" :props="props">
             {{ props.row.data }}
           </q-td>
-          <q-td key="paciente" :props="props" class="a-table-td-descricao">
-            <div class="a-table-descricao">
-              {{ props.row.id.nome }}
-            </div>
+          <q-td key="hora" :props="props">
+            {{ props.row.hora }}
           </q-td>
-          <q-td key="price" :props="props">
-            R$ {{ props.row.precoVenda }}
+          <q-td key="paciente" :props="props" class="a-table-td-descricao">
+              {{ getPatient }}
           </q-td>
           <q-td>
             <q-btn size="md" round icon="edit"
             @click="openUpdate(
-            props.row.nome,
-            props.row.precoVenda,
-            props.row.descricao,
+            props.row.paciente.pacienteId,
+            props.row.hora,
             props.row.id,
             )">
               <q-tooltip>Editar item</q-tooltip>
@@ -55,7 +52,7 @@
         <q-dialog v-model="confirm" persistent>
           <q-card>
             <q-card-section class="row items-center">
-              <span class="q-ml-sm">Deseja realmente excluir este medicamento?</span>
+              <span class="q-ml-sm">Deseja realmente excluir esta consulta?</span>
             </q-card-section>
 
             <q-card-actions align="right">
@@ -70,7 +67,7 @@
     <updateModalMed
     :updateModal="updateModal"
     :isNew="isNew"
-    :produto="produto"
+    :consulta="consulta"
     @closeModal="closeModal"
     />
   </div>
@@ -81,17 +78,16 @@
 import { mapGetters } from 'vuex';
 import updateModalMed from '../components/modal-appointment';
 import store from '../store';
-import moment from 'moment'
 
 const columns = [
   {
     name: 'data', align: 'left', label: 'Data', field: 'data',
   },
   {
-    name: 'paciente', align: 'left', label: 'Paciente', field: 'paciente',
+    name: 'hora', align: 'left', label: 'Hora', field: 'hora',
   },
   {
-    name: 'price', align: 'left', label: 'Preço', field: 'preco',
+    name: 'paciente', align: 'left', label: 'Paciente', field: 'paciente',
   },
 ];
 
@@ -105,7 +101,8 @@ export default {
       data: this.getAppointment,
       columns,
       updateModal: false,
-      produto: {},
+      consulta: {},
+      pacientes: [],
       isNew: false,
       pagination: {
         rowsPerPage: 5,
@@ -114,21 +111,18 @@ export default {
     };
   },
   methods: {
-    openUpdate(nome, precoVenda, descricao, quantidade, fornecedor, precoCompra, id) {
-      if (nome) {
-        this.produto = {
-          nome,
-          precoVenda,
-          precoCompra,
-          descricao,
-          quantidade,
-          fornecedor,
+    openUpdate(paciente, data, hora, id) {
+      if (paciente) {
+        this.consulta = {
+          paciente,
+          data,
+          hora,
           id,
         };
         this.isNew = false;
       } else {
         this.isNew = true;
-        this.produto = {};
+        this.consulta = {};
       }
       this.updateModal = true;
     },
@@ -157,14 +151,19 @@ export default {
   },
   computed: {
     ...mapGetters('appointment', ['getAppointment']),
+    ...mapGetters('patient', ['getPatient']),
     filterProducts() {
-      return this.filter ? this.getAppointment.filter((produto) => { /* eslint-disable-line arrow-body-style */
-        return produto.nome.toLowerCase().includes(this.filter.toLowerCase());
+      return this.filter ? this.getAppointment.filter((paciente) => { /* eslint-disable-line arrow-body-style */
+        return paciente.nome.toLowerCase().includes(this.filter.toLowerCase());
       }) : this.getAppointment;
     },
   },
   async mounted() {
     await store().dispatch('appointment/getAppointment');
+    await store().dispatch('patient/getPatient');
+    this.getPatient.forEach(el => {
+      this.pacientes.push({label: el.nome, pacienteId: el.id, value: el.nome})
+    });
   },
 };
 </script>

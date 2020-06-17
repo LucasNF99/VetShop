@@ -51,6 +51,7 @@ export default {
       produto: {},
       geral: [],
       products: [],
+      buyList: [],
     };
   },
   computed: {
@@ -66,7 +67,27 @@ export default {
   methods: {
     addProduct(produto){
       this.products.push(produto);
-    }
+      // this.arrProduct(produto.id);
+    },
+
+    arrProduct(id) {
+      let newProduct = null;
+
+      if (this.buyList.length > 0) {
+        this.buyList.forEach((el) => {
+          if (el.id === id) {
+            el.qtde += 1;
+          } else {
+            newProduct = id;
+          }
+        });
+      } else {
+        newProduct = id;
+        console.log(newProduct);
+        this.buyList.push({ id: newProduct, qtde: 1 });
+        newProduct = null;
+      }
+    },
   },
 
   async mounted() {

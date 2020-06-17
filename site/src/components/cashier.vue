@@ -24,8 +24,21 @@
       </div>
       <div class="m-cashier-total-l2">
         <q-btn class="" color="primary" label="Limpar" @click="limpa" no-caps />
-        <q-btn class="" color="primary" label="Finalizar" no-caps />
+        <q-btn class="" color="primary" label="Finalizar" no-caps @click="confirm = true" />
       </div>
+      <q-dialog v-model="confirm" persistent>
+        <q-card>
+          <q-card-section class="row items-center">
+            <span class="q-ml-sm">Deseja realmente finalizar venda?</span>
+          </q-card-section>
+
+          <q-card-actions align="right">
+            <q-btn flat label="Não" color="primary" v-close-popup />
+            <q-btn flat label="Sim" color="primary" @click="finaliza"
+            v-close-popup/>
+          </q-card-actions>
+        </q-card>
+      </q-dialog>
     </div>
   </div>
 </template>
@@ -35,6 +48,11 @@
 
 export default {
   name: 'cashier',
+  data() {
+    return {
+      confirm: false,
+    };
+  },
   props: {
     products: Array,
   },
@@ -49,7 +67,7 @@ export default {
   },
   methods: {
     limpa() {
-      window.location.reload();
+      this.products = [];
     },
   },
 };
