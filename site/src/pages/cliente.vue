@@ -39,7 +39,7 @@
         align="left"
         icon="assignment"
         no-caps
-        to="/listar-"
+        to="/listar-prontuarios"
         label="Prontuarios"/>
       </q-card-section>
     </q-card>

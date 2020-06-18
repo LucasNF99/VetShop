@@ -67,27 +67,26 @@ export default {
   methods: {
     addProduct(produto){
       this.products.push(produto);
-      // this.arrProduct(produto.id);
+      this.arrProduct(produto.id);
     },
 
     arrProduct(id) {
       let newProduct = null;
 
       if (this.buyList.length > 0) {
-        this.buyList.forEach((el) => {
-          if (el.id === id) {
-            el.qtde += 1;
+        for (let i = 0; i < this.buyList.length; i += 1) {
+          if (this.buyList[i].id === id) {
+            this.buyList[i].qtde += 1;
+            return true;
           } else {
             newProduct = id;
           }
-        });
+        }
       } else {
         newProduct = id;
-        console.log(newProduct);
-        this.buyList.push({ id: newProduct, qtde: 1 });
-        newProduct = null;
       }
-    },
+      if (newProduct !== null) this.buyList.push({ id: newProduct, qtde: 1 });
+    }
   },
 
   async mounted() {

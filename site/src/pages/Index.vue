@@ -18,24 +18,6 @@
         </q-scroll-area>
       </div>
     </aside>
-    <aside style="flex-grow: 1;">
-      <div class="o-index-right">
-        <h4 class="a-right-title"><q-icon name="notifications"/> Avisos:</h4>
-        <q-scroll-area style="height: 340px; max-width: 350px;">
-        <q-list class="list-right">
-          <div v-for="product in avisos" :key="product.medicineId">
-            <q-item clickable v-ripple>
-              <q-item-section>
-                <q-item-label>Produto em falta: </q-item-label>
-                <q-item-label caption>{{product.nome}}: {{product.quantidade}}</q-item-label>
-              </q-item-section>
-            </q-item>
-            <q-separator/>
-          </div>
-        </q-list>
-        </q-scroll-area>
-      </div>
-    </aside>
   </q-page>
 </template>
 

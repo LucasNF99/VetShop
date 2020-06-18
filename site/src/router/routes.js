@@ -72,6 +72,13 @@ const routes = [
     ],
   },
   {
+    path: '/listar-prontuarios',
+    component: () => import('layouts/index.vue'),
+    children: [
+      { path: '', component: () => import('pages/list-record.vue') },
+    ],
+  },
+  {
     path: '/caixa',
     component: () => import('layouts/index.vue'),
     children: [

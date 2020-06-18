@@ -1,7 +1,7 @@
 <template>
   <div class="o-produto">
     <q-btn no-caps icon="add" class="a-btn _add" @click="openUpdate()">
-      Cadastrar usuario
+      Adicionar prontuario
     </q-btn>
     <q-table
         :data="filterProducts"
@@ -12,7 +12,7 @@
         :pagination.sync="pagination"
       >
       <template v-slot:top>
-        <p class="m-table-produto_title">Usuarios</p>
+        <p class="m-table-produto_title">Prontuario</p>
         <q-space />
 
         <q-input
@@ -26,36 +26,32 @@
       </template>
       <template class="m-table-template" v-slot:body="props">
         <q-tr :props="props">
-          <q-td key="nome" :props="props">
-            {{ props.row.nome }}
+          <q-td key="laudo" :props="props">
+            {{ props.row.laudo }}
           </q-td>
-          <q-td key="email" :props="props">
+          <q-td key="exame" :props="props" class="a-table-td-descricao">
             <div class="a-table-descricao">
-              {{ props.row.email }}
+              {{ props.row.exame }}
             </div>
           </q-td>
-          <q-td key="telefone" :props="props">
-            {{ props.row.telefone }}
+          <q-td key="prescricao" :props="props">
+            R$ {{ props.row.prescricao }}
           </q-td>
-          <q-td key="cpf" :props="props">
-            {{ props.row.cpf}}
+          <q-td key="queixas" :props="props">
+            {{ props.row.queixas }}
           </q-td>
           <q-td>
             <q-btn size="md" round icon="edit"
             @click="openUpdate(
-            props.row.nome,
-            props.row.email,
-            props.row.telefone,
-            props.row.bairro,
-            props.row.rua,
-            props.row.numero,
-            props.row.cpf,
-            props.row.password,
+            props.row.laudo,
+            props.row.exame,
+            props.row.prescricao,
+            props.row.queixas,
             props.row.id,
             )">
-              <q-tooltip>Editar dados</q-tooltip>
+              <q-tooltip>Editar item</q-tooltip>
             </q-btn>
-            <q-btn @click="confirm = true" size="md" round icon="delete">
+            <q-btn @click="confirm = true"  size="md" round icon="delete">
               <q-tooltip>Deletar item</q-tooltip>
             </q-btn>
           </q-td>
@@ -63,21 +59,22 @@
         <q-dialog v-model="confirm" persistent>
           <q-card>
             <q-card-section class="row items-center">
-              <span class="q-ml-sm">Deseja realmente excluir este usuario?</span>
+              <span class="q-ml-sm">Deseja realmente excluir este prontuario?</span>
             </q-card-section>
 
             <q-card-actions align="right">
               <q-btn flat label="Não" color="primary" v-close-popup />
-              <q-btn flat label="Sim" color="primary" @click="deleteItem(props.row.id)" />
+              <q-btn flat label="Sim" color="primary" @click="deleteItem(props.row.id)"
+              v-close-popup/>
             </q-card-actions>
           </q-card>
         </q-dialog>
       </template>
     </q-table>
-    <updateModalCli
-    :updateModalCli="updateModalCli"
+    <updateModalRecord
+    :updateModal="updateModal"
     :isNew="isNew"
-    :usuario="usuario"
+    :prontuario="prontuario"
     @closeModal="closeModal"
     />
   </div>
@@ -86,35 +83,35 @@
 <script>
 /* eslint-disable */
 import { mapGetters } from 'vuex';
-import updateModalCli from '../components/modal-employee';
+import updateModalRecord from '../components/modal-record';
 import store from '../store';
 
 const columns = [
   {
-    name: 'nome', align: 'left', label: 'Nome', field: 'nome',
+    name: 'laudo', align: 'left', label: 'Laudo', field: 'laudo',
   },
   {
-    name: 'email', align: 'left', label: 'E-mail', field: 'email',
+    name: 'exame', align: 'left', label: 'Exame', field: 'exame',
   },
   {
-    name: 'telefone', align: 'left', label: 'Telefone', field: 'telefone',
+    name: 'prescricao', align: 'left', label: 'Prescrição', field: 'prescricao',
   },
   {
-    name: 'cpf', align: 'left', label: 'CPF', field: 'cpf',
+    name: 'queixas', align: 'left', label: 'Queixas', field: 'queixas',
   },
 ];
 
 export default {
   components: {
-    updateModalCli,
+    updateModalRecord,
   },
   data() {
     return {
       filter: '',
-      data: this.getUser,
+      data: this.getRecord,
       columns,
-      updateModalCli: false,
-      usuario: {},
+      updateModalRecord: false,
+      prontuario: {},
       isNew: false,
       pagination: {
         rowsPerPage: 5,
@@ -123,35 +120,31 @@ export default {
     };
   },
   methods: {
-    openUpdate(nome, email, telefone, bairro, rua, numero, cpf, password, id) {
-      if (nome) {
-        this.usuario = {
+    openUpdate(laudo, exame, prescricao, queixas, id) {
+      if (id) {
+        this.prontuario = {
           nome,
-          email,
-          telefone,
-          bairro,
-          rua,
-          numero,
-          cpf,
-          password,
+          exame,
+          precoCompra,
+          prescricao,
           id,
         };
         this.isNew = false;
       } else {
         this.isNew = true;
-        this.user = {};
+        this.prontuario = {};
       }
-      this.updateModalCli = true;
+      this.updateModal = true;
     },
 
     async deleteItem(id) {
-      const response = await store().dispatch('user/deleteUser', id);
+      const response = await store().dispatch('record/deleteRecord', id);
       if(response) {
-        await store().dispatch('user/getUser');
+        await store().dispatch('record/getRecord');
         this.$q.notify({
           color: 'positive',
-          message: 'usuario deletado com sucesso',
-          icon: 'done',
+          message: 'Item deletado com sucesso',
+          icon: 'done'
         });
       } else {
         this.$q.notify({
@@ -163,19 +156,19 @@ export default {
     },
 
     closeModal() {
-      this.updateModalCli = false;
+      this.updateModal = false;
     },
   },
   computed: {
-    ...mapGetters('user', ['getUser']),
+    ...mapGetters('record', ['getRecord']),
     filterProducts() {
-      return this.filter ? this.getUser.filter((user) => { /* eslint-disable-line arrow-body-style */
-        return user.nome.toLowerCase().includes(this.filter.toLowerCase());
-      }) : this.getUser;
+      return this.filter ? this.getRecord.filter((prontuario) => { /* eslint-disable-line arrow-body-style */
+        return prontuario.nome.toLowerCase().includes(this.filter.toLowerCase());
+      }) : this.getRecord;
     },
   },
   async mounted() {
-    await store().dispatch('user/getUser');
+    await store().dispatch('record/getRecord');
   },
 };
 </script>

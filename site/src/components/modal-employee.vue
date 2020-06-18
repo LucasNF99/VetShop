@@ -66,9 +66,9 @@
             </div>
             <div class="m-modal-update_field">
               <span class="m-update_field-label">Senha:</span>
-              <q-input v-model="senha" class="m-update_field-input"
+              <q-input v-model="password" class="m-update_field-input"
                :rules="[val => !!val || 'Campo obrigatorio!']"
-                ref="senha"/>
+                ref="password"/>
             </div>
           </div>
           </q-form>
@@ -106,7 +106,7 @@ export default {
       rua: '',
       numero: 0,
       cpf: '',
-      senha: '',
+      password: '',
       id: 0,
     };
   },
@@ -119,7 +119,7 @@ export default {
       this.$refs.rua.validate();
       this.$refs.bairro.validate();
       this.$refs.numero.validate();
-      this.$refs.senha.validate();
+      this.$refs.password.validate();
       if (this.$refs.nome.hasError
       || this.$refs.cpf.hasError
       || this.$refs.telefone.hasError
@@ -127,7 +127,7 @@ export default {
       || this.$refs.rua.hasError
       || this.$refs.bairro.hasError
       || this.$refs.numero.hasError
-      || this.$refs.senha.hasError
+      || this.$refs.password.hasError
       ) {
         this.formHasError = true;
       } else {
@@ -142,7 +142,7 @@ export default {
             bairro: this.bairro,
             rua: this.rua,
             cpf: this.cpf,
-            senha: this.senha,
+            password: this.password,
           };
           const response = await store().dispatch('user/createUser', payload);
           if (response) {
@@ -176,7 +176,7 @@ export default {
         bairro: this.bairro,
         rua: this.rua,
         cpf: this.cpf,
-        senha: this.senha,
+        password: this.password,
         usuarioId: this.id,
       };
       const response = await store().dispatch('user/updateUser', payload);
@@ -206,7 +206,7 @@ export default {
         this.rua = value.rua;
         this.numero = value.numero;
         this.cpf = value.cpf;
-        this.senha = value.senha;
+        this.password = value.password;
         this.id = value.id;
       }
     },
