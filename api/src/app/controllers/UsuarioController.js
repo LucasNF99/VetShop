@@ -6,7 +6,7 @@ class UsuarioController {
     const schema = Yup.object().shape({
       nome: Yup.string().required(),
       email: Yup.string().required().email(),
-      senha: Yup.string().required(),
+      password: Yup.string().required().min(8),
       telefone: Yup.string().required(),
       bairro: Yup.string().required(),
       rua: Yup.string().required(),
@@ -19,6 +19,14 @@ class UsuarioController {
     if (existsCpf) {
       return res.status(400).json({ error: 'CPF já utilizado' })
     }
+
+    const existsemail = await Usuario.findOne({ where: { cpf: req.body.email } })
+
+    if (existsemail) {
+      return res.status(400).json({ error: 'E-mail já utilizado' })
+    }
+
+
 
     try {
       await schema.validate(req.body)

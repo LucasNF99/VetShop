@@ -10,10 +10,21 @@ import ClienteController from './app/controllers/ClienteController';
 import PacienteController from './app/controllers/PacienteController';
 import ProntuarioController from './app/controllers/ProntuarioController';
 import ConsultaController from './app/controllers/ConsultaController';
+import SessionController from './app/controllers/SessionController';
+
+import authMiddleware from '../middlewares/auth';
+
 
 const routes = new Router();
 
+
 //Post
+routes.post('/sessions', SessionController.store);
+
+//routes.use(authMiddleware);
+
+
+
 routes.post('/produto', ProdutoController.store);
 routes.post('/medicamento', MedicamentoController.store);
 routes.post('/usuario', UsuarioController.store);

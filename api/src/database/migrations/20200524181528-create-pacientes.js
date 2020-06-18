@@ -29,7 +29,7 @@ module.exports = {
         allowNull: false,
       },
       data_nascimento: {
-        type: Sequelize.DATE,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       created_at: {

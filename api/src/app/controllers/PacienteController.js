@@ -9,7 +9,7 @@ class PacienteController {
       raca: Yup.string().required(),
       peso: Yup.number().required(),
       altura: Yup.number().required(),
-      dataNascimento: Yup.date().required(),
+      dataNascimento: Yup.string().required(),
     })
 
 
@@ -40,7 +40,7 @@ class PacienteController {
       raca: Yup.string(),
       peso: Yup.number(),
       altura: Yup.number(),
-      dataNascimento: Yup.date(),
+      dataNascimento: Yup.string(),
       pacienteId: Yup.number().required(),
     })
 
