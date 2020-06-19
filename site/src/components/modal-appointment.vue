@@ -31,10 +31,10 @@
             </div>
           </div>
           <div>
-            <div class="m-modal-update_field">
+            <div class="m-modal-update_field _select">
               <span class="m-update_field-label">Paciente:</span>
-              <q-select v-model="paciente" :options="pacientes" label="Standard"
-              class="m-update_field-input_select"/>
+              <q-select v-model="paciente" :options="pacientes" label="Selecione"
+              class="m-update_field-input"/>
             </div>
           </div>
           </q-form>

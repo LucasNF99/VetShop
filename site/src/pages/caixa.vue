@@ -1,7 +1,7 @@
 <template>
   <div>
   <div class="m-cashier">
-    <cashier :products="products"/>
+    <cashier :products="products" @limpa="products = []"/>
     <aside class="m-cashier-aside">
       <h5>Pesquisar:</h5>
       <q-scroll-area style="height: 300px;">
@@ -66,8 +66,25 @@ export default {
   },
   methods: {
     addProduct(produto){
-      this.products.push(produto);
-      this.arrProduct(produto.id);
+      console.log(this.buyList.length);
+      console.log(produto.quantidade);
+      
+      if(this.buyList.length === 0) {
+        this.products.push(produto);
+        this.arrProduct(produto.id);
+      } else {
+        for (let i = 0; i < this.buyList.length; i++) {
+          if(this.buyList[i].id === produto.id) {
+            if(this.buyList[i].qtde < produto.quantidade) {
+              this.products.push(produto);
+              this.arrProduct(produto.id);
+            }
+          }
+        }
+        
+      }
+      // this.products.push(produto);
+      // this.arrProduct(produto.id);
     },
 
     arrProduct(id) {

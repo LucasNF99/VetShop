@@ -34,7 +34,7 @@
 
           <q-card-actions align="right">
             <q-btn flat label="Não" color="primary" v-close-popup />
-            <q-btn flat label="Sim" color="primary" @click="finaliza"
+            <q-btn flat label="Sim" color="primary"
             v-close-popup/>
           </q-card-actions>
         </q-card>
@@ -67,7 +67,7 @@ export default {
   },
   methods: {
     limpa() {
-      this.products = [];
+      this.$emit('limpa');
     },
   },
 };
