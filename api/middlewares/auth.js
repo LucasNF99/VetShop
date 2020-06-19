@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { promissify } from 'util';
+import { promisify } from 'util';
 
 import authConfig from '../src/config/auth';
 
@@ -11,13 +11,13 @@ export default async (req, res, next) => {
   }
 
   const [, token] = authHeader.split(' ');
-
-  const teste = ''
+  console.log(token);
 
   try {
-    teste = await promissify(jwt.verify)(token, authConfig.secret);
+    const { id } = await promisify(jwt.verify)(token, authConfig.secret);
+    console.log(id);
 
-    req.usuarioId = teste.id;
+    req.usuarioId = id;
 
     return next();
   }
@@ -26,6 +26,4 @@ export default async (req, res, next) => {
     return res.status(401).json({ error: 'token invalido' });
 
   }
-
-
 };

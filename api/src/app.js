@@ -21,7 +21,7 @@ class App {
 
   routes() {
     this.server.use(routes);
-    //this.server.use(handleError);
+    this.server.use(handleError);
   }
 }
 

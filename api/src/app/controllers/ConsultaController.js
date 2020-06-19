@@ -1,6 +1,8 @@
 import * as Yup from 'yup';
 import Consulta from '../models/Consulta';
 
+import Paciente from '../models/Paciente';
+
 class ConsultaController {
   async store(req, res) {
     const schema = Yup.object().shape({
@@ -58,7 +60,13 @@ class ConsultaController {
 
   async show(req, res) {
     const id = req.params.id;
-    const consulta = await Consulta.findByPk(id);
+    const consulta = await Consulta.findByPk(id, {
+      include: [{
+        model: Paciente,
+        attributes: ['id', 'nome']
+      }],
+      attributes: ['id', 'data', 'hora']
+    });
 
     if (consulta) {
       res.json(consulta);

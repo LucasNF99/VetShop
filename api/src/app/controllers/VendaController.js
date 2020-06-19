@@ -1,6 +1,8 @@
 import * as Yup from 'yup';
 import Venda from '../models/Venda';
 
+import Produto from '../models/Produto';
+
 class VendaController {
   async store(req, res) {
     const schema = Yup.object().shape({
@@ -14,6 +16,10 @@ class VendaController {
     catch (erro) {
       res.status(400).json(erro.errors)
     }
+
+    const produto = await findByPk(req.body)
+
+
 
     const { id, data, valor } = await Venda.create(req.body);
 
