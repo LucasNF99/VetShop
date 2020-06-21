@@ -51,7 +51,7 @@
             </div>
             <div class="m-modal-update_field">
               <span class="m-update_field-label">Data de nascimento:</span>
-              <q-input v-model="dataNascimento" class="m-update_field-input"
+              <q-input v-model="dataNascimento" type="date" class="m-update_field-input"
               :rules="[val => !!val || 'Campo obrigatorio!']"
                 ref="dataNascimento"/>
             </div>

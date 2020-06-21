@@ -39,7 +39,8 @@
               <span class="m-update_field-label">CPF:</span>
               <q-input v-model="cpf" class="m-update_field-input"
                :rules="[val => !!val || 'Campo obrigatorio!']"
-                ref="cpf"/>
+                ref="cpf"
+                mask="###.###.###-##"/>
             </div>
           </div>
           <div>

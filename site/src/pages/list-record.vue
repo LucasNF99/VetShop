@@ -26,8 +26,10 @@
       </template>
       <template class="m-table-template" v-slot:body="props">
         <q-tr :props="props">
-          <q-td key="laudo" :props="props">
+          <q-td key="laudo" :props="props"  class="a-table-td-descricao">
+            <div class="a-table-descricao">
             {{ props.row.laudo }}
+            </div>
           </q-td>
           <q-td key="exame" :props="props" class="a-table-td-descricao">
             <div class="a-table-descricao">

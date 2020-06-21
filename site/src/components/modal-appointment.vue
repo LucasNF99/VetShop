@@ -16,14 +16,14 @@
           <div>
             <div class="m-modal-update_field">
               <span class="m-update_field-label">Data:</span>
-              <q-input v-model="data" filled type="date"
+              <q-input v-model="data" type="date"
               :rules="[val => !!val || 'Campo obrigatorio!']"
                 ref="data"
                 class="m-update_field-input"/>
             </div>
             <div class="m-modal-update_field">
               <span class="m-update_field-label">Hora:</span>
-              <q-input v-model="hora" filled type="time"
+              <q-input v-model="hora" type="time"
               :rules="[val => !!val || 'Campo obrigatorio!']"
               ref="hora"
               class="m-update_field-input"
@@ -88,14 +88,14 @@ export default {
           this.formatData();
         } else {
           console.log(this.paciente.pacienteId);
-          
+
           const payload = {
             paciente_id: this.paciente.pacienteId,
             data: this.data,
             hora: this.hora,
           };
           console.log(this.paylod);
-          
+
           const response = await store().dispatch('appointment/createAppointment', payload);
           if (response.id) {
             await store().dispatch('appointment/getAppointment');
