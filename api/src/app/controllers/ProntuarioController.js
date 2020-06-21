@@ -70,7 +70,7 @@ class ProntuarioController {
     const prontuario = await Prontuario.findByPk(id, {
       include: [{
         model: Consulta,
-        attributes: ['id', 'data']
+        attributes: ['id', 'data', 'hora']
       }],
       attributes: ['id', 'laudo', 'exame', 'prescricao', 'queixas']
     });
