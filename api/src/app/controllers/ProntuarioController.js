@@ -1,6 +1,8 @@
 import * as Yup from 'yup';
 import Prontuario from '../models/Prontuario';
 
+import Consulta from '../models/Consulta';
+
 class ProntuarioController {
   async store(req, res) {
     const schema = Yup.object().shape({
@@ -65,13 +67,19 @@ class ProntuarioController {
 
   async show(req, res) {
     const id = req.params.id;
-    const prontuario = await Prontuario.findByPk(id);
+    const prontuario = await Prontuario.findByPk(id, {
+      include: [{
+        model: Consulta,
+        attributes: ['id', 'data']
+      }],
+      attributes: ['id', 'laudo', 'exame', 'prescricao', 'queixas']
+    });
 
     if (prontuario) {
       res.json(prontuario);
     }
     else {
-      res.json({ message: 'Prontuario não encontrado' })
+      res.json({ message: 'Prontuario não encontrada' })
     }
 
   }

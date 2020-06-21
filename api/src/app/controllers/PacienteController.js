@@ -1,6 +1,8 @@
 import * as Yup from 'yup';
 import Paciente from '../models/Paciente';
 
+import Cliente from '../models/Cliente';
+
 class PacienteController {
   async store(req, res) {
     const schema = Yup.object().shape({
@@ -75,13 +77,19 @@ class PacienteController {
 
   async show(req, res) {
     const id = req.params.id;
-    const paciente = await Paciente.findByPk(id);
+    const paciente = await Paciente.findByPk(id, {
+      include: [{
+        model: Cliente,
+        attributes: ['id', 'nome']
+      }],
+      attributes: ['id', 'nome', 'especie', 'raca', 'peso', 'altura', 'dataNascimento']
+    });
 
     if (paciente) {
       res.json(paciente);
     }
     else {
-      res.json({ message: 'Paciente não encontrado' })
+      res.json({ message: 'Paciente não encontrada' })
     }
 
   }

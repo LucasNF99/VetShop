@@ -2,6 +2,9 @@ import * as Yup from 'yup';
 import Venda from '../models/Venda';
 
 import Produto from '../models/Produto';
+import Medicamento from '../models/Medicamento';
+import Usuario from '../models/Usuario';
+
 
 class VendaController {
   async store(req, res) {
@@ -17,8 +20,7 @@ class VendaController {
       res.status(400).json(erro.errors)
     }
 
-    const produto = await findByPk(req.body)
-
+    const produto = await Venda.findByPk(req.body.produto_id);
 
 
     const { id, data, valor } = await Venda.create(req.body);

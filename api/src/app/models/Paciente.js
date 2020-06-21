@@ -22,7 +22,5 @@ class Paciente extends Model {
     this.belongsTo(models.Cliente, { foreignKey: 'cliente_id' });
   }
 
-
 }
-
 export default Paciente;
