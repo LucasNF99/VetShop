@@ -34,6 +34,8 @@
             <div class="m-modal-update_field _select">
               <span class="m-update_field-label">Paciente:</span>
               <q-select v-model="paciente" :options="pacientes" label="Selecione"
+              :rules="[val => !!val || 'Campo obrigatorio!']"
+              ref="paciente"
               class="m-update_field-input"/>
             </div>
           </div>
@@ -79,8 +81,10 @@ export default {
     async onSubmit() {
       this.$refs.data.validate();
       this.$refs.hora.validate();
+      this.$refs.paciente.validate();
       if (this.$refs.data.hasError
       || this.$refs.hora.hasError
+      || this.$refs.paciente.hasError
       ) {
         this.formHasError = true;
       } else {
