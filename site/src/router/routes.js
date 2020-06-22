@@ -17,13 +17,7 @@ const routes = [
       { path: '', name: 'home', component: () => import('pages/Index.vue') },
       { path: 'estoque', name: 'estoque', component: () => import('pages/estoque.vue') },
       { path: 'cliente', component: () => import('pages/cliente.vue') },
-    ],
-  },
-  {
-    path: '/gerencia',
-    component: () => import('layouts/index.vue'),
-    children: [
-      { path: '', component: () => import('pages/gerencia.vue') },
+      { path: 'gerencia', component: () => import('pages/gerencia.vue') },
     ],
   },
   {
