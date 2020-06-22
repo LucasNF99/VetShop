@@ -1,9 +1,9 @@
 <template>
   <div>
-    <q-dialog v-model="updateModal" class="m-modal-update">
+    <q-dialog v-model="updateModalRecord" class="m-modal-update">
       <q-card>
         <q-card-section>
-          <div class="text-h6">{{isNew ? 'Novo produto' : 'Editar produto'}}</div>
+          <div class="text-h6">{{isNew ? 'Novo prontuario' : 'Editar prontuario'}}</div>
         </q-card-section>
 
         <q-separator />
@@ -15,54 +15,42 @@
           >
           <div>
             <div class="m-modal-update_field">
-              <span class="m-update_field-label">Nome:</span>
-              <q-input v-model="nome"
+              <span class="m-update_field-label">Laudo:</span>
+              <q-input v-model="laudo"
                 :rules="[val => !!val || 'Campo obrigatorio!']"
-                ref="nome"
+                ref="laudo"
+                autogrow
                 class="m-update_field-input"/>
             </div>
             <div class="m-modal-update_field">
-              <span class="m-update_field-label">Descrição:</span>
-              <q-input v-model="descricao"
+              <span class="m-update_field-label">Exame:</span>
+              <q-input v-model="exame"
               :rules="[val => !!val || 'Campo obrigatorio!']"
-              ref="descricao"
+              ref="exame"
               class="m-update_field-input text-area" />
             </div>
-            <div class="m-modal-update_field">
-              <span class="m-update_field-label">Quantidade:</span>
-              <q-input type="number" v-model="quantidade"
-              :rules="[val => val >= 0 || 'Não pode ter valor negativo!']"
-              ref="quantidade"
+            <div>
+            <div class="m-modal-update_field _select">
+              <span class="m-update_field-label">Consulta:</span>
+              <q-select v-model="consulta" :options="consultas" label="Selecione"
               class="m-update_field-input"/>
             </div>
-            <div class="m-modal-update_field">
-              <span class="m-update_field-label">Classe:</span>
-              <q-input v-model="classe"
-                :rules="[val => !!val || 'Campo obrigatorio!']"
-                ref="classe"
-               class="m-update_field-input"/>
-            </div>
+          </div>
           </div>
           <div>
             <div class="m-modal-update_field">
-              <span class="m-update_field-label">Preço de venda:</span>
-              <q-input type="number" v-model="precoVenda"
-                :rules="[val => val >= 0 || 'Não pode ter valor negativo!']"
-                ref="precoVenda"
-               class="m-update_field-input"/>
+              <span class="m-update_field-label">Queixas:</span>
+              <q-input type="text" v-model="queixas"
+              :rules="[val => !!val || 'Campo obrigatorio!']"
+              ref="queixas"
+              class="m-update_field-input"/>
             </div>
             <div class="m-modal-update_field">
-              <span class="m-update_field-label">Preço de compra:</span>
-              <q-input type="number" v-model="precoCompra"
-                :rules="[val => val >= 0 || 'Não pode ter valor negativo!']"
-               class="m-update_field-input"
-               ref="precoCompra"/>
-            </div>
-            <div class="m-modal-update_field">
-              <span class="m-update_field-label">Fornecedor:</span>
-              <q-input v-model="fornecedor"
+              <span class="m-update_field-label">Prescrição:</span>
+              <q-input v-model="prescricao"
                 :rules="[val => !!val || 'Campo obrigatorio!']"
-               class="m-update_field-input" ref="fornecedor"/>
+                ref="prescricao"
+               class="m-update_field-input"/>
             </div>
           </div>
           </q-form>
@@ -82,6 +70,8 @@
 </template>
 
 <script>
+/* eslint-disable */
+import { mapGetters } from 'vuex';
 import store from '../store';
 
 export default {
@@ -93,32 +83,25 @@ export default {
   },
   data() {
     return {
-      nome: '',
-      descricao: '',
-      precoVenda: 0,
-      precoCompra: 0,
-      fornecedor: '',
-      quantidade: 0,
-      classe: '',
+      laudo: '',
+      exame: '',
+      queixas: '',
+      prescricao: '',
       id: 0,
+      consulta: '',
+      consultas: [],
     };
   },
   methods: {
     async onSubmit() {
-      this.$refs.nome.validate();
-      this.$refs.quantidade.validate();
-      this.$refs.precoCompra.validate();
-      this.$refs.precoVenda.validate();
-      this.$refs.fornecedor.validate();
-      this.$refs.descricao.validate();
-      this.$refs.classe.validate();
-      if (this.$refs.nome.hasError
-      || this.$refs.quantidade.hasError
-      || this.$refs.precoVenda.hasError
-      || this.$refs.precoCompra.hasError
-      || this.$refs.fornecedor.hasError
-      || this.$refs.descricao.hasError
-      || this.$refs.classe.hasError
+      this.$refs.laudo.validate();
+      this.$refs.exame.validate();
+      this.$refs.queixas.validate();
+      this.$refs.prescricao.validate();
+      if (this.$refs.laudo.hasError
+      || this.$refs.exame.hasError
+      || this.$refs.prescricao.hasError
+      || this.$refs.queixas.hasError
       ) {
         this.formHasError = true;
       } else {
@@ -126,17 +109,15 @@ export default {
           this.formatData();
         } else {
           const payload = {
-            nome: this.nome,
-            precoVenda: this.precoVenda,
-            descricao: this.descricao,
-            quantidade: this.quantidade,
-            precoCompra: this.precoCompra,
-            fornecedor: this.fornecedor,
-            classe: this.classe,
+            laudo: this.laudo,
+            exame: this.exame,
+            queixas: this.queixas,
+            prescricao: this.prescricao,
+            consulta_id: this.consulta.consultaId,
           };
-          const response = await store().dispatch('product/createProduct', payload);
+          const response = await store().dispatch('record/createRecord', payload);
           if (response) {
-            await store().dispatch('product/getProduct');
+            await store().dispatch('record/getRecord');
             this.$q.notify({
               color: 'positive',
               message: 'Item criado com sucesso!',
@@ -159,18 +140,15 @@ export default {
     },
     async formatData() {
       const payload = {
-        nome: this.nome,
-        precoVenda: this.precoVenda,
-        descricao: this.descricao,
-        quantidade: this.quantidade,
-        precoCompra: this.precoCompra,
-        fornecedor: this.fornecedor,
-        classe: this.classe,
-        produtoId: this.id,
+        laudo: this.laudo,
+        exame: this.exame,
+        queixas: this.queixas,
+        prescricao: this.prescricao,
+        prontuarioId: this.id,
       };
-      const response = await store().dispatch('product/updateProduct', payload);
+      const response = await store().dispatch('record/updateRecord', payload);
       if (response) {
-        await store().dispatch('product/getProduct');
+        await store().dispatch('record/getRecord');
         this.$q.notify({
           color: 'positive',
           message: 'Item editado com sucesso!',
@@ -188,18 +166,23 @@ export default {
   watch: {
     produto(value) {
       if (value.id) {
-        this.nome = value.nome;
-        this.descricao = value.descricao;
-        this.precoVenda = value.precoVenda;
-        this.precoCompra = value.precoCompra;
-        this.fornecedor = value.fornecedor;
-        this.quantidade = value.quantidade;
-        this.classe = value.classe;
+        this.laudo = value.laudo;
+        this.exame = value.exame;
+        this.queixas = value.queixas;
+        this.prescricao = value.prescricao;
+        this.consulta = value.consulta;
         this.id = value.id;
       }
     },
   },
   computed: {
+    ...mapGetters('appointment', ['getAppointment']),
+  },
+  async mounted() {
+    await store().dispatch('appointment/getAppointment');
+    this.getAppointment.forEach(el => {
+      this.consultas.push({label: el.data, consultaId: el.id, value: el.nome})
+    });
   },
 };
 </script>

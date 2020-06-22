@@ -153,8 +153,8 @@ export default {
     ...mapGetters('appointment', ['getAppointment']),
     ...mapGetters('patient', ['getPatient']),
     filterProducts() {
-      return this.filter ? this.getAppointment.filter((paciente) => { /* eslint-disable-line arrow-body-style */
-        return paciente.nome.toLowerCase().includes(this.filter.toLowerCase());
+      return this.filter ? this.getAppointment.filter((consulta) => { /* eslint-disable-line arrow-body-style */
+        return consulta.data.toLowerCase().includes(this.filter.toLowerCase());
       }) : this.getAppointment;
     },
   },

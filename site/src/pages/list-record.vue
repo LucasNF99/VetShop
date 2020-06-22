@@ -37,7 +37,7 @@
             </div>
           </q-td>
           <q-td key="prescricao" :props="props">
-            R$ {{ props.row.prescricao }}
+            {{ props.row.prescricao }}
           </q-td>
           <q-td key="queixas" :props="props">
             {{ props.row.queixas }}
@@ -74,7 +74,7 @@
       </template>
     </q-table>
     <updateModalRecord
-    :updateModal="updateModal"
+    :updateModalRecord="updateModalRecord"
     :isNew="isNew"
     :prontuario="prontuario"
     @closeModal="closeModal"
@@ -114,6 +114,7 @@ export default {
       columns,
       updateModalRecord: false,
       prontuario: {},
+      consultas: [],
       isNew: false,
       pagination: {
         rowsPerPage: 5,
@@ -122,13 +123,14 @@ export default {
     };
   },
   methods: {
-    openUpdate(laudo, exame, prescricao, queixas, id) {
+    openUpdate(laudo, exame, prescricao, queixas, consulta, id) {
       if (id) {
         this.prontuario = {
-          nome,
+          laudo,
           exame,
-          precoCompra,
+          queixas,
           prescricao,
+          consulta,
           id,
         };
         this.isNew = false;
@@ -136,7 +138,7 @@ export default {
         this.isNew = true;
         this.prontuario = {};
       }
-      this.updateModal = true;
+      this.updateModalRecord = true;
     },
 
     async deleteItem(id) {
@@ -158,7 +160,7 @@ export default {
     },
 
     closeModal() {
-      this.updateModal = false;
+      this.updateModalRecord = false;
     },
   },
   computed: {
@@ -171,6 +173,10 @@ export default {
   },
   async mounted() {
     await store().dispatch('record/getRecord');
+    await store().dispatch('appointment/getAppointment');
+    this.getAppointment.forEach(el => {
+      this.consultas.push({label: el.nome, pacienteId: el.id, value: el.nome})
+    });
   },
 };
 </script>
