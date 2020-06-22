@@ -21,7 +21,7 @@ const routes = new Router();
 //Post
 routes.post('/sessions', SessionController.store);
 
-//routes.use(authMiddleware);
+// routes.use(authMiddleware);
 
 
 

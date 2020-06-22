@@ -70,7 +70,7 @@ export default {
   },
   data() {
     return {
-      paciente: '',
+      nome: '',
       data: '',
       hora: '',
       id: 0,
@@ -91,7 +91,6 @@ export default {
         if (!this.isNew) {
           this.formatData();
         } else {
-          console.log(this.paciente.pacienteId);
 
           const payload = {
             paciente_id: this.paciente.pacienteId,
@@ -148,8 +147,10 @@ export default {
   },
   watch: {
     consulta(value) {
+      console.log(value);
+      
       if (value.id) {
-        this.paciente = value.paciente;
+        this.paciente = value.nome;
         this.data = value.data;
         this.hora = value.hora;
         this.id = value.id;

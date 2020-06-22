@@ -53,8 +53,14 @@ class ConsultaController {
   }
 
   async index(req, res) {
-    const consultas = await Consulta.findAll();
-
+    const consultas = await Consulta.findAll(
+      {
+        include: [{
+          model: Paciente,
+          attributes: ['id', 'nome']
+        }],
+        attributes: ['id', 'data', 'hora']
+      });
     return res.json(consultas);
   }
 

@@ -33,12 +33,13 @@
             {{ props.row.hora }}
           </q-td>
           <q-td key="paciente" :props="props" class="a-table-td-descricao">
-              {{ getPatient }}
+              {{ props.row.Paciente.nome }}
           </q-td>
           <q-td>
             <q-btn size="md" round icon="edit"
             @click="openUpdate(
-            props.row.paciente.pacienteId,
+            props.row.Paciente.nome,
+            props.row.data,
             props.row.hora,
             props.row.id,
             )">
@@ -102,7 +103,6 @@ export default {
       columns,
       updateModal: false,
       consulta: {},
-      pacientes: [],
       isNew: false,
       pagination: {
         rowsPerPage: 5,
@@ -111,10 +111,10 @@ export default {
     };
   },
   methods: {
-    openUpdate(paciente, data, hora, id) {
-      if (paciente) {
+    openUpdate(nome, data, hora, id) {
+      if (nome) {
         this.consulta = {
-          paciente,
+          nome,
           data,
           hora,
           id,
@@ -151,7 +151,6 @@ export default {
   },
   computed: {
     ...mapGetters('appointment', ['getAppointment']),
-    ...mapGetters('patient', ['getPatient']),
     filterProducts() {
       return this.filter ? this.getAppointment.filter((consulta) => { /* eslint-disable-line arrow-body-style */
         return consulta.data.toLowerCase().includes(this.filter.toLowerCase());
@@ -159,11 +158,7 @@ export default {
     },
   },
   async mounted() {
-    await store().dispatch('appointment/getAppointment');
-    await store().dispatch('patient/getPatient');
-    this.getPatient.forEach(el => {
-      this.pacientes.push({label: el.nome, pacienteId: el.id, value: el.nome})
-    });
+    await store().dispatch('appointment/getAppointment');    
   },
 };
 </script>
