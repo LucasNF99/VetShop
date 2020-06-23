@@ -65,7 +65,7 @@
         </q-dialog>
       </template>
     </q-table>
-    <updateModalMed
+    <updateModal
     :updateModal="updateModal"
     :isNew="isNew"
     :consulta="consulta"
@@ -77,7 +77,7 @@
 <script>
 /* eslint-disable */
 import { mapGetters } from 'vuex';
-import updateModalMed from '../components/modal-appointment';
+import updateModal from '../components/modal-appointment';
 import store from '../store';
 
 const columns = [
@@ -94,7 +94,7 @@ const columns = [
 
 export default {
   components: {
-    updateModalMed,
+    updateModal,
   },
   data() {
     return {
@@ -102,6 +102,7 @@ export default {
       data: this.getAppointment,
       columns,
       updateModal: false,
+      pacientes: [],
       consulta: {},
       isNew: false,
       pagination: {
@@ -131,6 +132,7 @@ export default {
       const response = await store().dispatch('appointment/deleteAppointment', id);
       if(response) {
         await store().dispatch('appointment/getAppointment');
+        await store().dispatch('patient/getPatient');
         this.$q.notify({
           color: 'positive',
           message: 'Item deletado com sucesso',
@@ -151,6 +153,7 @@ export default {
   },
   computed: {
     ...mapGetters('appointment', ['getAppointment']),
+    ...mapGetters('patient', ['getPatient']),
     filterProducts() {
       return this.filter ? this.getAppointment.filter((consulta) => { /* eslint-disable-line arrow-body-style */
         return consulta.data.toLowerCase().includes(this.filter.toLowerCase());
@@ -158,7 +161,12 @@ export default {
     },
   },
   async mounted() {
-    await store().dispatch('appointment/getAppointment');    
+    await store().dispatch('appointment/getAppointment'); 
+    await store().dispatch('patient/getPatient');
+    this.getPatient.forEach(el => {
+      this.pacientes.push({label: el.nome, pacienteId: el.id, value: el.nome})
+    });
+    console.log(this.getAppointment);
   },
 };
 </script>

@@ -175,7 +175,7 @@ export default {
     await store().dispatch('record/getRecord');
     await store().dispatch('appointment/getAppointment');
     this.getAppointment.forEach(el => {
-      this.consultas.push({label: el.nome, pacienteId: el.id, value: el.nome})
+      this.consultas.push({label: el.data, consultaId: el.id, value: el.data})
     });
   },
 };

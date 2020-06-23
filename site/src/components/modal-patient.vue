@@ -35,6 +35,15 @@
               ref="raca"
               class="m-update_field-input"/>
             </div>
+            <div>
+            <div class="m-modal-update_field _select">
+              <span class="m-update_field-label">Cliente:</span>
+              <q-select v-model="cliente" :options="clientes" label="Selecione"
+              :rules="[val => !!val || 'Campo obrigatorio!']"
+              ref="cliente"
+              class="m-update_field-input"/>
+            </div>
+          </div>
           </div>
           <div>
             <div class="m-modal-update_field">
@@ -74,6 +83,8 @@
 
 
 <script>
+/* eslint-disable */
+import { mapGetters } from 'vuex';
 import store from '../store';
 
 export default {
@@ -92,6 +103,7 @@ export default {
       altura: 0,
       dataNascimento: 0,
       id: 0,
+      clientes: [],
     };
   },
   methods: {
@@ -186,6 +198,13 @@ export default {
     },
   },
   computed: {
+    ...mapGetters('client', ['getClient']),
+  },
+  async mounted() {
+    await store().dispatch('client/getClient');
+    this.getClient.forEach(el => {
+      this.clientes.push({label: el.nome, clienteId: el.id, value: el.nome})
+    });
   },
 };
 </script>

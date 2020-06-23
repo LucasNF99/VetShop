@@ -75,6 +75,7 @@ export default {
       hora: '',
       id: 0,
       pacientes: [],
+      paciente: '',
     };
   },
   methods: {
