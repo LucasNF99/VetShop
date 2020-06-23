@@ -11,7 +11,6 @@ module.exports = {
       },
       data: {
         type: Sequelize.DATE,
-        allowNull: false,
       },
       valor: {
         type: Sequelize.FLOAT,

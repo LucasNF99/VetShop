@@ -1,6 +1,8 @@
 import * as Yup from 'yup';
 import Venda from '../models/Venda';
 
+import moment from 'moment';
+
 import Produto from '../models/Produto';
 import Medicamento from '../models/Medicamento';
 import Usuario from '../models/Usuario';
@@ -9,7 +11,6 @@ import Usuario from '../models/Usuario';
 class VendaController {
   async store(req, res) {
     const schema = Yup.object().shape({
-      data: Yup.date().required(),
       valor: Yup.number().required(),
     })
 
@@ -20,10 +21,12 @@ class VendaController {
       res.status(400).json(erro.errors)
     }
 
-    const produto = await Venda.findByPk(req.body.produto_id);
 
+    moment.locale('pt-BR');
 
-    const { id, data, valor } = await Venda.create(req.body);
+    const data = moment().format('D MMMM YYYY, h:mm:ss a')
+
+    const { id, valor } = await Venda.create(req.body, data);
 
     return res.json({
       id,
@@ -71,7 +74,7 @@ class VendaController {
       res.json(venda);
     }
     else {
-      res.json({ message: 'Venda não encontrado' })
+      res.json({ message: 'Venda não encontrada' })
     }
 
   }

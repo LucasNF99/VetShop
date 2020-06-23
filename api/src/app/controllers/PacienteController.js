@@ -22,6 +22,14 @@ class PacienteController {
       res.status(400).json(erro.errors)
     }
 
+    const cliente = await Cliente.findByPk(req.body.cliente_id);
+
+    if (!cliente) {
+      return res.status(400).json({ error: 'Cliente é um campo obrigatório' })
+    }
+
+
+
     const { id, nome, especie, raca, peso, altura, dataNascimento } = await Paciente.create(req.body);
 
     return res.json({

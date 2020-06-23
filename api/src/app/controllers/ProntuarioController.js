@@ -19,6 +19,14 @@ class ProntuarioController {
       res.status(400).json(erro.errors)
     }
 
+    const consulta = await Consulta.findByPk(req.body.consulta_id);
+
+    if (!consulta) {
+      return res.status(400).json({ error: 'Consulta é um campo obrigatório' })
+    }
+
+
+
     const { id, laudo, exame, prescricao, queixas } = await Prontuario.create(req.body);
 
     return res.json({
