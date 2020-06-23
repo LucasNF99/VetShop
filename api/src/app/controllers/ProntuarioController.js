@@ -60,7 +60,16 @@ class ProntuarioController {
   }
 
   async index(req, res) {
-    const prontuarios = await Prontuario.findAll();
+    const prontuarios = await Prontuario.findAll({
+      include: [{
+        model: Consulta,
+        attributes: ['id', 'data', 'hora']
+      }],
+      attributes: ['id', 'laudo', 'exame', 'prescricao', 'queixas']
+    });
+    console.log('---------------------------------------------------------------');
+    console.log(prontuarios[0]);
+    console.log('---------------------------------------------------------------');
 
     return res.json(prontuarios);
   }

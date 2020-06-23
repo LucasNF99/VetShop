@@ -40,10 +40,14 @@
           <q-td key="peso" :props="props">
             {{ props.row.peso }}
           </q-td>
+          <q-td key="dono" :props="props">
+            {{ props.row.Cliente.nome}}
+          </q-td>
           <q-td>
             <q-btn size="md" round icon="edit"
             @click="openUpdate(
             props.row.nome,
+            props.row.Cliente.nome,
             props.row.especie,
             props.row.raca,
             props.row.peso,
@@ -101,6 +105,9 @@ const columns = [
   {
     name: 'peso', align: 'left', label: 'Peso', field: 'peso',
   },
+    {
+    name: 'dono', align: 'left', label: 'Dono', field: 'dono',
+  },
 ];
 
 export default {
@@ -113,6 +120,7 @@ export default {
       data: this.getPatient,
       columns,
       updateModal: false,
+      clientes:[],
       paciente: {},
       isNew: false,
       pagination: {
@@ -122,10 +130,11 @@ export default {
     };
   },
   methods: {
-    openUpdate(nome, especie, raca, peso, altura, dataNascimento, id) {
+    openUpdate(nome, nomeDono, especie, raca, peso, altura, dataNascimento, id) {
       if (nome) {
         this.paciente = {
           nome,
+          nomeDono,
           especie,
           raca,
           peso,
@@ -145,6 +154,7 @@ export default {
       const response = await store().dispatch('patient/deletePatient', id);
       if(response) {
         await store().dispatch('patient/getPatient');
+         await store().dispatch('client/getClient');
         this.$q.notify({
           color: 'positive',
           message: 'Item deletado com sucesso',
@@ -165,6 +175,7 @@ export default {
   },
   computed: {
     ...mapGetters('patient', ['getPatient']),
+    ...mapGetters('client', ['getClient']),
     filterPatients() {
       return this.filter ? this.getPatient.filter((paciente) => { /* eslint-disable-line arrow-body-style */
         return paciente.nome.toLowerCase().includes(this.filter.toLowerCase());
@@ -172,7 +183,13 @@ export default {
     },
   },
   async mounted() {
+    console.log(this.getPatient);
     await store().dispatch('patient/getPatient');
+    await store().dispatch('client/getClient');
+    this.getClient.forEach(el => {
+      this.clientes.push({label: el.nome, clienteId: el.id, value: el.nome})
+    });
+    console.log(this.getPatient);
   },
 };
 </script>

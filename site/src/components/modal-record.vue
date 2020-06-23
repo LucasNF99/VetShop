@@ -85,6 +85,7 @@ export default {
     return {
       laudo: '',
       exame: '',
+      data: '',
       queixas: '',
       prescricao: '',
       id: 0,
@@ -110,10 +111,10 @@ export default {
         } else {
           const payload = {
             laudo: this.laudo,
+            consulta_id: this.consulta.consultaId,
             exame: this.exame,
             queixas: this.queixas,
             prescricao: this.prescricao,
-            consulta_id: this.consulta.consultaId,
           };
           const response = await store().dispatch('record/createRecord', payload);
           if (response) {
@@ -167,6 +168,7 @@ export default {
     produto(value) {
       if (value.id) {
         this.laudo = value.laudo;
+        this.data = value.data,
         this.exame = value.exame;
         this.queixas = value.queixas;
         this.prescricao = value.prescricao;

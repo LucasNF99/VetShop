@@ -97,12 +97,14 @@ export default {
   data() {
     return {
       nome: '',
+      nomeDono: '',
       especie: '',
       raca: '',
       peso: 0,
       altura: 0,
       dataNascimento: 0,
       id: 0,
+      cliente: '',
       clientes: [],
     };
   },
@@ -128,6 +130,7 @@ export default {
         } else {
           const payload = {
             nome: this.nome,
+            cliente_id: this.cliente.clienteId,
             especie: this.especie,
             raca: this.raca,
             peso: this.peso,
@@ -161,6 +164,7 @@ export default {
       const payload = {
         nome: this.nome,
         especie: this.especie,
+        cliente_id: this.cliente.clienteId,
         raca: this.raca,
         peso: this.peso,
         altura: this.altura,
@@ -188,6 +192,7 @@ export default {
     paciente(value) {
       if (value.id) {
         this.nome = value.nome;
+        this.cliente = value.nomeDono;
         this.especie = value.especie;
         this.raca = value.raca;
         this.peso = value.peso;

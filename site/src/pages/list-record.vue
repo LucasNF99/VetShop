@@ -46,6 +46,7 @@
             <q-btn size="md" round icon="edit"
             @click="openUpdate(
             props.row.laudo,
+            props.row.Consulta.data,
             props.row.exame,
             props.row.prescricao,
             props.row.queixas,
@@ -123,10 +124,11 @@ export default {
     };
   },
   methods: {
-    openUpdate(laudo, exame, prescricao, queixas, consulta, id) {
+    openUpdate(laudo, data, exame, prescricao, queixas, consulta, id) {
       if (id) {
         this.prontuario = {
           laudo,
+          data,
           exame,
           queixas,
           prescricao,
@@ -145,6 +147,7 @@ export default {
       const response = await store().dispatch('record/deleteRecord', id);
       if(response) {
         await store().dispatch('record/getRecord');
+        await store().dispatch('appointment/getAppointment');
         this.$q.notify({
           color: 'positive',
           message: 'Item deletado com sucesso',
@@ -165,6 +168,7 @@ export default {
   },
   computed: {
     ...mapGetters('record', ['getRecord']),
+    ...mapGetters('appointment', ['getAppointment']),
     filterProducts() {
       return this.filter ? this.getRecord.filter((prontuario) => { /* eslint-disable-line arrow-body-style */
         return prontuario.nome.toLowerCase().includes(this.filter.toLowerCase());

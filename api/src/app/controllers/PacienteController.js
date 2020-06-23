@@ -70,7 +70,13 @@ class PacienteController {
   }
 
   async index(req, res) {
-    const pacientes = await Paciente.findAll();
+    const pacientes = await Paciente.findAll({
+      include: [{
+        model: Cliente,
+        attributes: ['id', 'nome']
+      }],
+      attributes: ['id', 'nome', 'especie', 'raca', 'peso', 'altura', 'dataNascimento']
+    });
 
     return res.json(pacientes);
   }
