@@ -2,7 +2,7 @@
   <q-btn-dropdown
   class="a-btn _avatar"
   color="primary"
-  label="Claytom"
+  :label="$q.cookies.get('vet_nome')"
   no-caps>
   <q-list>
     <q-item clickable v-close-popup>
@@ -24,13 +24,14 @@
 </template>
 
 <script>
+import store from '../store';
+
 export default {
   name: 'btnDropdown',
   methods: {
-    logout() {
-      // const response = await true/false - dialog confirm
-      // if (response) this.$router.push({ name: 'login' })
-      this.$router.push({ name: 'login' });
+    async logout() {
+      const status = await store().dispatch('auth/logout');
+      if (status) this.$router.push({ name: 'login' });
     },
   },
 };

@@ -8,6 +8,7 @@ import user from './module/user';
 import patient from './module/patient';
 import sale from './module/sale';
 import record from './module/record';
+import auth from './module/auth';
 
 // import example from './module-example'
 
@@ -33,6 +34,7 @@ export default function (/* { ssrContext } */) {
       patient,
       sale,
       record,
+      auth,
     },
 
     // enable strict mode (adds overhead!)

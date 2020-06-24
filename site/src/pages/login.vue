@@ -7,12 +7,16 @@
         v-model="email"
         color="secondary"
         class="a-input_login"
-        label="E-mail" />
+        label="E-mail"
+        :rules="[val => !!val || 'Campo obrigatorio!']"
+        ref="email"/>
         <q-input
         v-model="password"
         color="secondary"
         label="Senha"
         class="a-input_login"
+        :rules="[val => !!val || 'Campo obrigatorio!']"
+        ref="password"
         :type="isPwd ? 'password' : 'text'">
           <template v-slot:append>
             <q-icon
@@ -33,6 +37,8 @@
 </template>
 
 <script>
+import store from '../store';
+
 export default {
   name: 'login',
   data() {
@@ -43,8 +49,20 @@ export default {
     };
   },
   methods: {
-    submit() {
-      this.$router.push({ name: 'home' });
+    async submit() {
+      const payload = {
+        email: this.email,
+        password: this.password,
+      };
+      const response = await store().dispatch('auth/login', payload);
+      if (response.status) this.$router.push({ name: 'home' });
+      else {
+        this.$q.notify({
+          color: 'negative',
+          message: 'E-mail ou senha incorretos',
+          icon: 'report_problem',
+        });
+      }
     },
   },
 };

@@ -8,6 +8,7 @@ import appointmentAPI from './modules/appointment';
 import patientAPI from './modules/patient';
 import saleAPI from './modules/sale';
 import recordAPI from './modules/record';
+import authAPI from './modules/auth';
 
 const api = axios.create({
   baseURL: 'http://localhost:3333/',
@@ -23,3 +24,4 @@ export const appointment = appointmentAPI(api);
 export const patient = patientAPI(api);
 export const sale = saleAPI(api);
 export const record = recordAPI(api);
+export const auth = authAPI(api);

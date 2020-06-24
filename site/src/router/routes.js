@@ -1,30 +1,26 @@
-// import store from '../store';
+import store from '../store';
 
-// function requireAuth(to, from, next) {
-//   if (!store().state.auth.isUserLogged) {
-//     next({ name: 'login' });
-//   } else {
-//     next();
-//   }
-// }
+function requireAuth(to, from, next) {
+  if (!store().state.auth.isUserLogged) {
+    next({ name: 'login' });
+  } else {
+    next();
+  }
+}
 
 const routes = [
   {
     path: '/',
-    // beforeEnter: requireAuth,
+    beforeEnter: requireAuth,
     component: () => import('layouts/index.vue'),
     children: [
       { path: '', name: 'home', component: () => import('pages/Index.vue') },
       { path: 'estoque', name: 'estoque', component: () => import('pages/estoque.vue') },
       { path: 'cliente', component: () => import('pages/cliente.vue') },
       { path: 'gerencia', component: () => import('pages/gerencia.vue') },
-    ],
-  },
-  {
-    path: '/estoque-medicamento',
-    component: () => import('layouts/index.vue'),
-    children: [
-      { path: '', component: () => import('pages/medicamento.vue') },
+      { path: 'estoque-medicamento', component: () => import('pages/medicamento.vue') },
+      { path: 'lista-funcionarios', component: () => import('pages/list-employee.vue') },
+
     ],
   },
   {
