@@ -4,7 +4,7 @@ module.exports = {
       type: Sequelize.INTEGER,
       references: { model: 'pacientes', key: 'id' },
       onUpdate: 'CASCADE',
-      onDelete: 'SET NULL',
+      onDelete: 'CASCADE',
       allowNull: true,
     });
   },

@@ -3,7 +3,7 @@ module.exports = {
     return queryInterface.addColumn('produtos', 'classe', {
       type: Sequelize.STRING,
       onUpdate: 'CASCADE',
-      onDelete: 'SET NULL',
+      onDelete: 'CASCADE',
     });
   },
 

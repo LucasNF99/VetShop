@@ -16,6 +16,35 @@ module.exports = {
         type: Sequelize.FLOAT,
         allowNull: false,
       },
+      medicamento_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'medicamentos',
+          key: 'id'
+        },
+        onUpdate: 'cascade',
+        onDelete: 'cascade'
+      },
+      usuario_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'usuarios',
+          key: 'id'
+        },
+        onUpdate: 'cascade',
+        onDelete: 'cascade'
+      },
+      produto_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'produtos',
+          key: 'id'
+        },
+        onUpdate: 'cascade',
+        onDelete: 'cascade'
+      },
+
+
       created_at: {
         type: Sequelize.DATE,
         allowNull: false,
