@@ -4,7 +4,7 @@ class Venda extends Model {
   static init(sequelize) {
     super.init(
       {
-        data: Sequelize.DATE,
+        data: Sequelize.STRING,
         valor: Sequelize.FLOAT,
       },
       {

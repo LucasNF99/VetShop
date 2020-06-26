@@ -21,12 +21,21 @@ class VendaController {
       res.status(400).json(erro.errors)
     }
 
+    const produtos = await Produto.findByPk(req.body.produto_id);
+
+    if (req.body.produto.quantidade <= produtos.quantidade) {
+      produtos.quantidade -= req.body.produto.quantidade
+      produtos.save()
+
+    }
+
+
 
     moment.locale('pt-BR');
-
     const data = moment().format('D MMMM YYYY, h:mm:ss a')
 
-    const { id, valor } = await Venda.create(req.body, data);
+
+    const { id, valor } = await Venda.create({ ...req.body, data });
 
     return res.json({
       id,
