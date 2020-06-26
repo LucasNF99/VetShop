@@ -142,6 +142,7 @@ export default {
     async formatData() {
       const payload = {
         laudo: this.laudo,
+        consulta_id: this.consulta.consultaId,
         exame: this.exame,
         queixas: this.queixas,
         prescricao: this.prescricao,

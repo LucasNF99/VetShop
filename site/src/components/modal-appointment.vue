@@ -125,6 +125,7 @@ export default {
     },
     async formatData() {
       const payload = {
+        paciente_id: this.paciente.pacienteId,
         data: this.data,
         hora: this.hora,
         consultaId: this.id,

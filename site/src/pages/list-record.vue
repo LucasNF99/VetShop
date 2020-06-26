@@ -46,7 +46,7 @@
             <q-btn size="md" round icon="edit"
             @click="openUpdate(
             props.row.laudo,
-            props.row.Consulta.data,
+            props.row.Consultum.data,
             props.row.exame,
             props.row.prescricao,
             props.row.queixas,
@@ -176,11 +176,13 @@ export default {
     },
   },
   async mounted() {
+    console.log(this.getRecord)
     await store().dispatch('record/getRecord');
     await store().dispatch('appointment/getAppointment');
     this.getAppointment.forEach(el => {
       this.consultas.push({label: el.data, consultaId: el.id, value: el.data})
     });
+    console.log(this.getRecord)
   },
 };
 </script>
