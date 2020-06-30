@@ -19,6 +19,13 @@ class ClienteController {
       return res.status(400).json({ error: 'CPF já utilizado' })
     }
 
+    const existsemail = await Cliente.findOne({ where: { cpf: req.body.email } })
+
+    if (existsemail) {
+      return res.status(400).json({ error: 'E-mail já utilizado' })
+    }
+
+
     try {
       await schema.validate(req.body)
     }

@@ -21,19 +21,39 @@ class VendaController {
       res.status(400).json(erro.errors)
     }
 
-    const produtos = await Produto.findByPk(req.body.produto_id);
+    // Validade Usuario
+    const existUsuario = await Usuario.findByPk(req.body.usuario_id);
 
-    if (req.body.produto.quantidade <= produtos.quantidade) {
-      produtos.quantidade -= req.body.produto.quantidade
-      produtos.save()
-
+    if (!existUsuario) {
+      return res.status(400).json({ error: 'Usuario é um campo obrigatório' })
     }
 
+    //Validate Produto
+    const produtos = await Produto.findByPk(req.body.produto_id);
+    if (produtos) {
+      if (req.body.produto.quantidade <= produtos.quantidade) {
+        produtos.quantidade -= req.body.produto.quantidade
+        produtos.save()
+      }
+      else {
+        return res.status(400).json({ error: 'Quantidade vendida não pode ser superior a quantidade disponível em estoque' })
+      }
+    }
 
+    //Validate Medicamento
+    const medicamentos = await Medicamento.findByPk(req.body.medicamento_id);
+    if (medicamentos) {
+      if (req.body.medicamento.quantidade <= medicamentos.quantidade) {
+        medicamentos.quantidade -= req.body.medicamento.quantidade
+        medicamentos.save()
+      }
+      else {
+        return res.status(400).json({ error: 'Quantidade vendida não pode ser superior a quantidade disponível em estoque' })
+      }
+    }
 
     moment.locale('pt-BR');
     const data = moment().format('D MMMM YYYY, h:mm:ss a')
-
 
     const { id, valor } = await Venda.create({ ...req.body, data });
 
