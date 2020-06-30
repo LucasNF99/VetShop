@@ -1,5 +1,3 @@
-'use strict';
-
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('prontuarios', {
@@ -27,7 +25,7 @@ module.exports = {
       consulta_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'consultas',
+          model: 'consult',
           key: 'id'
         },
         onUpdate: 'cascade',

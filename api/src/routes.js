@@ -9,7 +9,7 @@ import VendaController from './app/controllers/VendaController';
 import ClienteController from './app/controllers/ClienteController';
 import PacienteController from './app/controllers/PacienteController';
 import ProntuarioController from './app/controllers/ProntuarioController';
-import ConsultaController from './app/controllers/ConsultaController';
+import ConsultController from './app/controllers/ConsultController';
 import SessionController from './app/controllers/SessionController';
 
 import authMiddleware from '../middlewares/auth';
@@ -32,7 +32,7 @@ routes.post('/cliente', ClienteController.store);
 routes.post('/paciente', PacienteController.store);
 routes.post('/venda', VendaController.store);
 routes.post('/prontuario', ProntuarioController.store);
-routes.post('/consulta', ConsultaController.store);
+routes.post('/consulta', ConsultController.store);
 
 //Put
 routes.put('/produto', ProdutoController.update);
@@ -42,7 +42,7 @@ routes.put('/usuario', UsuarioController.update);
 routes.put('/venda', VendaController.update);
 routes.put('/paciente', PacienteController.update);
 routes.put('/prontuario', ProntuarioController.update);
-routes.put('/consulta', ConsultaController.update);
+routes.put('/consulta', ConsultController.update);
 
 
 //Get
@@ -58,8 +58,8 @@ routes.get('/paciente', PacienteController.index);
 routes.get('/paciente/:id', PacienteController.show);
 routes.get('/prontuario', ProntuarioController.index);
 routes.get('/prontuario/:id', ProntuarioController.show);
-routes.get('/consulta', ConsultaController.index);
-routes.get('/consulta/:id', ConsultaController.show);
+routes.get('/consulta', ConsultController.index);
+routes.get('/consulta/:id', ConsultController.show);
 routes.get('/usuario', UsuarioController.index);
 routes.get('/usuario/:id', UsuarioController.show);
 
@@ -71,7 +71,7 @@ routes.delete('/cliente/:id', ClienteController.delete);
 routes.delete('/usuario/:id', UsuarioController.delete);
 routes.delete('/paciente/:id', PacienteController.delete);
 routes.delete('/prontuario/:id', ProntuarioController.delete);
-routes.delete('/consulta/:id', ConsultaController.delete);
+routes.delete('/consulta/:id', ConsultController.delete);
 
 
 

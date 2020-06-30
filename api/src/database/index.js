@@ -7,11 +7,11 @@ import Venda from '../app/models/Venda';
 import Cliente from '../app/models/Cliente';
 import Paciente from '../app/models/Paciente';
 import Prontuario from '../app/models/Prontuario';
-import Consulta from '../app/models/Consulta';
+import Consult from '../app/models/Consult';
 
 import databaseConfig from '../config/database';
 
-const models = [Produto, Usuario, Medicamento, Venda, Cliente, Paciente, Prontuario, Consulta];
+const models = [Produto, Usuario, Medicamento, Venda, Cliente, Paciente, Prontuario, Consult];
 
 class Database {
   constructor() {

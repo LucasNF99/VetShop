@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
 import Prontuario from '../models/Prontuario';
 
-import Consulta from '../models/Consulta';
+import Consult from '../models/Consult';
 
 class ProntuarioController {
   async store(req, res) {
@@ -19,10 +19,10 @@ class ProntuarioController {
       res.status(400).json(erro.errors)
     }
 
-    const consulta = await Consulta.findByPk(req.body.consulta_id);
+    const consulta = await Consult.findByPk(req.body.consulta_id);
 
     if (!consulta) {
-      return res.status(400).json({ error: 'Consulta é um campo obrigatório' })
+      return res.status(400).json({ error: 'Consulta não exite' })
     }
 
 
@@ -70,7 +70,7 @@ class ProntuarioController {
   async index(req, res) {
     const prontuarios = await Prontuario.findAll({
       include: [{
-        model: Consulta,
+        model: Consult,
         attributes: ['id', 'data', 'hora']
       }],
       attributes: ['id', 'laudo', 'exame', 'prescricao', 'queixas']
@@ -83,7 +83,7 @@ class ProntuarioController {
     const id = req.params.id;
     const prontuario = await Prontuario.findByPk(id, {
       include: [{
-        model: Consulta,
+        model: Consult,
         attributes: ['id', 'data', 'hora']
       }],
       attributes: ['id', 'laudo', 'exame', 'prescricao', 'queixas']

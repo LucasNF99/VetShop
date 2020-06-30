@@ -1,9 +1,9 @@
 import * as Yup from 'yup';
-import Consulta from '../models/Consulta';
+import Consult from '../models/Consult';
 
 import Paciente from '../models/Paciente';
 
-class ConsultaController {
+class ConsultController {
   async store(req, res) {
     const schema = Yup.object().shape({
       data: Yup.string().required(),
@@ -24,7 +24,7 @@ class ConsultaController {
     }
 
 
-    const { id, data, hora } = await Consulta.create(req.body);
+    const { id, data, hora } = await Consult.create(req.body);
 
     return res.json({
       id,
@@ -48,7 +48,7 @@ class ConsultaController {
     }
 
 
-    const consulta = await Consulta.findByPk(req.body.consultaId);
+    const consulta = await Consult.findByPk(req.body.consultaId);
 
     const { id, data, hora } = await consulta.update(req.body);
 
@@ -60,7 +60,7 @@ class ConsultaController {
   }
 
   async index(req, res) {
-    const consultas = await Consulta.findAll(
+    const consultas = await Consult.findAll(
       {
         include: [{
           model: Paciente,
@@ -73,7 +73,7 @@ class ConsultaController {
 
   async show(req, res) {
     const id = req.params.id;
-    const consulta = await Consulta.findByPk(id, {
+    const consulta = await Consult.findByPk(id, {
       include: [{
         model: Paciente,
         attributes: ['id', 'nome']
@@ -85,25 +85,25 @@ class ConsultaController {
       res.json(consulta);
     }
     else {
-      res.json({ message: 'Consulta não encontrada' })
+      res.json({ message: 'Consult não encontrada' })
     }
 
   }
 
   async delete(req, res) {
     const id = req.params.id;
-    const consulta = await Consulta.findByPk(id);
+    const consulta = await Consult.findByPk(id);
 
     if (consulta) {
       consulta.destroy();
-      res.json({ message: 'Consulta removida com sucesso' })
+      res.json({ message: 'Consult removida com sucesso' })
     }
     else {
-      res.json({ message: 'Consulta não encontrada' })
+      res.json({ message: 'Consult não encontrada' })
     }
 
   }
 
 }
 
-export default new ConsultaController();
+export default new ConsultController();

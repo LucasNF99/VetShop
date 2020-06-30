@@ -1,6 +1,6 @@
 import Sequelize, { Model } from 'sequelize';
 
-class Consulta extends Model {
+class Consult extends Model {
   static init(sequelize) {
     super.init(
       {
@@ -10,7 +10,7 @@ class Consulta extends Model {
       {
         sequelize,
         freezeTableName: true,
-        tableName: 'consultas',
+        tableName: 'consult',
       }
     );
 
@@ -23,4 +23,4 @@ class Consulta extends Model {
 
 }
 
-export default Consulta;
+export default Consult;
