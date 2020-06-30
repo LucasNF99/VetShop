@@ -24,6 +24,15 @@ module.exports = {
       queixas: {
         type: Sequelize.STRING,
       },
+      consulta_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'consultas',
+          key: 'id'
+        },
+        onUpdate: 'cascade',
+        onDelete: 'cascade'
+      },
       created_at: {
         type: Sequelize.DATE,
         allowNull: false,

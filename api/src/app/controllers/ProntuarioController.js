@@ -75,9 +75,6 @@ class ProntuarioController {
       }],
       attributes: ['id', 'laudo', 'exame', 'prescricao', 'queixas']
     });
-    console.log('---------------------------------------------------------------');
-    console.log(prontuarios[0]);
-    console.log('---------------------------------------------------------------');
 
     return res.json(prontuarios);
   }
