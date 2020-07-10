@@ -1,6 +1,6 @@
 <template>
   <div>
-    <q-dialog v-model="updateModalRecord" class="m-modal-update">
+    <q-dialog v-model="updateModal" class="m-modal-update">
       <q-card>
         <q-card-section>
           <div class="text-h6">{{isNew ? 'Novo prontuario' : 'Editar prontuario'}}</div>
@@ -19,7 +19,6 @@
               <q-input v-model="laudo"
                 :rules="[val => !!val || 'Campo obrigatorio!']"
                 ref="laudo"
-                autogrow
                 class="m-update_field-input"/>
             </div>
             <div class="m-modal-update_field">
@@ -30,27 +29,28 @@
               class="m-update_field-input text-area" />
             </div>
             <div>
-            <div class="m-modal-update_field _select">
-              <span class="m-update_field-label">Consulta:</span>
-              <q-select v-model="consulta" :options="consultas" label="Selecione"
-              class="m-update_field-input"/>
-            </div>
           </div>
           </div>
           <div>
             <div class="m-modal-update_field">
               <span class="m-update_field-label">Queixas:</span>
-              <q-input type="text" v-model="queixas"
+              <q-input type="text" v-model="queixas" class="m-update_field-input"
               :rules="[val => !!val || 'Campo obrigatorio!']"
-              ref="queixas"
-              class="m-update_field-input"/>
+              ref="queixas"/>
             </div>
             <div class="m-modal-update_field">
               <span class="m-update_field-label">Prescrição:</span>
-              <q-input v-model="prescricao"
-                :rules="[val => !!val || 'Campo obrigatorio!']"
-                ref="prescricao"
-               class="m-update_field-input"/>
+              <q-input type="text" v-model="prescricao"
+              :rules="[val => !!val || 'Campo obrigatorio!']"
+              ref="prescricao"
+              class="m-update_field-input"/>
+            </div>
+            <div class="m-modal-update_field _select">
+              <span class="m-update_field-label">Consulta:</span>
+              <q-select v-model="consulta" :options="consultas" label="Selecione"
+              :rules="[val => !!val || 'Campo obrigatorio!']"
+              ref="consulta"
+              class="m-update_field-input"/>
             </div>
           </div>
           </q-form>
@@ -69,25 +69,26 @@
   </div>
 </template>
 
+
 <script>
 /* eslint-disable */
 import { mapGetters } from 'vuex';
 import store from '../store';
 
 export default {
-  nome: 'updateModalRecord',
+  nome: 'updateModal',
   props: {
-    updateModalRecord: Boolean,
-    produto: Object,
+    updateModal: Boolean,
+    paciente: Object,
     isNew: Boolean,
   },
   data() {
     return {
       laudo: '',
-      exame: '',
       data: '',
-      queixas: '',
+      exame: '',
       prescricao: '',
+      queixas: '',
       id: 0,
       consulta: '',
       consultas: [],
@@ -97,8 +98,8 @@ export default {
     async onSubmit() {
       this.$refs.laudo.validate();
       this.$refs.exame.validate();
-      this.$refs.queixas.validate();
       this.$refs.prescricao.validate();
+      this.$refs.queixas.validate();
       if (this.$refs.laudo.hasError
       || this.$refs.exame.hasError
       || this.$refs.prescricao.hasError
@@ -113,11 +114,11 @@ export default {
             laudo: this.laudo,
             consulta_id: this.consulta.consultaId,
             exame: this.exame,
-            queixas: this.queixas,
             prescricao: this.prescricao,
+            queixas: this.queixas,
           };
           const response = await store().dispatch('record/createRecord', payload);
-          if (response) {
+          if (response.id) {
             await store().dispatch('record/getRecord');
             this.$q.notify({
               color: 'positive',
@@ -144,8 +145,8 @@ export default {
         laudo: this.laudo,
         consulta_id: this.consulta.consultaId,
         exame: this.exame,
-        queixas: this.queixas,
         prescricao: this.prescricao,
+        queixas: this.queixas,
         prontuarioId: this.id,
       };
       const response = await store().dispatch('record/updateRecord', payload);
@@ -166,14 +167,13 @@ export default {
     },
   },
   watch: {
-    produto(value) {
+    paciente(value) {
       if (value.id) {
         this.laudo = value.laudo;
-        this.data = value.data,
+        this.consulta = value.data;
         this.exame = value.exame;
-        this.queixas = value.queixas;
         this.prescricao = value.prescricao;
-        this.consulta = value.consulta;
+        this.queixas = value.queixas;
         this.id = value.id;
       }
     },
@@ -184,7 +184,7 @@ export default {
   async mounted() {
     await store().dispatch('appointment/getAppointment');
     this.getAppointment.forEach(el => {
-      this.consultas.push({label: el.data, consultaId: el.id, value: el.nome})
+      this.consultas.push({label: el.data, consultaId: el.id, value: el.data})
     });
   },
 };

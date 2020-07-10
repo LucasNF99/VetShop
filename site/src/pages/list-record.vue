@@ -4,7 +4,7 @@
       Adicionar prontuario
     </q-btn>
     <q-table
-        :data="filterProducts"
+        :data="filterPatients"
         :columns="columns"
         row-key="name"
         class="m-table-produto"
@@ -12,7 +12,7 @@
         :pagination.sync="pagination"
       >
       <template v-slot:top>
-        <p class="m-table-produto_title">Prontuario</p>
+        <p class="m-table-produto_title">Prontuarios</p>
         <q-space />
 
         <q-input
@@ -26,13 +26,11 @@
       </template>
       <template class="m-table-template" v-slot:body="props">
         <q-tr :props="props">
-          <q-td key="laudo" :props="props"  class="a-table-td-descricao">
-            <div class="a-table-descricao">
+          <q-td key="laudo" :props="props">
             {{ props.row.laudo }}
-            </div>
           </q-td>
-          <q-td key="exame" :props="props" class="a-table-td-descricao">
-            <div class="a-table-descricao">
+          <q-td key="exame" :props="props">
+            <div>
               {{ props.row.exame }}
             </div>
           </q-td>
@@ -42,11 +40,14 @@
           <q-td key="queixas" :props="props">
             {{ props.row.queixas }}
           </q-td>
+          <q-td key="consult" :props="props">
+            {{ props.row.Consult.data}}
+          </q-td>
           <q-td>
             <q-btn size="md" round icon="edit"
             @click="openUpdate(
             props.row.laudo,
-            props.row.Consultum.data,
+            props.row.Consult.data,
             props.row.exame,
             props.row.prescricao,
             props.row.queixas,
@@ -74,8 +75,8 @@
         </q-dialog>
       </template>
     </q-table>
-    <updateModalRecord
-    :updateModalRecord="updateModalRecord"
+    <updateModalMed
+    :updateModal="updateModal"
     :isNew="isNew"
     :prontuario="prontuario"
     @closeModal="closeModal"
@@ -86,7 +87,7 @@
 <script>
 /* eslint-disable */
 import { mapGetters } from 'vuex';
-import updateModalRecord from '../components/modal-record';
+import updateModalMed from '../components/modal-record';
 import store from '../store';
 
 const columns = [
@@ -102,20 +103,23 @@ const columns = [
   {
     name: 'queixas', align: 'left', label: 'Queixas', field: 'queixas',
   },
+    {
+    name: 'consult', align: 'left', label: 'Consulta', field: 'consult',
+  },
 ];
 
 export default {
   components: {
-    updateModalRecord,
+    updateModalMed,
   },
   data() {
     return {
       filter: '',
       data: this.getRecord,
       columns,
-      updateModalRecord: false,
+      updateModal: false,
+      consultas:[],
       prontuario: {},
-      consultas: [],
       isNew: false,
       pagination: {
         rowsPerPage: 5,
@@ -124,15 +128,14 @@ export default {
     };
   },
   methods: {
-    openUpdate(laudo, data, exame, prescricao, queixas, consulta, id) {
+    openUpdate(laudo, data, exame, prescricao, queixas, id) {
       if (id) {
         this.prontuario = {
           laudo,
           data,
           exame,
-          queixas,
           prescricao,
-          consulta,
+          queixas,
           id,
         };
         this.isNew = false;
@@ -140,14 +143,14 @@ export default {
         this.isNew = true;
         this.prontuario = {};
       }
-      this.updateModalRecord = true;
+      this.updateModal = true;
     },
 
     async deleteItem(id) {
       const response = await store().dispatch('record/deleteRecord', id);
       if(response) {
         await store().dispatch('record/getRecord');
-        await store().dispatch('appointment/getAppointment');
+         await store().dispatch('appointment/getAppointment');
         this.$q.notify({
           color: 'positive',
           message: 'Item deletado com sucesso',
@@ -163,26 +166,26 @@ export default {
     },
 
     closeModal() {
-      this.updateModalRecord = false;
+      this.updateModal = false;
     },
   },
   computed: {
     ...mapGetters('record', ['getRecord']),
     ...mapGetters('appointment', ['getAppointment']),
-    filterProducts() {
+    filterPatients() {
       return this.filter ? this.getRecord.filter((prontuario) => { /* eslint-disable-line arrow-body-style */
-        return prontuario.nome.toLowerCase().includes(this.filter.toLowerCase());
+        return prontuario.laudo.toLowerCase().includes(this.filter.toLowerCase());
       }) : this.getRecord;
     },
   },
   async mounted() {
-    console.log(this.getRecord)
+    console.log(this.getRecord);
     await store().dispatch('record/getRecord');
     await store().dispatch('appointment/getAppointment');
     this.getAppointment.forEach(el => {
       this.consultas.push({label: el.data, consultaId: el.id, value: el.data})
     });
-    console.log(this.getRecord)
+    console.log(this.getRecord);
   },
 };
 </script>
