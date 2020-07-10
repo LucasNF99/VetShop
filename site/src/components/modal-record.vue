@@ -79,7 +79,7 @@ export default {
   nome: 'updateModal',
   props: {
     updateModal: Boolean,
-    paciente: Object,
+    prontuario: Object,
     isNew: Boolean,
   },
   data() {
@@ -167,7 +167,7 @@ export default {
     },
   },
   watch: {
-    paciente(value) {
+    prontuario(value) {
       if (value.id) {
         this.laudo = value.laudo;
         this.consulta = value.data;
