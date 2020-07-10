@@ -47,7 +47,7 @@
             <a href="/#/gerencia" class="m-footer-list-link">Gerenciar</a>
           </li>
           <li class="m-footer-list_item">
-            <a href="" class="m-footer-list-link">Sobre nós</a>
+            <a href="/#/sobre" class="m-footer-list-link">Sobre nós</a>
           </li>
         </ul>
       </nav>

@@ -27,6 +27,7 @@ const routes = [
       { path: 'listar-consultas', component: () => import('pages/list-appointment.vue') },
       { path: 'listar-prontuarios', component: () => import('pages/list-record.vue') },
       { path: 'caixa', component: () => import('pages/caixa.vue') },
+      { path: 'sobre', name: 'sobre', component: () => import('pages/about.vue') },
     ],
   },
   {
