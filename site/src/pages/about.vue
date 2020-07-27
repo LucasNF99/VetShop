@@ -9,20 +9,30 @@
      que roda em seu navegador sendo necessário apenas uma conexão
      com a internet para ser usado.
     </p>
-    <h4 class="o-about_title">Agradecimento</h4>
+    <h4 class="o-about_title _sec">Agradecimento</h4>
     <p class="o-about_text">
+      Aqui algumas pessoas que nos ajudaram nesse projeto:
     </p>
-    <h5>Nossos Links</h5>
-    <p class="o-about_text-link">GitHub</p>
-    <p class="o-about_text-link">
-      <a class="o-about_link" target="_blanck" href="https://github.com/LucasNF99">Lucas</a>
-    </p>
-    <p class="o-about_text-link">
-      <a class="o-about_link" target="_blanck" href="https://github.com/ClaytonJr99">Clayton</a>
-    </p>
-    <p class="o-about_text-link">
-      <a class="o-about_link" target="_blanck" href="https://github.com/FernandoSouzaMarques">Fernando</a>
-    </p>
+    <ul>
+      <li class="o-about_list-item">
+        <a class="o-about_link" href="https://github.com/FernandoSouzaMarques">Fernando Souza Marques</a>
+      </li>
+      <li class="o-about_list-item">
+        <a class="o-about_link" href="#">Diego</a>
+      </li>
+      <li class="o-about_list-item">
+        <a class="o-about_link" href="#">Vitor</a>
+      </li>
+    </ul>
+    <h4 class="o-about_title _sec">Devs</h4>
+    <ul>
+      <li class="o-about_list-item">
+        <a class="o-about_link" target="_blanck" href="https://github.com/ClaytonJr99">Clayton</a>
+      </li>
+      <li class="o-about_list-item">
+         <a class="o-about_link" target="_blanck" href="https://github.com/LucasNF99">Lucas</a>
+      </li>
+    </ul>
   </div>
 </template>
 
