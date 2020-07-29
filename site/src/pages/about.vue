@@ -18,10 +18,13 @@
         <a class="o-about_link" href="https://github.com/FernandoSouzaMarques">Fernando Souza Marques</a>
       </li>
       <li class="o-about_list-item">
-        <a class="o-about_link" href="#">Diego</a>
+        <a class="o-about_link" href="https://github.com/DiegoRugue">Diego Rugue</a>
       </li>
       <li class="o-about_list-item">
         <a class="o-about_link" href="#">Vitor</a>
+      </li>
+      <li class="o-about_list-item">
+        <a class="o-about_link" href="https://github.com/faustocintra">Fausto G. Cintra</a>
       </li>
     </ul>
     <h4 class="o-about_title _sec">Devs</h4>
