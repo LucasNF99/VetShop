@@ -87,7 +87,7 @@ export default {
     ...mapGetters('sale', ['getSale']),
     filterProducts() {
       return this.filter ? this.getSale.filter((venda) => { /* eslint-disable-line arrow-body-style */
-        return venda.nome.toLowerCase().includes(this.filter.toLowerCase());
+        return venda.data.toLowerCase().includes(this.filter.toLowerCase());
       }) : this.getSale;
     },
   },

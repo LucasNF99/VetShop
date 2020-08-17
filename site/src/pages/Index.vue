@@ -9,7 +9,8 @@
             <q-item clickable v-ripple>
               <q-item-section>
                 <q-item-label>Produto em falta: </q-item-label>
-                <q-item-label caption>{{product.nome}}: {{product.quantidade}}</q-item-label>
+                <q-item-label caption>{{product.nome}}:
+                  {{product.quantidade}} unidades</q-item-label>
               </q-item-section>
             </q-item>
             <q-separator/>
