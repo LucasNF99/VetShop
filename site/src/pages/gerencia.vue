@@ -17,7 +17,7 @@
     <q-card class="m-card-nav">
       <q-card-section class="a-card-title">
         <q-icon name="assignment" size="md"/>
-        <div class="text-h6">Gerenciar Vendas</div>
+        <div class="text-h6">Visualizar Vendas</div>
       </q-card-section>
 
       <q-card-section class="m-btn-group">
