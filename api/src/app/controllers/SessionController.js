@@ -10,6 +10,7 @@ class SessionController {
 
     const usuario = await Usuario.findOne({ where: { email } });
 
+
     if (!usuario) {
       return res.status(401).json({ error: 'Usuario não encontrado' })
     }
@@ -18,13 +19,14 @@ class SessionController {
       return res.status(401).json({ error: 'senha incorreta' });
     }
 
-    const { id, nome } = usuario;
+    const { id, nome, provider } = usuario;
 
     return res.json({
       usuario: {
         id,
         nome,
         email,
+        provider,
       },
       token: jwt.sign({ id }, authConfig.secret, {
         expiresIn: authConfig.expiresIn,
