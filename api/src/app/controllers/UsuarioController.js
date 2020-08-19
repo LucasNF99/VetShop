@@ -12,6 +12,8 @@ class UsuarioController {
       rua: Yup.string().required(),
       numero: Yup.string().required(),
       cpf: Yup.string().required(),
+      provider: Yup.boolean(),
+
     })
 
     const existsCpf = await Usuario.findOne({ where: { cpf: req.body.cpf } })
@@ -36,7 +38,7 @@ class UsuarioController {
     }
 
 
-    const { id, nome, email, senha, telefone, bairro, rua, numero, cpf, avatar_id } = await Usuario.create(req.body);
+    const { id, nome, email, senha, telefone, bairro, rua, numero, cpf, provider } = await Usuario.create(req.body);
 
     return res.json({
       id,
@@ -48,7 +50,7 @@ class UsuarioController {
       rua,
       numero,
       cpf,
-      avatar_id,
+      provider
     });
   }
 
@@ -63,6 +65,7 @@ class UsuarioController {
       numero: Yup.string(),
       cpf: Yup.string(),
       usuarioId: Yup.number().required(),
+      provider: Yup.boolean(),
     })
 
     try {
@@ -74,7 +77,7 @@ class UsuarioController {
 
     const usuario = await Usuario.findByPk(req.body.usuarioId);
 
-    const { id, nome, email, senha, telefone, bairro, rua, numero, cpf } = await usuario.update(req.body);
+    const { id, nome, email, senha, telefone, bairro, rua, numero, cpf, provider } = await usuario.update(req.body);
 
     return res.json({
       id,
@@ -86,6 +89,7 @@ class UsuarioController {
       rua,
       numero,
       cpf,
+      provider,
     });
   }
 
