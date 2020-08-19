@@ -21,7 +21,7 @@
         <a class="o-about_link" href="https://github.com/DiegoRugue">Diego Rugue</a>
       </li>
       <li class="o-about_list-item">
-        <a class="o-about_link" href="#">Vitor</a>
+        <a class="o-about_link" href="https://github.com/VitorFaria">Vitor Faria</a>
       </li>
       <li class="o-about_list-item">
         <a class="o-about_link" href="https://github.com/faustocintra">Fausto G. Cintra</a>
