@@ -8,9 +8,10 @@ const getters = {
 }
 
 const actions = {
-  async login ({ commit }, payload) {
-    try {      
+  async login({ commit }, payload) {
+    try {
       const { data } = await auth.login(payload)
+      console.log(data);
       commit('LOGIN_SUCCESSFUL', JSON.parse(JSON.stringify(data)))
       cookie('token', 'set', data.token, 30)
       cookie('nome', 'set', data.usuario.nome, 30)
@@ -21,7 +22,7 @@ const actions = {
     }
   },
 
-  logout ({ commit }) {
+  logout({ commit }) {
     commit('LOGOUT')
     cookie('token', 'remove')
     cookie('nome', 'remove')
@@ -30,13 +31,13 @@ const actions = {
 };
 
 const mutations = {
-  LOGIN_SUCCESSFUL (state, data) {
+  LOGIN_SUCCESSFUL(state, data) {
     state.isUserLogged = true;
     state.user.token = data.token;
     state.user.nome = data.usuario.nome;
   },
 
-  LOGOUT (state) {
+  LOGOUT(state) {
     state.isUserLogged = false;
     state.user.nome = '';
     state.user.token = '';
