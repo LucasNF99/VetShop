@@ -1,6 +1,6 @@
 <template>
   <div class="o-estoque">
-    <q-card class="m-card-nav">
+    <q-card class="m-card-nav" v-if="$q.cookies.get('vet_provider')">
       <q-card-section class="a-card-title">
         <q-icon name="assignment" size="md"/>
         <div class="text-h6">Gerenciar funcionarios</div>
@@ -31,8 +31,3 @@
     </q-card>
   </div>
 </template>
-<script>
-export default {
-
-};
-</script>
