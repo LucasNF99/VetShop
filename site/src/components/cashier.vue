@@ -34,7 +34,7 @@
 
           <q-card-actions align="right">
             <q-btn flat label="Não" color="primary" v-close-popup />
-            <q-btn flat label="Sim" color="primary"
+            <q-btn flat label="Sim" color="primary" @click="finish()"
             v-close-popup/>
           </q-card-actions>
         </q-card>
@@ -44,7 +44,7 @@
 </template>
 
 <script>
-
+/* eslint-disable */
 
 export default {
   name: 'cashier',
@@ -69,6 +69,16 @@ export default {
     limpa() {
       this.$emit('limpa');
     },
+    finish(products) {
+      const paylod = {
+        valor: this.calcTot,
+        produtos: [
+          product_id = this.products.id,
+          quantidade = 4
+        ],
+      }
+      console.log(this.products);
+    }
   },
 };
 </script>

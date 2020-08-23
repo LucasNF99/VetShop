@@ -40,6 +40,7 @@
 import { mapGetters } from 'vuex';
 import store from '../store';
 import cashier from '../components/cashier'
+import product from '../store/module/product';
 
 export default {
   components: {
@@ -65,50 +66,55 @@ export default {
     },
   },
   methods: {
-    addProduct(produto){
-      console.log(this.buyList.length);
-      console.log(produto.quantidade);
-      
-      if(this.buyList.length === 0) {
-        this.products.push(produto);
-        this.arrProduct(produto.id);
-      } else {
-        for (let i = 0; i < this.buyList.length; i++) {
-          if(this.buyList[i].id === produto.id) {
-            if(this.buyList[i].qtde < produto.quantidade) {
-              this.products.push(produto);
-              this.arrProduct(produto.id);
-            }
-          }
-        }
-        
-      }
+    // addProduct(produto){
+    //   if(this.buyList.length === 0) {
+    //     this.products.push(produto);
+    //     this.arrProduct(produto.id);
+    //   } else {
+    //     for (let i = 0; i < this.buyList.length; i++) {
+    //       if(this.buyList[i].id === produto.id) {
+    //         if(this.buyList[i].qtde < produto.quantidade) {
+    //           this.products.push(produto);
+    //           this.arrProduct(produto.id);
+    //         }
+    //       }
+    //     }
+
+    //   }
       // this.products.push(produto);
       // this.arrProduct(produto.id);
-    },
+    //},
 
-    arrProduct(id) {
-      let newProduct = null;
+    // arrProduct(id) {
+    //   let newProduct = null;
 
-      if (this.buyList.length > 0) {
-        for (let i = 0; i < this.buyList.length; i += 1) {
-          if (this.buyList[i].id === id) {
-            this.buyList[i].qtde += 1;
-            return true;
-          } else {
-            newProduct = id;
-          }
-        }
-      } else {
-        newProduct = id;
+    //   if (this.buyList.length > 0) {
+    //     for (let i = 0; i < this.buyList.length; i += 1) {
+    //       if (this.buyList[i].id === id) {
+    //         this.buyList[i].qtde += 1;
+    //         return true;
+    //       } else {
+    //         newProduct = id;
+    //       }
+    //     }
+    //   } else {
+    //     newProduct = id;
+    //   }
+    //   if (newProduct !== null) this.buyList.push({ id: newProduct, qtde: 1 });
+    // }
+    addProduct(product){
+      if(product.quantidade > 0){
+        this.products.push(product)
+        product.quantidade -= 1
       }
-      if (newProduct !== null) this.buyList.push({ id: newProduct, qtde: 1 });
     }
   },
 
   async mounted() {
     await store().dispatch('medicine/getMedicine');
     await store().dispatch('product/getProduct');
+    console.log(this.getMedicine)
+    console.log(this.getProduct)
     this.geral = this.getMedicine.concat(this.getProduct);
   },
 };
