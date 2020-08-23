@@ -29,33 +29,43 @@ class VendaController {
     }
 
     //Validate Produto
-    const produtos = await Produto.findByPk(req.body.produto_id);
-    if (produtos) {
-      if (req.body.produto.quantidade <= produtos.quantidade) {
-        produtos.quantidade -= req.body.produto.quantidade
-        produtos.save()
-      }
-      else {
-        return res.status(400).json({ error: 'Quantidade vendida não pode ser superior a quantidade disponível em estoque' })
+
+    const { produtos = [], medicamentos = [], valor } = req.body
+
+    for (const produto of produtos) {
+      const produtoData = await Produto.findByPk(produto.id);
+      if (produtoData) {
+        if (produto.quantidade <= produtoData.quantidade) {
+          produtoData.quantidade -= produto.quantidade
+          await produtoData.save()
+        }
+        else {
+          return res.status(400).json({ error: 'Quantidade vendida não pode ser superior a quantidade disponível em estoque' })
+        }
       }
     }
 
-    //Validate Medicamento
-    const medicamentos = await Medicamento.findByPk(req.body.medicamento_id);
-    if (medicamentos) {
-      if (req.body.medicamento.quantidade <= medicamentos.quantidade) {
-        medicamentos.quantidade -= req.body.medicamento.quantidade
-        medicamentos.save()
-      }
-      else {
-        return res.status(400).json({ error: 'Quantidade vendida não pode ser superior a quantidade disponível em estoque' })
+
+
+    for (const medicamento of medicamentos) {
+      const medicamentoData = await Medicamento.findByPk(medicamento.id);
+      if (medicamentoData) {
+        if (medicamento.quantidade <= medicamentoData.quantidade) {
+          medicamentoData.quantidade -= medicamento.quantidade
+          await medicamentoData.save()
+        }
+        else {
+          return res.status(400).json({ error: 'Quantidade vendida não pode ser superior a quantidade disponível em estoque' })
+        }
       }
     }
+
+
 
     moment.locale('pt-BR');
     const data = moment().format('D MMMM YYYY, h:mm:ss a')
 
-    const { id, valor } = await Venda.create({ ...req.body, data });
+    const { id } = await Venda.create({ ...req.body, data, valor });
 
     return res.json({
       id,
