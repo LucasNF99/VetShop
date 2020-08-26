@@ -45,12 +45,16 @@
 
 <script>
 /* eslint-disable */
+import { mapGetters } from 'vuex';
+import store from '../store';
+import product from '../store/module/product';
 
 export default {
   name: 'cashier',
   data() {
     return {
       confirm: false,
+      usuario: this.getUser,
     };
   },
   props: {
@@ -69,16 +73,28 @@ export default {
     limpa() {
       this.$emit('limpa');
     },
-    finish(products) {
-      const paylod = {
-        valor: this.calcTot,
-        produtos: [
-          product_id = this.products.id,
-          quantidade = 4
-        ],
+    async finish(products) {
+      let produtos = [];
+      let medicamentos = [];
+      for (let i = 0; i < this.products.length; i++) {
+         produtos.push(
+          {
+           id: this.products[i].id,
+           quantidade: 1,
+          }
+        )
       }
-      console.log(this.products);
+      const payload = {
+        valor: Number(this.calcTot),
+        usuario_id: 2,
+        produtos,
+        medicamentos,
+      }
+      const response = await store().dispatch('sale/createSale', payload);
     }
   },
+  async mounted() {
+    await store().dispatch('user/getUser');
+  }
 };
 </script>

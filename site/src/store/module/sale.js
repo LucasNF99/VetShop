@@ -21,6 +21,7 @@ const actions = {
       const { data } = await sale.create(payload);
       return data;
     } catch (error) {
+      console.log(error);
       return { status: false, error };
     }
   },
