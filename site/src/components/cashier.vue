@@ -77,20 +77,33 @@ export default {
       let produtos = [];
       let medicamentos = [];
       for (let i = 0; i < this.products.length; i++) {
-         produtos.push(
-          {
-           id: this.products[i].id,
-           quantidade: 1,
-          }
-        )
+        if(this.products[i].tipo == 'produtos'){
+          produtos.push(
+            {
+              id: this.products[i].id,
+              quantidade: 1,
+            }
+          )
+        } else {
+          medicamentos.push(
+            {
+              id: this.products[i].id,
+              quantidade: 1,
+            }
+          )
+        }
       }
+      // this.products.forEach(i => {
+      //   [i.tipo].push({id: i.id, quantidade: 1});
+      // });
       const payload = {
         valor: Number(this.calcTot),
         usuario_id: 2,
         produtos,
         medicamentos,
       }
-      const response = await store().dispatch('sale/createSale', payload);
+      console.log(payload);
+      // const response = await store().dispatch('sale/createSale', payload);
     }
   },
   async mounted() {

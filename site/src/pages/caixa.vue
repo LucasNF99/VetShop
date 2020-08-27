@@ -1,7 +1,7 @@
 <template>
   <div>
   <div class="m-cashier">
-    <cashier :products="products" @limpa="products = []"/>
+    <cashier :products="products" @limpa="limpa()"/>
     <aside class="m-cashier-aside">
       <h5>Pesquisar:</h5>
       <q-scroll-area style="height: 300px;">
@@ -64,6 +64,11 @@ export default {
         return produto.nome.toLowerCase().includes(this.filter.toLowerCase());
       }) : this.geral;
     },
+    limpa() {
+      this.geral = [],
+      this.geral = (this.getMedicine.map(i => ({ nome: i.nome, quantidade: i.quantidade, precoVenda: i.precoVenda, id: i.id, tipo: 'medicamentos' }))).
+      concat(this.getProduct.map(i => ({ nome: i.nome,quantidade: i.quantidade, precoVenda: i.precoVenda, id: i.id, tipo: 'produtos' })))
+    }
   },
   methods: {
     // addProduct(produto){
@@ -113,9 +118,11 @@ export default {
   async mounted() {
     await store().dispatch('medicine/getMedicine');
     await store().dispatch('product/getProduct');
-    console.log(this.getMedicine)
-    console.log(this.getProduct)
-    this.geral = this.getMedicine.concat(this.getProduct);
+    // console.log(this.getMedicine)
+    // console.log(this.getProduct)
+    this.geral = (this.getMedicine.map(i => ({ nome: i.nome, quantidade: i.quantidade, precoVenda: i.precoVenda, id: i.id, tipo: 'medicamentos' }))).
+    concat(this.getProduct.map(i => ({ nome: i.nome,quantidade: i.quantidade, precoVenda: i.precoVenda, id: i.id, tipo: 'produtos' })))
+    // console.log(this.geral);
   },
 };
 </script>
