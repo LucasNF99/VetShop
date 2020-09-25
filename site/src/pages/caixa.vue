@@ -1,7 +1,7 @@
 <template>
   <div>
   <div class="m-cashier">
-    <cashier :products="products" @limpa="limpa()"/>
+    <cashier :products="products" @limpa="limpa"/>
     <aside class="m-cashier-aside">
       <h5>Pesquisar:</h5>
       <q-scroll-area style="height: 300px;">
