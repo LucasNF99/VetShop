@@ -1,7 +1,7 @@
 <template>
   <div>
   <div class="m-cashier">
-    <cashier :products="products" @limpa="this.limpa()"/>
+    <cashier :products="products" @limpa="limpaProducts()"/>
     <aside class="m-cashier-aside">
       <h5>Pesquisar:</h5>
       <q-scroll-area style="height: 300px;">
@@ -64,11 +64,6 @@ export default {
         return produto.nome.toLowerCase().includes(this.filter.toLowerCase());
       }) : this.geral;
     },
-    limpa() {
-      this.geral = [],
-      this.geral = (this.getMedicine.map(i => ({ nome: i.nome, quantidade: i.quantidade, precoVenda: i.precoVenda, id: i.id, tipo: 'medicamentos' }))).
-      concat(this.getProduct.map(i => ({ nome: i.nome,quantidade: i.quantidade, precoVenda: i.precoVenda, id: i.id, tipo: 'produtos' })))
-    }
   },
   methods: {
     // addProduct(produto){
@@ -112,6 +107,12 @@ export default {
         this.products.push(product)
         product.quantidade -= 1
       }
+    },
+    limpaProducts() {
+      this.products = [];
+      this.geral = [];
+      this.geral = (this.getMedicine.map(i => ({ nome: i.nome, quantidade: i.quantidade, precoVenda: i.precoVenda, id: i.id, tipo: 'medicamentos' }))).
+      concat(this.getProduct.map(i => ({ nome: i.nome,quantidade: i.quantidade, precoVenda: i.precoVenda, id: i.id, tipo: 'produtos' })))
     }
   },
 
