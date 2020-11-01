@@ -98,12 +98,13 @@ export default {
       // });
       const payload = {
         valor: Number(this.calcTot),
-        usuario_id: 2,
+        usuario_id: 10,
         produtos,
         medicamentos,
       }
       console.log(payload);
-      // const response = await store().dispatch('sale/createSale', payload);
+      const response = await store().dispatch('sale/createSale', payload);
+      this.limpa();
     }
   },
   async mounted() {
