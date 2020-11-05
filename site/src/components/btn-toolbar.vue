@@ -5,8 +5,8 @@
   :label="$q.cookies.get('vet_nome')"
   no-caps>
   <q-list>
-    <q-item clickable v-close-popup>
-      <q-item-section class="btn-drop-item">
+    <q-item clickable v-close-popup to="/gerencia">
+      <q-item-section class="btn-drop-item" >
         <q-item-label class="pd-icon"><q-icon name="settings" /></q-item-label>
         <q-item-label>Gerenciar</q-item-label>
       </q-item-section>
